@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,17 +11,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return MaterialApp(
-      title: 'HomePage',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-      ),
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'HomePage',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+            useMaterial3: true,
+          ),
+          debugShowCheckedModeBanner: false,
 
-      home: MyHomePage(),
+          home: LoginOrSignupScreen(),
+        );
+      },
     );
   }
 }
