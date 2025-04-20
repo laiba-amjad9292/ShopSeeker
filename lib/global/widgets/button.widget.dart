@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
-import 'package:shop_seeker/utils/theme/app_theme.utils.dart';
+import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
 class AppButton extends StatelessWidget {
   final String title;

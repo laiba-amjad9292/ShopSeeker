@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'HomePage',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
