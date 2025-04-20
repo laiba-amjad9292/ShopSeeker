@@ -25,6 +25,7 @@ class AppButton extends StatelessWidget {
   final Color? disabledColor;
   final Color? disabledFontColor;
 
+  // ignore: use_super_parameters
   const AppButton({
     Key? key,
     this.color,

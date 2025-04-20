@@ -43,3 +43,15 @@ TextStyle stylew400({double size = 16, Color? color}) {
     fontWeight: FontWeight.w400,
   );
 }
+
+TextStyle styleRegularUnderline({double size = 13, color}) {
+  final effectiveColor = color ?? AppColors.colorAAAAAA;
+  return TextStyle(
+    fontFamily: "jakarta-regular",
+    color: effectiveColor,
+    fontSize: size.sp,
+    fontWeight: FontWeight.normal,
+    decoration: TextDecoration.underline,
+    decorationColor: effectiveColor,
+  );
+}

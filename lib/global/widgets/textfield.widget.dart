@@ -109,7 +109,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 child: RichText(
                   text: TextSpan(
                     text: widget.heading,
-                    style: stylew600(size: 12),
+                    style: stylew600(size: 14),
                     children: <TextSpan>[
                       TextSpan(
                         text: widget.isRequired ? ' * ' : '',
@@ -147,7 +147,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,
           obscureText: widget.isPasswordField ? _obscureText : false,
-          style: stylew500(size: 14, color: widget.textColor),
+          style: stylew500(size: 16, color: widget.textColor),
           maxLines: widget.maxLines ?? 1,
           cursorColor: widget.cursorColor,
           decoration: InputDecoration(
@@ -155,14 +155,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
             fillColor: widget.fillColor ?? Colors.white,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 10,
+              vertical: 20,
+              horizontal: 15,
             ),
             hintStyle: styleRegular(
               size: 14,
               color: widget.hintColor ?? AppColors.color98A2B3,
             ),
-            errorStyle: styleRegular(size: 12, color: AppColors.colorF97970),
+            errorStyle: styleRegular(size: 14, color: AppColors.colorF97970),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(

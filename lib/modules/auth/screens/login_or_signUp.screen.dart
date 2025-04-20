@@ -56,7 +56,11 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
                   title: 'Sign in'.tr,
                   color: AppColors.white20,
                   onTap: () {
-                    Get.to(() => LoginScreen());
+                    Get.to(
+                      // transition: Transition.rightToLeft,
+                      // duration: Duration(milliseconds: 500),
+                      LoginScreen(),
+                    );
                   },
                 ),
                 30.hp,
