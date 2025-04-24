@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "55759781503",
+    "project_id": "shopfinder-bc1c1",
+    "storage_bucket": "shopfinder-bc1c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55759781503:android:e8dda4f00bccc778ae494a",
+        "android_client_info": {
+          "package_name": "com.example.shop_seeker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkzU0-4fxqEbgRGJCvNXek28aryIlorsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
