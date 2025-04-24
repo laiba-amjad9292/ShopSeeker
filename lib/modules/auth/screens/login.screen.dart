@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
 import 'package:shop_seeker/modules/auth/controllers/auth_controller.dart';
+import 'package:shop_seeker/modules/auth/screens/forgot_password.screen.dart';
 import 'package:shop_seeker/modules/auth/screens/sign_up.screen.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
@@ -82,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       20.hp,
                       GestureDetector(
                         onTap: () {
-                          // Get.off(() => );
+                          Get.off(() => ForgotPasswordScreen());
                         },
                         child: Text(
                           "Forgot Password?",
