@@ -31,44 +31,36 @@ class _SignupSuccessScreenState extends State<SignupSuccessScreen> {
                 width: 160.w,
                 height: 160.h,
               ),
-              32.hp,
+              20.hp,
               Text(
-                "Success!".tr,
+                "success".tr,
                 textAlign: TextAlign.center,
-                style: stylew600(size: 18, color: AppColors.color101828),
+                style: stylew600(size: 28, color: AppColors.black),
               ),
-              8.hp,
+              20.hp,
               Text(
-                'your account has been\ncreated succesfully.'.tr,
+                'account_created_successfully'.tr,
                 textAlign: TextAlign.center,
-                style: stylew400(size: 14, color: AppColors.color98A2B3),
+                style: styleRegular(size: 14, color: AppColors.color888888),
               ),
-              40.hp,
+              50.hp,
               AppButton(
                 onTap: () {
-                  // Get.offAll(() => BottomNavigationScreen());
+                  Get.offAll(() => BottomNavigationScreen());
                 },
-                title: 'Register Shop'.tr,
+                title: 'register_shop'.tr,
+                color: AppColors.primary30,
+                fontColor: AppColors.primary,
               ),
               const SizedBox(height: 16),
               AppButton(
                 onTap: () {
                   Get.offAll(() => BottomNavigationScreen());
                 },
-                title: 'Find Shop'.tr,
+                title: 'find_shop'.tr,
+                color: AppColors.primary,
               ),
               const SizedBox(height: 16),
-              // AppButton(
-              //   onTap: () async {
-              //     Get.offAll(() => BottomNavigationScreen());
-              //   },
-              //   title: "skip_verification".tr,
-              //   disabledColor: AppColors.primary.withOpacity(0.1),
-              //   disabledFontColor: AppColors.primary.withOpacity(0.6),
-              //   elevation: 0,
-              //   fontColor: AppColors.color2D6830,
-              //   color: AppColors.colorF3FAF3,
-              // ),
             ],
           ),
         ),

@@ -21,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   SignUpController signupController = Get.put(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SignUpController>(
@@ -43,12 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       90.hp,
                       Text(
-                        "Sign in\nyour account",
+                        "sign_in_your_account".tr,
                         style: stylew700(size: 30, color: AppColors.primary),
                       ),
                       10.hp,
                       Text(
-                        "Lorem Ipsum has been the industry's\nstandard dummy text ever since the 1500s",
+                        "sign_in_subtitle".tr,
                         style: styleRegular(
                           size: 16,
                           color: AppColors.colorAAAAAA,
@@ -57,15 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       20.hp,
                       CustomTextField(
                         validator: ValidatorUtils.email,
-                        heading: "Email".tr,
-                        hintText: 'Enter your email'.tr,
+                        heading: "email".tr,
+                        hintText: 'enter_email'.tr,
                         keyName: 'email',
                         isRequired: true,
                       ),
                       20.hp,
                       CustomTextField(
-                        heading: "Password".tr,
-                        hintText: 'Enter your password'.tr,
+                        heading: "password".tr,
+                        hintText: 'enter_password'.tr,
                         keyName: 'password',
                         isRequired: true,
                         isPasswordField: true,
@@ -83,16 +84,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       20.hp,
                       GestureDetector(
                         onTap: () {
-                          Get.off(() => ForgotPasswordScreen());
+                          Get.to(() => ForgotPasswordScreen());
                         },
                         child: Text(
-                          "Forgot Password?",
+                          "forgot_password".tr,
                           style: styleRegularUnderline(),
                         ),
                       ),
                       30.hp,
                       AppButton(
-                        title: "Sign In",
+                        title: "login".tr,
                         onTap: () {
                           logic.handleLogin();
                         },
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't you have an account?",
+                            "dont_have_an_account".tr,
                             style: styleRegular(
                               size: 14,
                               color: AppColors.colorAAAAAA,
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Get.off(() => SignUpScreen());
                             },
                             child: Text(
-                              "Sign Up",
+                              "signup".tr,
                               style: stylew500(
                                 size: 14,
                                 color: AppColors.primary,

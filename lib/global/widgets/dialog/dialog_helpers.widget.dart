@@ -68,7 +68,7 @@ Future<bool?> showInfo(
   String? cancelText,
   bool? showCross,
   String? tittle,
-  String? okText = 'Ok',
+  String? okText = 'Thanks',
   bool? isHtml,
 }) async {
   EasyLoading.dismiss();
@@ -80,7 +80,8 @@ Future<bool?> showInfo(
       okText: okText,
       cancelText: cancelText,
       showCross: showCross,
-      icon: DialogueIcons.info,
+      subTittle: "password_reset_link_sent".tr,
+      // icon: DialogueIcons.info,
       onTap: () {
         Get.back(result: true);
         if (onSuccess != null) {

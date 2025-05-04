@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,10 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_seeker/global/widgets/error_handler.widget.dart';
-
 import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
+import 'package:shop_seeker/utils/bindings/initial_bindings.util.dart';
 import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
+import 'package:shop_seeker/utils/storage/local_storage.utils.dart';
+import 'package:shop_seeker/utils/theme/app_theme.util.dart';
+import 'package:shop_seeker/utils/translation/app_translation.util.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,40 +57,48 @@ class BoosterMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
-      builder: (context, child) {
-        return GetMaterialApp(
-          title: 'HomePage',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-            useMaterial3: true,
-          ),
+      designSize: const Size(360, 690),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        },
+        child: GetMaterialApp(
+          title: 'Shop Seeker',
+          themeMode: ThemeMode.light,
+          theme: AppTheme.lightTheme(),
+          translations: AppTranslations(), // Your translations
+          locale:
+              LocalGetStorage.getUserLanguage() == 'en'
+                  ? const Locale('en')
+                  : const Locale('de'),
+          fallbackLocale: Locale('en', 'US'), // Fallback locale
+          // Add the localizations delegates
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+
+          // Define supported locales
+          supportedLocales: const [
+            Locale('en', 'US'), // English
+            Locale('de', 'DE'), // German
+          ],
+          defaultTransition: Transition.cupertino,
           debugShowCheckedModeBanner: false,
-
+          initialBinding: InitialBinding(),
           home: LoginOrSignupScreen(),
-
           // FirebaseAuth.instance.currentUser == null
           //     ? LoginOrSignupScreen()
           //     : BottomNavigationScreen(),
-        );
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.teal),
+        ),
+      ),
     );
   }
 }

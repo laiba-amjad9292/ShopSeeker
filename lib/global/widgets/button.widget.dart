@@ -33,11 +33,11 @@ class AppButton extends StatelessWidget {
     this.fontColor = Colors.white,
     this.borderSide,
     this.icon,
-    this.height = 46,
+    this.height = 50,
     this.elevation = 0,
     this.fontWeight = FontWeight.w500,
     this.width,
-    this.borderRadius = 8,
+    this.borderRadius = 11,
     this.fontSize = 16,
     this.isLoading = false,
     this.isIconLeading = false,
@@ -72,7 +72,7 @@ class AppButton extends StatelessWidget {
               backgroundColor: backGroundColor,
               shape: RoundedRectangleBorder(
                 side: borderSide ?? BorderSide.none,
-                borderRadius: BorderRadius.circular(borderRadius?.r ?? 8),
+                borderRadius: BorderRadius.circular(borderRadius?.r ?? 11),
               ),
               minimumSize: Size(width?.toDouble().w ?? 1.sw, height.h),
               // width: width?.toDouble() ?? 1.sw,
@@ -86,32 +86,52 @@ class AppButton extends StatelessWidget {
                       FocusScope.of(Get.context!).requestFocus(FocusNode());
                       onTap();
                     },
+            // child: Center(
+            //   child:
+            //       icon == null
+            //           ? AutoSizeText(
+            //             title,
+            //             textAlign: TextAlign.center,
+            //             style: stylew600(
+            //               size: height == 36 ? 12 : fontSize,
+            //               color: fontColor,
+            //             ),
+            //           )
+            //           : Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               if (isIconLeading) icon!,
+            //               AutoSizeText(
+            //                 title,
+            //                 textAlign: TextAlign.center,
+            //                 style: stylew600(
+            //                   size: height == 36 ? 12 : fontSize,
+            //                   color: fontColor,
+            //                 ),
+            //               ),
+            //               if (!isIconLeading) icon!,
+            //             ],
+            //           ),
+            // ),
             child: Center(
-              child:
-                  icon == null
-                      ? AutoSizeText(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: stylew600(
-                          size: height == 36 ? 12 : fontSize,
-                          color: fontColor,
-                        ),
-                      )
-                      : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (isIconLeading) icon!,
-                          AutoSizeText(
-                            title,
-                            textAlign: TextAlign.center,
-                            style: stylew600(
-                              size: height == 36 ? 12 : fontSize,
-                              color: fontColor,
-                            ),
-                          ),
-                          if (!isIconLeading) icon!,
-                        ],
-                      ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (icon != null) ...[
+                    icon!,
+                    SizedBox(width: 8.w), // spacing between icon and text
+                  ],
+                  AutoSizeText(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: stylew600(
+                      size: height == 36 ? 12 : fontSize,
+                      color: fontColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

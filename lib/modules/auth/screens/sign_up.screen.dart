@@ -1,9 +1,10 @@
-import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
+import 'package:shop_seeker/global/widgets/checkbox.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
 import 'package:shop_seeker/modules/auth/controllers/auth_controller.dart';
 import 'package:shop_seeker/modules/auth/screens/login.screen.dart';
@@ -36,39 +37,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      70.hp,
+                      60.hp,
                       Text(
-                        "Create your\nnew account",
+                        "create_your_new_account".tr,
                         style: stylew700(size: 30, color: AppColors.primary),
                       ),
                       10.hp,
                       Text(
-                        "Lorem Ipsum has been the industry's\nstandard dummy text ever since the 1500s",
+                        "sign_up_subtitle".tr,
                         style: styleRegular(
                           size: 16,
                           color: AppColors.colorAAAAAA,
                         ),
                       ),
-                      20.hp,
+                      16.hp,
                       CustomTextField(
                         validator: ValidatorUtils.req,
-                        heading: "Full name".tr,
-                        hintText: 'Enter your full_name'.tr,
+                        heading: "full_name".tr,
+                        hintText: 'enter_full_name'.tr,
                         keyName: 'name',
                         isRequired: true,
                       ),
-                      20.hp,
+                      16.hp,
                       CustomTextField(
                         validator: ValidatorUtils.email,
-                        heading: "Email".tr,
-                        hintText: 'Enter your email'.tr,
+                        heading: "email".tr,
+                        hintText: 'enter_email'.tr,
                         keyName: 'email',
                         isRequired: true,
                       ),
-                      20.hp,
+                      16.hp,
                       CustomTextField(
-                        heading: "Password".tr,
-                        hintText: 'Enter your password'.tr,
+                        heading: "password".tr,
+                        hintText: 'enter_password'.tr,
                         keyName: 'password',
                         isRequired: true,
                         isPasswordField: true,
@@ -82,10 +83,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                       ),
-                      20.hp,
+                      16.hp,
                       CustomTextField(
-                        heading: "Confirm password".tr,
-                        hintText: 'Confirm your password'.tr,
+                        heading: "confirm_password".tr,
+                        hintText: 'confirm_your_password'.tr,
                         keyName: 'confirmPassword',
                         isRequired: true,
                         isPasswordField: true,
@@ -106,19 +107,93 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                       ),
-                      20.hp,
+                      8.hp,
+                      FormBuilderField<bool?>(
+                        name: 'terms',
+                        validator: (value) {
+                          if (value == false || value == null) {
+                            return 'you_need_to_agree_to_our_terms_and_condition'
+                                .tr;
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        builder: (field) {
+                          return InputDecorator(
+                            decoration: customInputDecoration(
+                              field.errorText ?? '',
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: CheckBoxNew(
+                                    value: logic.terms,
+                                    hasError: field.hasError,
+                                    onChanged: (val) {
+                                      logic.changeTerms(val);
+                                      field.didChange(val);
+                                    },
+                                    isDisabled: false,
+                                  ),
+                                ),
+                                10.wp,
+                                Expanded(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'selecting_term_policy'.tr,
+                                      style: styleRegular(
+                                        size: 14,
+                                        color: AppColors.color667085,
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: 'terms_of_services'.tr,
+                                          style: stylew500(
+                                            size: 14,
+                                            color: AppColors.primary,
+                                          ),
+                                          recognizer: TapGestureRecognizer(),
+                                          // ..onTap = () {
+                                          //   Get.to(TermsScreen());
+                                          // },
+                                        ),
+                                        TextSpan(text: 'and'.tr),
+                                        TextSpan(
+                                          text: 'privacy_policy'.tr,
+                                          style: stylew500(
+                                            size: 14,
+                                            color: AppColors.primary,
+                                          ),
+                                          recognizer: TapGestureRecognizer(),
+                                          // ..onTap = () {
+                                          //   Get.to(() => PrivacyPolicyPage());
+                                          // },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      16.hp,
                       AppButton(
-                        title: "Sign Up",
+                        title: "signup".tr,
                         onTap: () {
                           logic.handleSignup();
                         },
                       ),
-                      20.hp,
+                      10.hp,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Already have an account?",
+                            "already_have_an_account".tr,
                             style: styleRegular(
                               size: 14,
                               color: AppColors.colorAAAAAA,
@@ -130,7 +205,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Get.off(() => LoginScreen());
                             },
                             child: Text(
-                              "Sign In",
+                              "signin".tr,
                               style: stylew500(
                                 size: 14,
                                 color: AppColors.primary,

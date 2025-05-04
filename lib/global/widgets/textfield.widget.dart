@@ -42,6 +42,7 @@ class CustomTextField extends StatefulWidget {
   final void Function(String?)? onChanged;
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
+  final bool noBorder;
 
   CustomTextField({
     super.key,
@@ -77,6 +78,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLines,
     this.innerTextDirection,
     this.inputFormatters,
+    this.noBorder = false,
   });
 
   @override
@@ -163,39 +165,58 @@ class _CustomTextFieldState extends State<CustomTextField> {
               color: widget.hintColor ?? AppColors.color98A2B3,
             ),
             errorStyle: styleRegular(size: 14, color: AppColors.colorF97970),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: widget.borderColor ?? AppColors.colorEAECF0,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: widget.enabledBorderColor ?? AppColors.colorEAECF0,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color:
-                    widget.readOnly == true
-                        ? AppColors.colorEAECF0
-                        : widget.focusedBorderColor ?? AppColors.primary,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: widget.focusedErrorBorderColor ?? AppColors.colorF97970,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: widget.errorBorderColor ?? AppColors.colorF97970,
-              ),
-            ),
+            border:
+                widget.noBorder
+                    ? InputBorder.none
+                    : OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(11),
+                      borderSide: BorderSide(
+                        color: widget.borderColor ?? AppColors.colorEAECF0,
+                      ),
+                    ),
+            enabledBorder:
+                widget.noBorder
+                    ? InputBorder.none
+                    : OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(11),
+                      borderSide: BorderSide(
+                        color:
+                            widget.enabledBorderColor ?? AppColors.colorEAECF0,
+                      ),
+                    ),
+            focusedBorder:
+                widget.noBorder
+                    ? InputBorder.none
+                    : OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(11),
+                      borderSide: BorderSide(
+                        color:
+                            widget.readOnly == true
+                                ? AppColors.colorEAECF0
+                                : widget.focusedBorderColor ??
+                                    AppColors.primary,
+                      ),
+                    ),
+            focusedErrorBorder:
+                widget.noBorder
+                    ? InputBorder.none
+                    : OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(11),
+                      borderSide: BorderSide(
+                        color:
+                            widget.focusedErrorBorderColor ??
+                            AppColors.colorF97970,
+                      ),
+                    ),
+            errorBorder:
+                widget.noBorder
+                    ? InputBorder.none
+                    : OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(11),
+                      borderSide: BorderSide(
+                        color: widget.errorBorderColor ?? AppColors.colorF97970,
+                      ),
+                    ),
             suffixIcon:
                 widget.isPasswordField
                     ? IconButton(
@@ -216,7 +237,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     : null,
             isDense: true,
             suffixIconColor: AppColors.colorD0D5DD,
-            prefixIconColor: AppColors.primary,
+            prefixIconColor: AppColors.colorAAAAAA,
             prefixIcon:
                 widget.prefixIcon != null
                     ? Padding(
@@ -254,7 +275,7 @@ InputDecoration customInputDecoration(String error, {bool isCentered = false}) {
                 padding: const EdgeInsets.only(left: 0),
                 child: Text(
                   error,
-                  style: styleRegular(size: 12, color: AppColors.colorF97970),
+                  style: styleRegular(size: 14, color: AppColors.colorF97970),
                 ),
               ),
             )

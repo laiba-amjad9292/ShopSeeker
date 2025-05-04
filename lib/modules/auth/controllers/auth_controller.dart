@@ -83,7 +83,7 @@ class SignUpController extends GetxController {
             forgotPasswordInitialKey.currentState?.getRawValue("email") ?? "",
       );
 
-      showInfo('password_reset_link_sent'.tr);
+      showInfo('password_recovery'.tr);
 
       // forgotPasswordInitialKey.currentState?.patchValue({'email': ""});
 

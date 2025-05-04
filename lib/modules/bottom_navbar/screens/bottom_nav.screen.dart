@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shop_seeker/modules/auth/screens/extra.screen.dart';
+import 'package:shop_seeker/global/others/container_properties.dart';
 
 import 'package:shop_seeker/modules/bottom_navbar/controllers/bottom_nav.controller.dart';
+import 'package:shop_seeker/modules/chat/screen/all_chat_room.screen.dart';
+import 'package:shop_seeker/modules/home/screen/home.screen.dart';
+import 'package:shop_seeker/modules/notifications/screen/notification.screen.dart';
+import 'package:shop_seeker/modules/profile/screens/profile.screen.dart';
+import 'package:shop_seeker/modules/shops/screen/shop.screen.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
+// ignore: must_be_immutable
 class BottomNavigationScreen extends StatefulWidget {
   bool? fromLogin;
   BottomNavigationScreen({super.key, this.fromLogin = true});
@@ -45,179 +51,233 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container BottomScreen(BottomNavigationController value) {
     return Container(
-      // decoration: ContainerProperties.shadowDecoration(),
+      decoration: ContainerProperties.shadowDecoration(),
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldColor,
-        body: Center(
-          child: Text(
-            "Bottom navigation screen ",
-            style: stylew700(color: Colors.red),
+        backgroundColor: AppColors.white,
+        body: SafeArea(
+          top: false,
+          child: Center(
+            child: IndexedStack(
+              index: value.currentIndex,
+              children: [
+                Visibility(
+                  maintainState: true,
+                  visible: value.currentIndex == 0,
+                  child: const HomeScreen(),
+                ),
+                Visibility(
+                  maintainState: true,
+                  visible: value.currentIndex == 1,
+                  child: const ChatScreen(),
+                ),
+                Visibility(
+                  maintainState: false,
+                  visible: value.currentIndex == 2,
+                  child: const ShopScreen(),
+                ),
+                Visibility(
+                  maintainState: false,
+                  visible: value.currentIndex == 3,
+                  child: const NotificationScreen(),
+                ),
+                Visibility(
+                  maintainState: false,
+                  visible: value.currentIndex == 4,
+                  child: const ProfileScreen(),
+                ),
+              ],
+            ),
           ),
         ),
-        // body: SafeArea(
-        //   top: false,
-        //   child: Center(
-        //     child: IndexedStack(
-        //       index: value.currentIndex,
-        //       children: [
-        //         Visibility(
-        //           maintainState: true,
-        //           visible: value.currentIndex == 0,
-        //           child: extra(),
-        //         ),
-        //         Visibility(
-        //           maintainState: true,
-        //           visible: value.currentIndex == 1,
-        //           child: const extra(),
-        //         ),
-        //         Visibility(
-        //           maintainState: false,
-        //           visible: value.currentIndex == 2,
-        //           child: extra(),
-        //         ),
-        //         Visibility(
-        //           maintainState: false,
-        //           visible: value.currentIndex == 3,
-        //           child: extra(),
-        //         ),
-        //         Visibility(
-        //           maintainState: false,
-        //           visible: value.currentIndex == 4,
-        //           child: const extra(),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        // extendBody: true,
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // floatingActionButton: Container(
-        //   width: double.infinity,
-        //   height: 85.h,
-        //   child: Stack(
-        //     children: [
-        //       Align(
-        //         alignment: Alignment.bottomCenter,
-        //         child: Container(
-        //           padding: EdgeInsets.symmetric(horizontal: 10.w),
-        //           decoration: BoxDecoration(
-        //             color: AppColors.scaffoldColor,
-        //             border: Border(
-        //               top: BorderSide(
-        //                 color: AppColors.primary.withOpacity(0.4),
-        //               ),
-        //             ),
-        //             borderRadius: const BorderRadius.only(
-        //               topLeft: Radius.circular(16),
-        //               topRight: Radius.circular(16),
-        //             ),
-        //             boxShadow: [
-        //               BoxShadow(
-        //                 color: AppColors.disabledColor.withOpacity(0.1),
-        //                 offset: const Offset(0, -12),
-        //                 spreadRadius: 4,
-        //                 blurRadius: 40,
-        //               ),
-        //             ],
-        //           ),
-        //           height: 60.h,
-        //           child: Row(
-        //             children: [
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {
-        //                     value.changeTab(0);
-        //                   },
-        //                   child: Container(
-        //                     color: Colors.transparent,
-        //                     alignment: Alignment.center,
-        //                     child: Image.asset(
-        //                       'assets/icons/ic_home.png',
-        //                       height: 22,
-        //                       color: _iconColor(0, value),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {
-        //                     value.changeTab(1);
-        //                   },
-        //                   child: Container(
-        //                     color: Colors.transparent,
-        //                     alignment: Alignment.center,
-        //                     child: Image.asset(
-        //                       "assets/icons/ic_chat.png",
-        //                       height: 24,
-        //                       color: _iconColor(1, value),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {
-        //                     value.changeTab(2);
-        //                   },
-        //                   child: Container(
-        //                     color: Colors.transparent,
-        //                     alignment: Alignment.center,
-        //                     child: Image.asset(
-        //                       'assets/icons/ic_products.png',
-        //                       height: 24,
-        //                       color: _iconColor(2, value),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {
-        //                     value.changeTab(3);
-        //                   },
-        //                   child: Container(
-        //                     color: Colors.transparent,
-        //                     alignment: Alignment.center,
-        //                     child: Image.asset(
-        //                       'assets/icons/ic_heart.png',
-        //                       height: 24,
-        //                       color: _iconColor(3, value),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: GestureDetector(
-        //                   onTap: () {
-        //                     value.changeTab(4);
-        //                   },
-        //                   child: Container(
-        //                     color: Colors.transparent,
-        //                     alignment: Alignment.center,
-        //                     child: Image.asset(
-        //                       'assets/icons/ic_profile.png',
-        //                       height: 24,
-        //                       color: _iconColor(4, value),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        extendBody: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          width: double.infinity,
+          height: 85.h,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    border: Border(
+                      top: BorderSide(
+                        color: AppColors.primary.withOpacity(0.1),
+                      ),
+                    ),
+                    // borderRadius: const BorderRadius.only(
+                    //   topLeft: Radius.circular(16),
+                    //   topRight: Radius.circular(16),
+                    // ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.disabledColor.withOpacity(0.1),
+                        offset: const Offset(0, -12),
+                        spreadRadius: 0,
+                        blurRadius: 40,
+                      ),
+                    ],
+                  ),
+                  height: 60.h,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            value.changeTab(0);
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/HomeIcon.png',
+                                  height: 22,
+                                  color: _iconColor(0, value),
+                                ),
+                                Text(
+                                  "home".tr,
+                                  style: bottomNavTextStyle(0, value),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            value.changeTab(1);
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/chat.png',
+                                  height: 24,
+                                  color: _iconColor(1, value),
+                                ),
+                                Text(
+                                  "chats".tr,
+                                  style: bottomNavTextStyle(1, value),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            value.changeTab(2);
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/shop.png',
+                                  height: 24,
+                                  color: _iconColor(2, value),
+                                ),
+                                Text(
+                                  "shops".tr,
+                                  style: bottomNavTextStyle(2, value),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            value.changeTab(3);
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/Notification.png',
+                                  height: 24,
+                                  color: _iconColor(3, value),
+                                ),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "notification".tr,
+                                        style: bottomNavTextStyle(3, value),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            value.changeTab(4);
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/profile.png',
+                                  height: 24,
+                                  color: _iconColor(4, value),
+                                ),
+                                Text(
+                                  "profile".tr,
+                                  style: bottomNavTextStyle(4, value),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  // Color _iconColor(int index, BottomNavigationController value) =>
-  //     controller.currentIndex != index
-  //         ? AppColors.disabledColor
-  //         : AppColors.primary;
+  Color _iconColor(int index, BottomNavigationController value) =>
+      controller.currentIndex != index
+          ? AppColors.colorAAAAAA
+          : AppColors.primary;
+
+  TextStyle bottomNavTextStyle(int index, BottomNavigationController value) {
+    return styleRegular(size: 12, color: _iconColor(index, value)).copyWith(
+      fontWeight:
+          value.currentIndex == index ? FontWeight.bold : FontWeight.normal,
+    );
+  }
 }

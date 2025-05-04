@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
 import "package:shop_seeker/global/widgets/button.widget.dart";
+import "package:shop_seeker/global/widgets/language_dropdown.widget.dart";
 import "package:shop_seeker/modules/auth/screens/login.screen.dart";
 import "package:shop_seeker/modules/auth/screens/sign_up.screen.dart";
 import "package:shop_seeker/utils/constants/app_colors.utils.dart";
@@ -33,8 +35,22 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
             right: 0,
             child: Center(
               child: Text(
-                'LOGO',
+                'logo'.tr,
                 style: stylew700(size: 40, color: AppColors.white),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 30.h,
+            right: 30.w,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorD0D5DD.withOpacity(0.7),
+                borderRadius: BorderRadius.circular(60),
+              ),
+              child: languageButton(
+                bgColor: Colors.white,
+                textColor: Colors.black,
               ),
             ),
           ),
@@ -44,7 +60,7 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 AppButton(
-                  title: 'Create Account'.tr,
+                  title: 'create_account'.tr,
                   color: AppColors.white,
                   fontColor: AppColors.primary,
                   onTap: () {
@@ -53,11 +69,12 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
                 ),
                 16.hp,
                 AppButton(
-                  title: 'Sign in'.tr,
+                  title: 'signin'.tr,
                   color: AppColors.white20,
                   onTap: () {
                     Get.to(
                       // transition: Transition.rightToLeft,
+
                       // duration: Duration(milliseconds: 500),
                       LoginScreen(),
                     );

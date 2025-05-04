@@ -3,17 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
-import 'package:shop_seeker/utils/extensions/container_extension.util.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
-import 'package:shop_seeker/utils/helpers/hex_color.util.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
-class DialogueIcons {
-  static String info = 'assets/icons/ic_alert_circle.png';
-  static String success = 'assets/icons/ic_check_circle_ok.png';
-  static String warning = 'assets/icons/ic_alert_triangle.png';
-  static String error = 'assets/icons/ic_alert_octagon.png';
-}
+class DialogueIcons {}
 
 class AttentionDialog extends StatelessWidget {
   const AttentionDialog({
@@ -70,11 +63,11 @@ class AttentionDialog extends StatelessWidget {
   contentBox(context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -86,60 +79,21 @@ class AttentionDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          // _buildTitle(),
-          if (showCross == true)
-            Row(
-              children: [
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    if (onCancel == null) {
-                      Get.back();
-                    } else {
-                      onCancel!();
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    child: const Icon(
-                      Icons.close,
-                      size: 17,
-                      color: AppColors.black,
-                    ),
-                  ).bordered(borderColor: Colors.black, radius: 60),
-                ),
-              ],
-            ),
-          10.hp,
           Text(
             description.tr,
-            style:
-                titleStyle ??
-                stylew600(size: 14, color: const Color(0xff50545D)),
+            style: titleStyle ?? stylew600(size: 16, color: AppColors.black),
             textAlign: TextAlign.center,
           ),
           if (trailing != null) ...[8.hp, trailing!, 8.hp],
           30.hp,
-          if (titleWidget == null) ...[
-            Image.asset(icon ?? DialogueIcons.info, width: 60),
-          ] else ...[
-            titleWidget ?? Container(),
-          ],
+
           if (subTittle != null) ...[
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-                bottom: 0,
-                left: 10,
-                right: 10,
-              ),
-              child: Text(
-                subTittle ?? "",
-                textAlign: TextAlign.center,
-                style:
-                    subTitleStyle ??
-                    stylew400(color: HexColor('#FFB73F'), size: 14),
-              ),
+            Text(
+              subTittle ?? "",
+              textAlign: TextAlign.center,
+              style:
+                  subTitleStyle ??
+                  stylew400(color: AppColors.color888888, size: 14),
             ),
           ],
           30.hp,

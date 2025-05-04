@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
 import 'package:shop_seeker/modules/auth/controllers/auth_controller.dart';
@@ -28,8 +29,41 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         return FormBuilder(
           key: logic.forgotPasswordInitialKey,
           child: Scaffold(
-            appBar: AppBar(),
+            appBar: CustomAppBar(
+              title: "password_recovery".tr,
+              titleColor: AppColors.primary,
+              backButton: false,
+              centeredTitle: true,
+              appBarColor: AppColors.white,
+              useContainerForLeading: true,
+            ),
             backgroundColor: AppColors.white,
+            bottomNavigationBar: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppButton(
+                      title: "reset_password".tr,
+                      onTap: () {
+                        logic.handleResetPassowrd();
+                      },
+                    ),
+                    10.hp,
+                    AppButton(
+                      title: "back_to_login".tr,
+                      color: AppColors.primary30,
+                      fontColor: AppColors.primary,
+                      onTap: () {
+                        Get.back();
+                        Get.off(() => LoginScreen());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -39,10 +73,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     children: [
                       20.hp,
                       Image.asset('assets/images/illustration.png'),
-                      50.hp,
+                      30.hp,
                       Text(
-                        "We will send an email to the email address you\nregistered to regain your password"
-                            .tr,
+                        "forgot_password_subheading".tr,
                         style: styleRegular(
                           size: 14,
                           color: AppColors.color888888,
@@ -52,17 +85,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       CustomTextField(
                         validator: ValidatorUtils.email,
                         heading: "Email".tr,
-                        hintText: 'Enter your email'.tr,
+                        hintText: 'enter_email'.tr,
                         keyName: 'email',
                         isRequired: true,
                       ),
-                      20.hp,
-                      AppButton(
-                        title: "Send".tr,
-                        onTap: () {
-                          logic.handleResetPassowrd();
-                        },
-                      ),
+                      10.hp,
                     ],
                   ),
                 ),

@@ -1,23 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:math' as math;
-import 'dart:typed_data';
-import 'package:camera/camera.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:shop_seeker/global/widgets/dialog/dialog_helpers.widget.dart';
 import 'package:shop_seeker/modules/auth/models/user.model.dart';
 import 'package:shop_seeker/services/connection.service.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
-import 'package:shop_seeker/utils/constants/app_enums.utils.dart';
-import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
 
 class Database {
   static FirebaseFirestore instance = FirebaseFirestore.instance;
