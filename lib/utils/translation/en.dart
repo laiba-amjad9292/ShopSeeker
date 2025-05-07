@@ -84,7 +84,10 @@ Map<String, String> en = {
   "search_your_location...": "Search Your location...",
   //    "":"",
   //    "":"",
-  //    "":"",
+
+  //Home Screen
+  "hello": "Hello!",
+  "search": "Search",
 
   //   // image preview modal
   //   'go_back': "Go back",

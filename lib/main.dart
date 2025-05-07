@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_seeker/global/widgets/error_handler.widget.dart';
-import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
+import 'package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/bindings/initial_bindings.util.dart';
 import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
@@ -93,7 +93,7 @@ class BoosterMaterialApp extends StatelessWidget {
           defaultTransition: Transition.cupertino,
           debugShowCheckedModeBanner: false,
           initialBinding: InitialBinding(),
-          home: LoginOrSignupScreen(),
+          home: BottomNavigationScreen(),
           // FirebaseAuth.instance.currentUser == null
           //     ? LoginOrSignupScreen()
           //     : BottomNavigationScreen(),

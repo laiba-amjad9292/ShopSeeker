@@ -91,6 +91,10 @@ Map<String, String> de = {
   //Shop Screen
   "search_your_location...": "Suchen Sie Ihren Standort ...",
 
+  //Home Screen
+  "hello": "Hallo!",
+  "search": "Suchen",
+
   // 'which_animal_is_right_for_me': "Welches Tier passt zu mir?",
   // 'tiermarkt': "Tiermarkt",
   // 'nahrung_zubehor': "Nahrung / Zubehör",

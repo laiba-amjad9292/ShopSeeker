@@ -97,7 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               : null,
       title:
           !showLogo
-              ? Text(title ?? "", style: stylew600(color: titleColor, size: 16))
+              ? Text(title ?? "", style: stylew600(color: titleColor, size: 18))
               : Image.asset("", width: logoWidth, height: logoHeight),
       actions: actions,
       centerTitle: centeredTitle,

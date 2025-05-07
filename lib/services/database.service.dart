@@ -174,10 +174,16 @@ class Database {
   //   final collectionRef = instance.collection('listings');
 
   //   // Use a different userId filter based on whether we're showing "my" listings.
-  //   Query<Map<String, dynamic>> query = mine
-  //       ? collectionRef.where('userId', isEqualTo: UserManager.instance.userId)
-  //       : collectionRef.where('userId',
-  //           isNotEqualTo: UserManager.instance.userId);
+  //   Query<Map<String, dynamic>> query =
+  //       mine
+  //           ? collectionRef.where(
+  //             'userId',
+  //             isEqualTo: UserManager.instance.userId,
+  //           )
+  //           : collectionRef.where(
+  //             'userId',
+  //             isNotEqualTo: UserManager.instance.userId,
+  //           );
 
   //   // Optional filtering by category.
   //   if (categoryEN != null) {
@@ -193,13 +199,14 @@ class Database {
 
   //   query = query.orderBy('createdAt', descending: true);
 
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   List<ListingModel> listings =
   //       querySnapshot.docs.map((doc) => doc.data()).toList();
@@ -207,10 +214,13 @@ class Database {
   //   // For listings from other users, apply additional filtering to remove any
   //   // listings whose type (from translations) is 'animal' (case-insensitive).
   //   if (!mine) {
-  //     listings = listings
-  //         .where((listing) =>
-  //             listing.type.translations['en']?.toLowerCase() != 'animal')
-  //         .toList();
+  //     listings =
+  //         listings
+  //             .where(
+  //               (listing) =>
+  //                   listing.type.translations['en']?.toLowerCase() != 'animal',
+  //             )
+  //             .toList();
   //   }
 
   //   return listings;
@@ -262,15 +272,16 @@ class Database {
   // }
 
   // static Future<List<ListingModel>> getAllListings() async {
-  //   final querySnapshot = await instance
-  //       .collection('listings')
-  //       .where('userId', isNotEqualTo: UserManager.instance.userId)
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await instance
+  //           .collection('listings')
+  //           .where('userId', isNotEqualTo: UserManager.instance.userId)
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   return querySnapshot.docs.map((doc) => doc.data()).toList();
   // }
@@ -287,7 +298,8 @@ class Database {
   // }
 
   // static Future<List<ListingModel>> getAllListingsByCategory(
-  //     String? categoryEN) async {
+  //   String? categoryEN,
+  // ) async {
   //   final collectionRef = instance.collection('listings');
 
   //   Query<Map<String, dynamic>> query = collectionRef;
@@ -298,13 +310,14 @@ class Database {
 
   //   query = query.where('type.en', isEqualTo: 'Animal');
 
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   return querySnapshot.docs.map((doc) => doc.data()).toList();
   // }
@@ -327,24 +340,28 @@ class Database {
   //   }
 
   //   // Apply the converter and get the data
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   // Filter out listings where type.en is 'animal'
   //   return querySnapshot.docs
   //       .map((doc) => doc.data())
-  //       .where((listing) =>
-  //           listing.type.translations['en']?.toLowerCase() != 'animal')
+  //       .where(
+  //         (listing) =>
+  //             listing.type.translations['en']?.toLowerCase() != 'animal',
+  //       )
   //       .toList();
   // }
 
   // static Future<List<ListingModel>> getMyListingsByCategory(
-  //     String? categoryEN) async {
+  //   String? categoryEN,
+  // ) async {
   //   final collectionRef = instance.collection('listings');
 
   //   // Start building the query to include only listings from the current user
@@ -361,13 +378,14 @@ class Database {
   //   // Additional filter to show listings where type.en is "Animal"
   //   query = query.where('type.en', isEqualTo: 'Animal');
 
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   return querySnapshot.docs.map((doc) => doc.data()).toList();
   // }
@@ -388,19 +406,22 @@ class Database {
   //   }
 
   //   // Apply the converter and fetch the query results
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   // Filter out any listings where type.en (from translations) is 'animal'
   //   return querySnapshot.docs
   //       .map((doc) => doc.data())
-  //       .where((listing) =>
-  //           listing.type.translations['en']?.toLowerCase() != 'animal')
+  //       .where(
+  //         (listing) =>
+  //             listing.type.translations['en']?.toLowerCase() != 'animal',
+  //       )
   //       .toList();
   // }
 
@@ -421,18 +442,21 @@ class Database {
   //     query = query.where('category.en', isEqualTo: categoryEN);
   //   }
 
-  //   final querySnapshot = await query
-  //       .withConverter<ListingModel>(
-  //         fromFirestore: (snapshot, _) =>
-  //             ListingModel.fromDocumentSnapshot(snapshot),
-  //         toFirestore: (listingModel, _) => listingModel.toMap(),
-  //       )
-  //       .get();
+  //   final querySnapshot =
+  //       await query
+  //           .withConverter<ListingModel>(
+  //             fromFirestore:
+  //                 (snapshot, _) => ListingModel.fromDocumentSnapshot(snapshot),
+  //             toFirestore: (listingModel, _) => listingModel.toMap(),
+  //           )
+  //           .get();
 
   //   return querySnapshot.docs
   //       .map((doc) => doc.data())
-  //       .where((listing) =>
-  //           listing.type.translations['en']?.toLowerCase() != 'animal')
+  //       .where(
+  //         (listing) =>
+  //             listing.type.translations['en']?.toLowerCase() != 'animal',
+  //       )
   //       .toList();
   // }
 
@@ -455,15 +479,17 @@ class Database {
   // static Future<ListingModel?> getSingleListing(String listingId) async {
   //   try {
   //     // Get the document snapshot with the converter
-  //     final docSnapshot = await instance
-  //         .collection('listings')
-  //         .doc(listingId)
-  //         .withConverter<ListingModel>(
-  //           fromFirestore: (snapshot, _) =>
-  //               ListingModel.fromDocumentSnapshot(snapshot),
-  //           toFirestore: (listingModel, _) => listingModel.toMap(),
-  //         )
-  //         .get();
+  //     final docSnapshot =
+  //         await instance
+  //             .collection('listings')
+  //             .doc(listingId)
+  //             .withConverter<ListingModel>(
+  //               fromFirestore:
+  //                   (snapshot, _) =>
+  //                       ListingModel.fromDocumentSnapshot(snapshot),
+  //               toFirestore: (listingModel, _) => listingModel.toMap(),
+  //             )
+  //             .get();
 
   //     // Check if the document exists and return the data as ListingModel
   //     return docSnapshot.data();
