@@ -1,0 +1,5 @@
+-keep class java.beans.** { *; }
+-keep class org.w3c.dom.bootstrap.DOMImplementationRegistry { *; }
+-keep class com.fasterxml.jackson.databind.ext.** { *; }
+-dontwarn java.beans.**
+-dontwarn org.w3c.dom.bootstrap.**

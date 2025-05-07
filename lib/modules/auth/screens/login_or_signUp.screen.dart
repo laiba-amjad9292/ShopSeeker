@@ -5,6 +5,7 @@ import "package:shop_seeker/global/widgets/button.widget.dart";
 import "package:shop_seeker/global/widgets/language_dropdown.widget.dart";
 import "package:shop_seeker/modules/auth/screens/login.screen.dart";
 import "package:shop_seeker/modules/auth/screens/sign_up.screen.dart";
+import "package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart";
 import "package:shop_seeker/utils/constants/app_colors.utils.dart";
 import "package:shop_seeker/utils/extensions/size_extension.util.dart";
 import "package:shop_seeker/utils/theme/textStyles.utils.dart";
@@ -41,7 +42,7 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
             ),
           ),
           Positioned(
-            top: 30.h,
+            top: 50.h,
             right: 30.w,
             child: Container(
               decoration: BoxDecoration(
@@ -67,20 +68,25 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
                     Get.to(() => SignUpScreen());
                   },
                 ),
-                16.hp,
+                14.hp,
                 AppButton(
-                  title: 'signin'.tr,
+                  title: 'login'.tr,
                   color: AppColors.white20,
                   onTap: () {
-                    Get.to(
-                      // transition: Transition.rightToLeft,
-
-                      // duration: Duration(milliseconds: 500),
-                      LoginScreen(),
-                    );
+                    Get.to(LoginScreen());
                   },
                 ),
-                30.hp,
+                14.hp,
+
+                GestureDetector(
+                  onTap: () {
+                    Get.off(() => BottomNavigationScreen());
+                  },
+                  child: Text(
+                    "continue_without_login".tr,
+                    style: stylew500(size: 16, color: AppColors.white),
+                  ),
+                ),
               ],
             ),
           ),

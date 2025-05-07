@@ -3,6 +3,7 @@ Map<String, String> en = {
   "signup": "Sign Up",
   "signin": "Sign In",
   "login": "Login",
+  "continue_without_login": "Continue without login",
   "full_name": "Full name",
   "enter_full_name": "Enter your full name",
   "email": "Email",
@@ -37,6 +38,9 @@ Map<String, String> en = {
       "'If the email you provided exists in our databases as a valid user, you will receive an email with reset instructions'",
   "password_recovery": "Password Recovery",
   "reset_password": "Reset Password",
+  "account_access_required": "Account Access Required",
+  "account_access_required_sub-heading":
+      "To proceed with this action, you need to be logged in. Please log in to your account, or if you don’t have one, you can register.",
   // "use_photo": "Use Photo",
   "retake": "Retake",
   "processing": "Processing. Please wait...",

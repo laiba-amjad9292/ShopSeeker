@@ -27,20 +27,19 @@ class AccountAccessRequired extends StatelessWidget {
               children: [
                 20.hp,
                 Text(
-                  "Account Access Required".tr,
+                  "account_access_required".tr,
                   textAlign: TextAlign.center,
                   style: stylew700(size: 18, color: AppColors.primary),
                 ),
                 4.hp,
                 Text(
-                  "To proceed with this action, you need to be logged in. Please log in to your account, or if you don’t have one, you can register."
-                      .tr,
+                  "account_access_required_sub-heading".tr,
                   textAlign: TextAlign.center,
                   style: stylew400(size: 14, color: AppColors.color888888),
                 ),
                 32.hp,
                 AppButton(
-                  title: "Login".tr,
+                  title: "login".tr,
                   color: AppColors.primary30,
                   fontColor: AppColors.primary,
                   fontSize: 16,
@@ -55,7 +54,7 @@ class AccountAccessRequired extends StatelessWidget {
                   onTap: () {
                     Get.offAll(() => SignUpScreen());
                   },
-                  title: "Sign Up".tr,
+                  title: "signup".tr,
                   color: AppColors.primary,
                   fontColor: AppColors.colorF2F4F7,
                   elevation: 0,

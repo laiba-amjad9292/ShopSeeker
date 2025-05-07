@@ -3,6 +3,7 @@ Map<String, String> de = {
   "signup": "Anmelden",
   "signin": "einloggen",
   "login": "einloggen",
+  "continue_without_login": "Ohne Anmeldung fortfahren",
   "full_name": "vollständiger Name",
   "enter_full_name": "Geben sie ihren vollständigen Namen ein",
   "email": "Email",
@@ -19,6 +20,10 @@ Map<String, String> de = {
   "create_account": "konto erstellen",
   'cancel': 'abbrechen',
   'forgot_password': 'Passwort vergessen?',
+  "account_access_required": "Kontozugriff erforderlich",
+  "account_access_required_sub-heading":
+      "Um mit dieser Aktion fortzufahren, müssen Sie angemeldet sein. Bitte melden Sie sich bei Ihrem Konto an. Falls Sie noch kein Konto haben, können Sie sich registrieren.",
+
   // 'upload_images_and_videos': "Bilder und Videos hochladen",
   "selecting_term_policy":
       "Mit der Erstellung eines Kontos stimmen Sie unseren",
