@@ -18,18 +18,20 @@ TextStyle stylew600({double size = 16, color}) {
   );
 }
 
-TextStyle stylew500({double size = 16, color}) {
+TextStyle stylew500({double size = 16, color, lineHeight}) {
   return TextStyle(
     color: color ?? AppColors.color263238,
+    height: lineHeight,
     fontSize: size.sp,
     fontWeight: FontWeight.w500,
   );
 }
 
-TextStyle styleRegular({double size = 16, color}) {
+TextStyle styleRegular({double size = 16, color, lineHeight}) {
   return TextStyle(
     fontFamily: "jakarta-regular",
     color: color ?? AppColors.black,
+    height: lineHeight,
     fontSize: size.sp,
     fontWeight: FontWeight.normal,
   );
@@ -44,12 +46,13 @@ TextStyle stylew400({double size = 16, Color? color}) {
   );
 }
 
-TextStyle styleRegularUnderline({double size = 13, color}) {
+TextStyle styleRegularUnderline({double size = 13, color, lineheight = 1.5}) {
   final effectiveColor = color ?? AppColors.colorAAAAAA;
   return TextStyle(
     fontFamily: "jakarta-regular",
     color: effectiveColor,
     fontSize: size.sp,
+    height: lineheight,
     fontWeight: FontWeight.normal,
     decoration: TextDecoration.underline,
     decorationColor: effectiveColor,

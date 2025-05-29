@@ -84,7 +84,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       20.hp,
                       CustomTextField(
                         validator: ValidatorUtils.email,
-                        heading: "Email".tr,
+                        heading: "email".tr,
                         hintText: 'enter_email'.tr,
                         keyName: 'email',
                         isRequired: true,

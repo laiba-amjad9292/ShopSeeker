@@ -17,6 +17,6 @@ class Tr {
   @override
   String toString() {
     // Prints translations in a clearer format
-    return 'Translations: ${translations['en'] ?? ""} (EN), ${translations['de'] ?? ""} (DE)';
+    return 'Translations: ${translations['en'] ?? ""} (EN), ${translations['de'] ?? ""} (DE), ${translations['ar'] ?? ""} (AR)';
   }
 }

@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
         return FormBuilder(
           key: logic.loginInitialKey,
           child: Scaffold(
-            backgroundColor: AppColors.white,
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -37,12 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      90.hp,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text("LOGO".tr, style: stylew700(size: 40))],
+                      Padding(
+                        padding: const EdgeInsets.all(11.0),
+                        child: Image.asset("assets/images/splah_logo.png"),
                       ),
-                      90.hp,
                       Text(
                         "sign_in_your_account".tr,
                         style: stylew700(size: 30, color: AppColors.primary),
@@ -93,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       30.hp,
                       AppButton(
-                        title: "login".tr,
+                        title: "signin".tr,
                         onTap: () {
                           logic.handleLogin();
                         },

@@ -39,7 +39,7 @@ class AccountAccessRequired extends StatelessWidget {
                 ),
                 32.hp,
                 AppButton(
-                  title: "login".tr,
+                  title: "signin".tr,
                   color: AppColors.primary30,
                   fontColor: AppColors.primary,
                   fontSize: 16,

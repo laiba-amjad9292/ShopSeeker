@@ -29,13 +29,16 @@ class LogoutBottomSheet extends StatelessWidget {
                 Text(
                   "confirm_logout_bottomsheet_title".tr,
                   textAlign: TextAlign.center,
-                  style: stylew700(size: 18),
+                  style: stylew700(size: 20),
                 ),
-                4.hp,
-                Text(
-                  "confirm_logout_bottomsheet_subtitle".tr,
-                  textAlign: TextAlign.center,
-                  style: stylew400(size: 14, color: AppColors.color667085),
+                8.hp,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    "confirm_logout_bottomsheet_subtitle".tr,
+                    textAlign: TextAlign.center,
+                    style: stylew400(size: 14, color: AppColors.color667085),
+                  ),
                 ),
                 32.hp,
                 AppButton(

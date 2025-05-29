@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,9 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
-
   Get.put(UserManager());
-
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     EasyLoading.dismiss();
@@ -69,14 +68,16 @@ class BoosterMaterialApp extends StatelessWidget {
           }
         },
         child: GetMaterialApp(
-          title: 'Shop Seeker',
+          title: 'Sooqi',
           themeMode: ThemeMode.light,
           theme: AppTheme.lightTheme(),
           translations: AppTranslations(), // Your translations
           locale:
               LocalGetStorage.getUserLanguage() == 'en'
                   ? const Locale('en')
-                  : const Locale('de'),
+                  : LocalGetStorage.getUserLanguage() == 'de'
+                  ? const Locale('de')
+                  : const Locale('ar'),
           fallbackLocale: Locale('en', 'US'), // Fallback locale
           // Add the localizations delegates
           localizationsDelegates: const [
@@ -89,6 +90,7 @@ class BoosterMaterialApp extends StatelessWidget {
           supportedLocales: const [
             Locale('en', 'US'), // English
             Locale('de', 'DE'), // German
+            Locale('ar', 'AR'), //Arabic
           ],
           defaultTransition: Transition.cupertino,
           debugShowCheckedModeBanner: false,

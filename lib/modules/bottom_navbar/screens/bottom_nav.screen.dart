@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -142,9 +143,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                   height: 22,
                                   color: _iconColor(0, value),
                                 ),
-                                Text(
+                                AutoSizeText(
                                   "home".tr,
                                   style: bottomNavTextStyle(0, value),
+                                  maxLines: 1,
+                                  minFontSize: 9,
                                 ),
                               ],
                             ),
@@ -167,9 +170,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                   height: 24,
                                   color: _iconColor(1, value),
                                 ),
-                                Text(
+                                AutoSizeText(
                                   "chats".tr,
                                   style: bottomNavTextStyle(1, value),
+                                  maxLines: 1,
+                                  minFontSize: 9,
                                 ),
                               ],
                             ),
@@ -192,9 +197,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                   height: 24,
                                   color: _iconColor(2, value),
                                 ),
-                                Text(
+                                AutoSizeText(
                                   "shops".tr,
                                   style: bottomNavTextStyle(2, value),
+                                  maxLines: 1,
+                                  minFontSize: 9,
                                 ),
                               ],
                             ),
@@ -217,16 +224,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                   height: 24,
                                   color: _iconColor(3, value),
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "notification".tr,
-                                        style: bottomNavTextStyle(3, value),
-                                      ),
-                                    ],
-                                  ),
+                                AutoSizeText(
+                                  "notification".tr,
+                                  style: bottomNavTextStyle(3, value),
+                                  maxLines: 1,
+                                  minFontSize: 9,
                                 ),
                               ],
                             ),
@@ -249,9 +251,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                   height: 24,
                                   color: _iconColor(4, value),
                                 ),
-                                Text(
+                                AutoSizeText(
                                   "profile".tr,
                                   style: bottomNavTextStyle(4, value),
+                                  maxLines: 1,
+                                  minFontSize: 9,
                                 ),
                               ],
                             ),

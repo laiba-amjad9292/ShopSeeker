@@ -37,7 +37,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 ),
                 child: CustomTextField(
                   showTitle: false,
-                  hintText: "search_your_location...".tr,
+                  hintText: "search_your_shop".tr,
                   keyName: "search",
                   focusedBorderColor: Colors.transparent,
                   enabledBorderColor: Colors.transparent,

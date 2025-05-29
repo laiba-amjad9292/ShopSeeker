@@ -33,8 +33,8 @@ class _CheckBoxNewState extends State<CheckBoxNew> {
         widget.onChanged(!widget.value);
       },
       child: Container(
-        height: 12,
-        width: 12,
+        height: 16,
+        width: 16,
         decoration: BoxDecoration(
           color: widget.value == true ? AppColors.primary : Colors.white,
           borderRadius: BorderRadius.circular(2.r),

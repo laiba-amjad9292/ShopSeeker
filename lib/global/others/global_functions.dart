@@ -55,71 +55,71 @@ class GlobalFunctions {
     );
   }
 
-  static void countryCodePickerWidget(
-    BuildContext context,
-    void Function(Country) onSelect,
-  ) {
-    return showCountryPicker(
-      context: context,
-      showPhoneCode: true,
-      onSelect: onSelect,
-      favorite: ['DE'],
-      countryListTheme: CountryListThemeData(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-        ),
-        bottomSheetHeight: Get.height / 1.2,
-        inputDecoration: InputDecoration(
-          hintText: 'Search_Country_Code'.tr,
-          fillColor: Colors.white,
-          filled: true,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 15,
-          ),
-          hintStyle: styleRegular(size: 14, color: AppColors.color667085),
-          errorStyle: styleRegular(size: 12, color: AppColors.colorF97970),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: AppColors.colorEAECF0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: AppColors.colorEAECF0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: AppColors.primary),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: AppColors.colorF97970),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: AppColors.colorF97970),
-          ),
-          isDense: true,
-          suffixIconColor: AppColors.colorD0D5DD,
-          prefixIconColor: AppColors.primary,
-          prefixIcon: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Icon(Icons.search, size: 25),
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxWidth: 40.w,
-            maxHeight: 43.h,
-          ),
-          suffixIconConstraints: BoxConstraints(
-            maxWidth: 40.w,
-            maxHeight: 40.h,
-          ),
-        ),
-        searchTextStyle: stylew500(size: 14),
-      ),
-    );
-  }
+  // static void countryCodePickerWidget(
+  //   BuildContext context,
+  //   void Function(Country) onSelect,
+  // ) {
+  //   return showCountryPicker(
+  //     context: context,
+  //     showPhoneCode: true,
+  //     onSelect: onSelect,
+  //     favorite: ['DE'],
+  //     countryListTheme: CountryListThemeData(
+  //       borderRadius: const BorderRadius.only(
+  //         topLeft: Radius.circular(10.0),
+  //         topRight: Radius.circular(10.0),
+  //       ),
+  //       bottomSheetHeight: Get.height / 1.2,
+  //       inputDecoration: InputDecoration(
+  //         hintText: 'Search_Country_Code'.tr,
+  //         fillColor: Colors.white,
+  //         filled: true,
+  //         contentPadding: const EdgeInsets.symmetric(
+  //           vertical: 15,
+  //           horizontal: 15,
+  //         ),
+  //         hintStyle: styleRegular(size: 14, color: AppColors.color667085),
+  //         errorStyle: styleRegular(size: 12, color: AppColors.colorF97970),
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(8),
+  //           borderSide: const BorderSide(color: AppColors.colorEAECF0),
+  //         ),
+  //         enabledBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(8),
+  //           borderSide: const BorderSide(color: AppColors.colorEAECF0),
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(8),
+  //           borderSide: const BorderSide(color: AppColors.primary),
+  //         ),
+  //         focusedErrorBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(8),
+  //           borderSide: const BorderSide(color: AppColors.colorF97970),
+  //         ),
+  //         errorBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(8),
+  //           borderSide: const BorderSide(color: AppColors.colorF97970),
+  //         ),
+  //         isDense: true,
+  //         suffixIconColor: AppColors.colorD0D5DD,
+  //         prefixIconColor: AppColors.primary,
+  //         prefixIcon: const Padding(
+  //           padding: EdgeInsets.symmetric(horizontal: 5),
+  //           child: Icon(Icons.search, size: 25),
+  //         ),
+  //         prefixIconConstraints: BoxConstraints(
+  //           maxWidth: 40.w,
+  //           maxHeight: 43.h,
+  //         ),
+  //         suffixIconConstraints: BoxConstraints(
+  //           maxWidth: 40.w,
+  //           maxHeight: 40.h,
+  //         ),
+  //       ),
+  //       searchTextStyle: stylew500(size: 14),
+  //     ),
+  //   );
+  // }
 
   static void showBottomSheet(Widget body) {
     Get.bottomSheet(ReusableBottomSheet(body: body), isScrollControlled: true);

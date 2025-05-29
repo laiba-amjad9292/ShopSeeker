@@ -34,11 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               right: 30.w,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.colorD0D5DD.withOpacity(0.7),
+                  color: AppColors.primary30,
                   borderRadius: BorderRadius.circular(60),
                 ),
                 child: languageButton(
-                  bgColor: Colors.white,
+                  bgColor: AppColors.colorEAECF0,
                   textColor: Colors.black,
                 ),
               ),

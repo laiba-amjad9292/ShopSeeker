@@ -37,11 +37,11 @@ class _SignupSuccessScreenState extends State<SignupSuccessScreen> {
                 textAlign: TextAlign.center,
                 style: stylew600(size: 28, color: AppColors.black),
               ),
-              20.hp,
+              8.hp,
               Text(
                 'account_created_successfully'.tr,
                 textAlign: TextAlign.center,
-                style: styleRegular(size: 14, color: AppColors.color888888),
+                style: styleRegular(size: 16, color: AppColors.color888888),
               ),
               50.hp,
               AppButton(

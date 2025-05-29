@@ -33,7 +33,11 @@ Directionality languageButton({
               ),
               8.wp,
               Text(
-                logic.currentLang == 'de' ? 'DEU' : 'ENG',
+                logic.currentLang == 'de'
+                    ? 'DEU'
+                    : logic.currentLang == 'ar'
+                    ? 'ARA'
+                    : 'ENG',
                 style: stylew500(
                   color: textColor, // Apply text color here
                 ),
@@ -77,6 +81,28 @@ Directionality languageButton({
                 Expanded(
                   child: Text(
                     'Deutsch',
+                    style: stylew400(
+                      size: 14,
+                      color: textColor, // Apply text color here
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: 'ar',
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/icons/Syria_flag.png',
+                  height: 20,
+                  width: 20,
+                ),
+                12.wp,
+                Expanded(
+                  child: Text(
+                    'Arabic',
                     style: stylew400(
                       size: 14,
                       color: textColor, // Apply text color here

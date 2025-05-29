@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:shop_seeker/global/others/global_functions.dart';
 import 'package:shop_seeker/global/widgets/dialog/attention_dialog.widget.dart';
 import 'package:shop_seeker/utils/constants/app_enums.utils.dart';
@@ -10,7 +9,7 @@ void showError(
   message, {
   Function()? onTap,
   String? cancelText,
-  String okText = 'Ok',
+  String? okText,
   String? icon,
   bool isHtml = false,
 }) {
@@ -22,13 +21,12 @@ void showError(
   );
   return;
 }
-// }
 
 void showWarning(
   message, {
   Function()? onTap,
   String? cancelText,
-  String okText = 'Ok',
+  String? okText,
   String? icon,
   bool isHtml = false,
 }) {
@@ -47,7 +45,7 @@ void showSuccess(
   Function()? onSuccess,
   Function()? onCancel,
   bool isHtml = false,
-  String? okText = "OK",
+  String? okText,
   String? cancelTest,
   String? subTitle,
   TextStyle? subTitleStyle,
@@ -68,7 +66,7 @@ Future<bool?> showInfo(
   String? cancelText,
   bool? showCross,
   String? tittle,
-  String? okText = 'Thanks',
+  String? okText,
   bool? isHtml,
 }) async {
   EasyLoading.dismiss();

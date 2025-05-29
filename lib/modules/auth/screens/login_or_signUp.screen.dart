@@ -21,37 +21,25 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
       body: Stack(
         children: [
           Positioned(
-            top: 189,
+            top: 100,
             left: 0,
             right: 0,
-            child: Image.asset("assets/images/map shadw.png"),
-          ),
-          Positioned(
-            top: 236,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'logo'.tr,
-                style: stylew700(size: 40, color: AppColors.white),
-              ),
-            ),
+            child: Image.asset('assets/images/splah_logo.png'),
           ),
           Positioned(
             top: 50.h,
             right: 30.w,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.colorD0D5DD.withOpacity(0.7),
+                color: AppColors.primary30,
                 borderRadius: BorderRadius.circular(60),
               ),
               child: languageButton(
-                bgColor: Colors.white,
-                textColor: Colors.black,
+                bgColor: AppColors.colorEAECF0,
+                textColor: AppColors.black,
               ),
             ),
           ),
@@ -62,16 +50,17 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
               children: [
                 AppButton(
                   title: 'create_account'.tr,
-                  color: AppColors.white,
-                  fontColor: AppColors.primary,
+                  color: AppColors.primary,
+                  fontColor: AppColors.white,
                   onTap: () {
                     Get.to(() => SignUpScreen());
                   },
                 ),
                 14.hp,
                 AppButton(
-                  title: 'login'.tr,
-                  color: AppColors.white20,
+                  title: 'signin'.tr,
+                  color: AppColors.primary30,
+                  fontColor: AppColors.primary,
                   onTap: () {
                     Get.to(LoginScreen());
                   },
@@ -84,7 +73,7 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
                   },
                   child: Text(
                     "continue_without_login".tr,
-                    style: stylew500(size: 16, color: AppColors.white),
+                    style: stylew500(size: 16, color: AppColors.primary),
                   ),
                 ),
               ],
