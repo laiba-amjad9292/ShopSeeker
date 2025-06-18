@@ -212,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               logic.handleSignup();
                             },
                           ),
-                          10.hp,
+                          16.hp,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -238,6 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ],
                           ),
+                          10.hp,
                         ],
                       ),
                     ),

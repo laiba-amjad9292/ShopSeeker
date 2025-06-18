@@ -121,6 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+                      10.hp,
                     ],
                   ),
                 ),
