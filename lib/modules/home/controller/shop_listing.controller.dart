@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:shop_seeker/modules/shops/models/shop.model.dart';
+import 'package:shop_seeker/modules/home/models/shop.model.dart';
 
 class ShopListingController extends GetxController {
   var shopProductList = <ShopModel>[].obs;

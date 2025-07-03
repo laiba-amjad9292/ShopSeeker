@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shop_seeker/global/others/global_functions.dart';
 import 'package:shop_seeker/global/widgets/dropdown_sheet.widget.dart';
 import 'package:shop_seeker/global/widgets/media_attachments/image_preview_dialog.widget.dart';
-import 'package:shop_seeker/global/widgets/no_item_found/custom_network_image.widget.dart';
+import 'package:shop_seeker/global/widgets/network_image/custom_network_image.widget.dart';
 import 'package:shop_seeker/modules/auth/models/action_picker.model.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/constants/app_constants.util.dart';

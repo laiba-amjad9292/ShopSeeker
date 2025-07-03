@@ -13,6 +13,7 @@ import 'package:shop_seeker/global/widgets/bottomSheet.widget.dart';
 import 'package:shop_seeker/global/widgets/dialog/dialog.widget.dart';
 import 'package:shop_seeker/global/widgets/dialog/dialog_helpers.widget.dart';
 import 'package:shop_seeker/global/widgets/dropdown_sheet.widget.dart';
+import 'package:shop_seeker/global/widgets/image_picker.widget.dart/camera_screen.widget.dart';
 import 'package:shop_seeker/global/widgets/snackbar.widget.dart';
 import 'package:shop_seeker/modules/auth/models/action_picker.model.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
@@ -359,35 +360,35 @@ class GlobalFunctions {
     }
     ImagePicker picker = ImagePicker();
 
-    // if (mediaType == AppMediaType.image) {
-    //   if (source == ImageSource.camera) {
-    //     String? data = await Get.to(
-    //       () => CameraScreen(
-    //         showPreview: true,
-    //         cameraType: isRear ? CameraType.rear : CameraType.front,
-    //       ),
-    //     );
-    //     if (data == null) return null;
+    if (mediaType == AppMediaType.image) {
+      if (source == ImageSource.camera) {
+        String? data = await Get.to(
+          () => CameraScreen(
+            showPreview: true,
+            cameraType: isRear ? CameraType.rear : CameraType.front,
+          ),
+        );
+        if (data == null) return null;
 
-    //     return XFile(data);
-    //   } else {
-    //     return await picker.pickImage(source: source);
-    //   }
-    // }
+        return XFile(data);
+      } else {
+        return await picker.pickImage(source: source);
+      }
+    }
 
-    // if (source == ImageSource.camera) {
-    //   String? data = await Get.to(
-    //     () => const CameraScreen(
-    //       appMediaType: AppMediaType.video,
-    //       showPreview: true,
-    //     ),
-    //   );
-    //   if (data == null) return null;
+    if (source == ImageSource.camera) {
+      String? data = await Get.to(
+        () => const CameraScreen(
+          appMediaType: AppMediaType.video,
+          showPreview: true,
+        ),
+      );
+      if (data == null) return null;
 
-    //   return XFile(data);
-    // } else {
-    //   return await picker.pickVideo(source: source);
-    // }
+      return XFile(data);
+    } else {
+      return await picker.pickVideo(source: source);
+    }
   }
 
   static showDialog(Widget body) {

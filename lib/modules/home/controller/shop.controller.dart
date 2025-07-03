@@ -7,9 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shop_seeker/global/others/global_functions.dart';
 import 'package:shop_seeker/global/widgets/dialog/dialog_helpers.widget.dart';
 import 'package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart';
-import 'package:shop_seeker/modules/shops/models/shop_listing.model.dart';
+import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/global/models/translations.model.dart';
-import 'package:shop_seeker/modules/shops/widget/delete_media_preview_sheet.widget.dart';
+import 'package:shop_seeker/modules/home/widget/delete_media_preview_sheet.widget.dart';
 import 'package:shop_seeker/services/database.service.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_enums.utils.dart';
@@ -19,12 +19,16 @@ class ShopAddingController extends GetxController {
   static ShopAddingController get instance => Get.find<ShopAddingController>();
   String currentLang = UserManager.instance.currentLang;
   final addShopFormKey = GlobalKey<FormBuilderState>();
-
   final addUpdateListingInitialKey = GlobalKey<FormBuilderState>();
-
   final RxList<String> images = <String>[].obs;
   ListingModel? listingToUpdate_;
 
+  final RxString selectedCountry = ''.obs;
+  final weekdayOpeningController = TextEditingController();
+  final weekdayClosingController = TextEditingController();
+  final weekendOpeningController = TextEditingController();
+  final weekendClosingController = TextEditingController();
+  final countryController = TextEditingController();
   final Rx<TimeOfDay?> weekdayOpening = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekdayClosing = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekendOpening = Rx<TimeOfDay?>(null);

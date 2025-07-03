@@ -1,4 +1,4 @@
-import 'package:shop_seeker/modules/shops/models/product.model.dart';
+import 'package:shop_seeker/modules/home/models/product.model.dart';
 
 class ShopModel {
   final String id;

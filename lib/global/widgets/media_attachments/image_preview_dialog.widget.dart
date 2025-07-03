@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/global/widgets/media_attachments/media_viewer.widget.dart';
-import 'package:shop_seeker/global/widgets/no_item_found/custom_network_image.widget.dart';
+import 'package:shop_seeker/global/widgets/network_image/custom_network_image.widget.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/constants/app_enums.utils.dart';
 import 'package:shop_seeker/utils/extensions/container_extension.util.dart';

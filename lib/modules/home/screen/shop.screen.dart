@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:shop_seeker/global/others/container_properties.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
-import 'package:shop_seeker/modules/shops/controller/shop_listing.controller.dart';
-import 'package:shop_seeker/modules/shops/screen/add_update.screen.dart';
-import 'package:shop_seeker/modules/shops/screen/shop_details.screen.dart';
-import 'package:shop_seeker/modules/shops/widget/shop_card.widget.dart';
+import 'package:shop_seeker/modules/home/controller/shop_listing.controller.dart';
+import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
+import 'package:shop_seeker/modules/home/screen/shop_details.screen.dart';
+import 'package:shop_seeker/modules/home/widget/shop_card.widget.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 

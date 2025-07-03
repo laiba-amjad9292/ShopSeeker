@@ -8,7 +8,7 @@ import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/global/widgets/media_attachments/media_attachments.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
-import 'package:shop_seeker/modules/shops/controller/shop.controller.dart';
+import 'package:shop_seeker/modules/home/controller/shop.controller.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 import 'package:shop_seeker/utils/helpers/textfield_validators.utils.dart';
@@ -35,6 +35,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
             logic.images.clear();
           },
           child: FormBuilder(
+            key: controller.addShopFormKey,
             child: Scaffold(
               appBar: CustomAppBar(
                 title: "add_shop".tr,
@@ -82,6 +83,9 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           hintText: 'enter_country'.tr,
                           isRequired: true,
                           readOnly: true,
+                          controller:
+                              logic
+                                  .countryController, // Use declared controller
                           onTap: () {
                             GlobalFunctions.countryCodePickerWidget(context, (
                               Country country,
@@ -89,10 +93,22 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                               final flag = GlobalFunctions.getFlagEmoji(
                                 country.countryCode,
                               );
+                              final selected = "${flag} ${country.name}";
+
+                              logic.selectedCountry.value = selected;
+                              logic.countryController.text = selected;
+
+                              // 🔥 Required line for FormBuilder validation
+                              controller
+                                  .addShopFormKey
+                                  .currentState
+                                  ?.fields['country']
+                                  ?.didChange(selected);
+
+                              logic.update();
                             });
                           },
                         ),
-
                         16.hp,
                         Row(
                           children: [
@@ -139,8 +155,14 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                     controller
                                         .weekdayOpening
                                         .value = TimeOfDay.fromDateTime(picked);
+                                    controller
+                                        .weekdayOpeningController
+                                        .text = controller.formatTime(
+                                      controller.weekdayOpening.value,
+                                    );
                                   }
                                 },
+                                controller: controller.weekdayOpeningController,
                               ),
                             ),
                             12.wp,
@@ -158,8 +180,14 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                     controller
                                         .weekdayClosing
                                         .value = TimeOfDay.fromDateTime(picked);
+                                    controller
+                                        .weekdayClosingController
+                                        .text = controller.formatTime(
+                                      controller.weekdayClosing.value,
+                                    );
                                   }
                                 },
+                                controller: controller.weekdayClosingController,
                               ),
                             ),
                           ],
@@ -182,14 +210,19 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                 readOnly: true,
                                 onTap: () async {
                                   final picked =
-                                 
                                       await GlobalFunctions.selectTime(context);
                                   if (picked != null) {
                                     controller
                                         .weekendOpening
                                         .value = TimeOfDay.fromDateTime(picked);
+                                    controller
+                                        .weekendOpeningController
+                                        .text = controller.formatTime(
+                                      controller.weekendOpening.value,
+                                    );
                                   }
                                 },
+                                controller: controller.weekendOpeningController,
                               ),
                             ),
                             12.wp,
@@ -207,8 +240,14 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                     controller
                                         .weekendClosing
                                         .value = TimeOfDay.fromDateTime(picked);
+                                    controller
+                                        .weekendClosingController
+                                        .text = controller.formatTime(
+                                      controller.weekendClosing.value,
+                                    );
                                   }
                                 },
+                                controller: controller.weekendClosingController,
                               ),
                             ),
                           ],
@@ -234,7 +273,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           handleUploadFile: logic.uploadFile,
                           handleDeleteMedia: logic.handleDeleteMedia,
                         ),
-                        20.hp,
+
                         20.hp,
                       ],
                     ),

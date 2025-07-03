@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:shop_seeker/modules/shops/models/product.model.dart";
+import "package:shop_seeker/modules/home/models/product.model.dart";
 import "package:shop_seeker/utils/constants/app_colors.utils.dart";
 import "package:shop_seeker/utils/extensions/size_extension.util.dart";
 import "package:shop_seeker/utils/theme/textStyles.utils.dart";

@@ -6,10 +6,10 @@ import 'package:shop_seeker/global/others/container_properties.dart';
 
 import 'package:shop_seeker/modules/bottom_navbar/controllers/bottom_nav.controller.dart';
 import 'package:shop_seeker/modules/chat/screen/all_chat_room.screen.dart';
-import 'package:shop_seeker/modules/home/screen/home.screen.dart';
+import 'package:shop_seeker/modules/homeextra/screen/home.screen.dart';
 import 'package:shop_seeker/modules/notifications/screen/notification.screen.dart';
 import 'package:shop_seeker/modules/profile/screens/profile.screen.dart';
-import 'package:shop_seeker/modules/shops/screen/shop.screen.dart';
+import 'package:shop_seeker/modules/home/screen/shop.screen.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
@@ -66,26 +66,26 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                 Visibility(
                   maintainState: true,
                   visible: value.currentIndex == 0,
-                  child: const HomeScreen(),
+                  child: const ShopScreen(),
                 ),
                 Visibility(
                   maintainState: true,
                   visible: value.currentIndex == 1,
                   child: const ChatScreen(),
                 ),
+                // Visibility(
+                //   maintainState: false,
+                //   visible: value.currentIndex == 2,
+                //   child: const ,
+                // ),
                 Visibility(
                   maintainState: false,
                   visible: value.currentIndex == 2,
-                  child: const ShopScreen(),
-                ),
-                Visibility(
-                  maintainState: false,
-                  visible: value.currentIndex == 3,
                   child: const NotificationScreen(),
                 ),
                 Visibility(
                   maintainState: false,
-                  visible: value.currentIndex == 4,
+                  visible: value.currentIndex == 3,
                   child: const ProfileScreen(),
                 ),
               ],
@@ -180,37 +180,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                           ),
                         ),
                       ),
+
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
                             value.changeTab(2);
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/icons/shop.png',
-                                  height: 24,
-                                  color: _iconColor(2, value),
-                                ),
-                                AutoSizeText(
-                                  "shops".tr,
-                                  style: bottomNavTextStyle(2, value),
-                                  maxLines: 1,
-                                  minFontSize: 9,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            value.changeTab(3);
                           },
                           child: Container(
                             color: Colors.transparent,
@@ -237,7 +211,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            value.changeTab(4);
+                            value.changeTab(3);
                           },
                           child: Container(
                             color: Colors.transparent,
