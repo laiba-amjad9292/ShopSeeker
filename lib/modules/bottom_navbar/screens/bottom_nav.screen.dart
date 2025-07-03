@@ -57,7 +57,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     return Container(
       decoration: ContainerProperties.shadowDecoration(),
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: SafeArea(
           top: false,
           child: Center(

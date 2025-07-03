@@ -1,0 +1,266 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:shop_seeker/global/others/global_functions.dart';
+import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
+import 'package:shop_seeker/global/widgets/button.widget.dart';
+import 'package:shop_seeker/global/widgets/media_attachments/media_attachments.widget.dart';
+import 'package:shop_seeker/global/widgets/textfield.widget.dart';
+import 'package:shop_seeker/modules/shops/controller/shop.controller.dart';
+import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
+import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
+import 'package:shop_seeker/utils/helpers/textfield_validators.utils.dart';
+import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
+
+class AddUpdateScreen extends StatefulWidget {
+  const AddUpdateScreen({super.key});
+
+  @override
+  State<AddUpdateScreen> createState() => _AddUpdateScreenState();
+}
+
+class _AddUpdateScreenState extends State<AddUpdateScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final controller = Get.put(ShopAddingController());
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<ShopAddingController>(
+      builder: (logic) {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (a) {
+            logic.images.clear();
+          },
+          child: FormBuilder(
+            child: Scaffold(
+              appBar: CustomAppBar(
+                title: "add_shop".tr,
+                titleColor: AppColors.white,
+                backButton: true,
+                appBarColor: AppColors.primary,
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        20.hp,
+                        CustomTextField(
+                          validator: ValidatorUtils.req,
+                          keyName: 'name',
+                          heading: 'shop_name'.tr,
+                          hintText: 'enter_shop_name'.tr,
+                          isRequired: true,
+                        ),
+                        16.hp,
+                        CustomTextField(
+                          validator: ValidatorUtils.req,
+                          keyName: 'category',
+                          heading: 'category'.tr,
+                          hintText: 'enter_shop_category'.tr,
+                          isRequired: true,
+                        ),
+                        16.hp,
+                        CustomTextField(
+                          validator: ValidatorUtils.req,
+                          keyName: 'address',
+                          heading: 'street_and_house_no.'.tr,
+                          hintText: 'enter_street_and_house_no.'.tr,
+                          isRequired: true,
+                        ),
+                        16.hp,
+                        CustomTextField(
+                          validator: ValidatorUtils.req,
+                          keyName: 'country',
+                          heading: 'country'.tr,
+                          hintText: 'enter_country'.tr,
+                          isRequired: true,
+                          readOnly: true,
+                          onTap: () {
+                            GlobalFunctions.countryCodePickerWidget(context, (
+                              Country country,
+                            ) {
+                              final flag = GlobalFunctions.getFlagEmoji(
+                                country.countryCode,
+                              );
+                            });
+                          },
+                        ),
+
+                        16.hp,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'city',
+                                heading: 'city'.tr,
+                                hintText: 'enter_city'.tr,
+                                isRequired: true,
+                              ),
+                            ),
+                            12.wp,
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'postal_code',
+                                heading: 'postal_code'.tr,
+                                hintText: 'postal_code'.tr,
+                                isRequired: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                        16.hp,
+                        Text(
+                          "timing_weekdays".tr,
+                          style: stylew700(color: AppColors.black),
+                        ),
+                        11.hp,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'opening_time',
+                                heading: 'opening_time'.tr,
+                                hintText: 'select_opening_time'.tr,
+                                readOnly: true,
+                                onTap: () async {
+                                  final picked =
+                                      await GlobalFunctions.selectTime(context);
+                                  if (picked != null) {
+                                    controller
+                                        .weekdayOpening
+                                        .value = TimeOfDay.fromDateTime(picked);
+                                  }
+                                },
+                              ),
+                            ),
+                            12.wp,
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'closing_time',
+                                heading: 'closing_time'.tr,
+                                hintText: 'select_closing_time'.tr,
+                                readOnly: true,
+                                onTap: () async {
+                                  final picked =
+                                      await GlobalFunctions.selectTime(context);
+                                  if (picked != null) {
+                                    controller
+                                        .weekdayClosing
+                                        .value = TimeOfDay.fromDateTime(picked);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        16.hp,
+                        Text(
+                          "timing_weekends".tr,
+                          style: stylew700(color: AppColors.black),
+                        ),
+                        11.hp,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'opening_time',
+                                heading: 'opening_time'.tr,
+                                hintText: 'select_opening_time'.tr,
+                                readOnly: true,
+                                onTap: () async {
+                                  final picked =
+                                 
+                                      await GlobalFunctions.selectTime(context);
+                                  if (picked != null) {
+                                    controller
+                                        .weekendOpening
+                                        .value = TimeOfDay.fromDateTime(picked);
+                                  }
+                                },
+                              ),
+                            ),
+                            12.wp,
+                            Expanded(
+                              child: CustomTextField(
+                                validator: ValidatorUtils.req,
+                                keyName: 'closing_time',
+                                heading: 'closing_time'.tr,
+                                hintText: 'select_closing_time'.tr,
+                                readOnly: true,
+                                onTap: () async {
+                                  final picked =
+                                      await GlobalFunctions.selectTime(context);
+                                  if (picked != null) {
+                                    controller
+                                        .weekendClosing
+                                        .value = TimeOfDay.fromDateTime(picked);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        16.hp,
+                        CustomTextField(
+                          validator: ValidatorUtils.description,
+                          keyName: 'description',
+                          heading: 'description'.tr,
+                          hintText: 'write_here'.tr,
+                          isRequired: true,
+                          maxLines: 7,
+                          minLines: 5,
+                        ),
+                        16.hp,
+                        AttachmentsWidget(
+                          heading: 'Add_images'.tr,
+                          images: [...logic.images],
+                          onlyImage: true,
+                          minimumAttachments: 1,
+                          videos: const [],
+                          handleUploadFile: logic.uploadFile,
+                          handleDeleteMedia: logic.handleDeleteMedia,
+                        ),
+                        20.hp,
+                        20.hp,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              bottomNavigationBar: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
+                  ),
+                  child: AppButton(
+                    title: "add_shop".tr,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.handleCreateShopListing();
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

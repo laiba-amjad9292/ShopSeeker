@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
-import 'package:shop_seeker/modules/auth/screens/login.screen.dart';
+import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
@@ -48,7 +48,7 @@ class LogoutBottomSheet extends StatelessWidget {
                   onTap: () async {
                     Get.back();
                     UserManager.instance.logout();
-                    Get.offAll(() => LoginScreen());
+                    Get.offAll(() => LoginOrSignupScreen());
                   },
                 ),
                 12.hp,

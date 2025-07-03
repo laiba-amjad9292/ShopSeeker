@@ -30,5 +30,6 @@ class AppColors {
   static const clrF9F9FF = Color(0xffF9F9FF);
   static const borderColor = Color(0xFFE6E6E6);
   static const colorA8A8A8 = Color(0xffA8A8A8);
+  static const colorE0E0E0 = Color(0xFFE0E0E0);
   // static const color = Color(0xff);
 }

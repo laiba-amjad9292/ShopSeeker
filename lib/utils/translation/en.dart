@@ -48,6 +48,8 @@ Map<String, String> en = {
   "email_already_in_use": " Email is already in use by someone else",
   "password_too_weak": " Password is too weak",
 
+  "description_warning": "Please enter minimum 10 and maximum 1000 characters",
+
   //Forgot password text
   'forgot_password': 'Forgot Password?',
   "password_recovery": "Password Recovery",
@@ -93,4 +95,37 @@ Map<String, String> en = {
 
   //Profile Text
   'logout': "Logout",
+
+  //Add Update Screen
+  "add_shop": "Add Shop",
+  "shop_name": "Shop Name",
+  "enter_shop_name": "Enter shop name",
+  "category": "Category",
+  "enter_shop_category": "Enter shop category",
+  "street_and_house_no.": "Street & House No.",
+  "enter_street_and_house_no.": "e.g. 123 Main Street, House 4B.",
+  //z. B. Hauptstraße 23
+  //مثال: شارع النصر ١٢
+  "country": "Country",
+  "enter_country": "Enter country",
+  "city": "City",
+  "enter_city": "Enter city",
+  "postal_code": "Postal code",
+  "enter_postal_code": "Postal code",
+
+  "timing_weekdays": "Timing Weekdays",
+  "timing_weekends": "Timing Weekends",
+  "opening_time": "Opening Time",
+  "select_opening_time": "Select opening time",
+  "closing_time": "Closing Time",
+  "select_closing_time": "Select closing time",
+  "description": "Description",
+  "write_here": "Write here...",
+  "add_images": "Add images",
+  // "": "",
+
+  // TimeDate Text
+  "select_time_heading": "Select Time",
+  "select_time_ok_button_title": "OK",
+  "select_time_cancel_button_title": "Cancel",
 };

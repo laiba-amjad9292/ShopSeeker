@@ -81,8 +81,6 @@ class SignUpController extends GetxController {
 
       showInfo('password_recovery'.tr, okText: 'thanks'.tr);
 
-      // forgotPasswordInitialKey.currentState?.patchValue({'email': ""});
-
       EasyLoading.dismiss();
       update();
     } on FirebaseAuthException catch (e) {

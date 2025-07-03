@@ -13,8 +13,9 @@ class ValidatorUtils {
   static var email = (value) {
     if (value == null || value.toString().trim() == "") {
       return 'this_field_is_required'.tr;
-    } else if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
-        .hasMatch(value)) {
+    } else if (!RegExp(
+      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+    ).hasMatch(value)) {
       return 'enter_valid_email'.tr;
     }
     return null;
@@ -82,8 +83,8 @@ class ValidatorUtils {
     //   return 'description_warning'.tr;
     // }
     if (
-        // alphabeticNumber1.hasMatch(input) ||
-        numericPatten2.hasMatch(input)) {
+    // alphabeticNumber1.hasMatch(input) ||
+    numericPatten2.hasMatch(input)) {
       return 'number_words_not_allowed'.tr;
     }
 
