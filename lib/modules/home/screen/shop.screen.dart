@@ -35,7 +35,7 @@ class _ShopScreenState extends State<ShopScreen> {
             child: IconButton(
               color: AppColors.primary,
               onPressed: () {
-                Get.offAll(() => const AddUpdateScreen());
+                Get.to(() => const AddUpdateScreen());
               },
               icon: Image.asset(
                 'assets/icons/addIcon.png',

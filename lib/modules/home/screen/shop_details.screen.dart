@@ -9,7 +9,6 @@ import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
 import 'package:shop_seeker/modules/home/screen/add_update_product.screen.dart';
 import 'package:shop_seeker/modules/home/screen/product_details.screen.dart';
 import 'package:shop_seeker/modules/home/widget/product_card.widget.dart';
-import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';

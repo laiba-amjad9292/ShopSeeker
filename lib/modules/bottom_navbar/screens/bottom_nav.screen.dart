@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/others/container_properties.dart';
-
 import 'package:shop_seeker/modules/bottom_navbar/controllers/bottom_nav.controller.dart';
 import 'package:shop_seeker/modules/chat/screen/all_chat_room.screen.dart';
-import 'package:shop_seeker/modules/homeextra/screen/home.screen.dart';
 import 'package:shop_seeker/modules/notifications/screen/notification.screen.dart';
 import 'package:shop_seeker/modules/profile/screens/profile.screen.dart';
 import 'package:shop_seeker/modules/home/screen/shop.screen.dart';
