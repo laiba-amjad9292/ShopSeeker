@@ -89,7 +89,7 @@ class _ShopDetailsState extends State<ShopDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 10.hp,
-                Text(shop.name ?? "unnamed", style: stylew600(size: 22)),
+                Text(shop.name, style: stylew600(size: 22)),
 
                 10.hp,
                 ClipRRect(

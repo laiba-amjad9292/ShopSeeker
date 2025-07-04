@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/global/widgets/network_image/custom_network_image.widget.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
