@@ -172,7 +172,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                     ),
                     2.wp,
                     Text(
-                      "2pm - 7pm",
+                      "2:00pm - 7:00pm",
                       style: stylew600(size: 14, color: AppColors.colorAAAAAA),
                     ),
                   ],
