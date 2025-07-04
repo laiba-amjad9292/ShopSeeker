@@ -67,22 +67,22 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                   );
                 },
                 actions: [
-                  if (widget.listing != null)
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 6.h),
-                      child: IconButton(
-                        onPressed: () {
-                          GlobalFunctions.showBottomSheet(
-                            const ConfirmDeleteBottomSheet(),
-                          );
-                        },
-                        icon: Image.asset(
-                          "assets/icons/ic_bin.png",
-                          width: 20.w,
-                          color: AppColors.white,
-                        ),
+                  // if (widget.listing != null)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.h),
+                    child: IconButton(
+                      onPressed: () {
+                        GlobalFunctions.showBottomSheet(
+                          const ConfirmDeleteBottomSheet(),
+                        );
+                      },
+                      icon: Image.asset(
+                        "assets/icons/ic_bin.png",
+                        width: 20.w,
+                        color: AppColors.white,
                       ),
                     ),
+                  ),
                 ],
               ),
               body: SingleChildScrollView(

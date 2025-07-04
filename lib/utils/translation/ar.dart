@@ -76,20 +76,89 @@ Map<String, String> ar = {
   "account_access_required_sub-heading":
       "للمتابعة في هذا الإجراء، يجب عليك تسجيل الدخول. يرجى تسجيل الدخول إلى حسابك، أو إذا لم يكن لديك حساب، يمكنك التسجيل.",
 
-  //Shop Screen
-  "search_your_shop": "ابحث في متجرك...",
-
   //Home Screen
   "hello": "مرحبًا!",
-  "search": "يبحث",
+  "search": "بحث",
+  "search_your_shop": "ابحث في متجرك...",
+  "arab_market": "السوق العربي",
 
   //Confirm logout bottomsheet
   "confirm_logout_bottomsheet_title": "تأكيد تسجيل الخروج؟",
   "confirm_logout_bottomsheet_subtitle":
-      "هل أنت متأكد أنك ترغب في متابعة تسجيل الخروج من حسابك؟",
+      "هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟",
   "confirm_logout_bottomsheet_yes_button": "تأكيد تسجيل الخروج",
-  "confirm_logout_bottomsheet_cancel_button": "يلغي",
+  "confirm_logout_bottomsheet_cancel_button": "إلغاء",
 
   //Profile Text
-  'logout': "تسجيل الخروج",
+  "logout": "تسجيل الخروج",
+
+  //Add Update Screen
+  "Add_Listing": "إضافة إعلان",
+  "add_shop": "إضافة متجر",
+  "shop_name": "اسم المتجر",
+  "enter_shop_name": "أدخل اسم المتجر",
+  "category": "الفئة",
+  "enter_shop_category": "أدخل فئة المتجر",
+  "street_and_house_no.": "الشارع ورقم المنزل",
+  "enter_street_and_house_no.": "مثال: شارع النصر ١٢، منزل ٤ب.",
+  "country": "البلد",
+  "enter_country": "أدخل البلد",
+  "city": "المدينة",
+  "enter_city": "أدخل المدينة",
+  "postal_code": "الرمز البريدي",
+  "enter_postal_code": "أدخل الرمز البريدي",
+  "timing_weekdays": "أوقات العمل (أيام الأسبوع)",
+  "timing_weekends": "أوقات العمل (عطلة نهاية الأسبوع)",
+  "opening_time": "وقت الفتح",
+  "select_opening_time": "اختر وقت الفتح",
+  "closing_time": "وقت الإغلاق",
+  "select_closing_time": "اختر وقت الإغلاق",
+  "description": "الوصف",
+  "write_here": "اكتب هنا...",
+  "Add_images": "إضافة صور",
+
+  // Attention Needed
+  "Attention_Needed": "تنبيه هام",
+  "Attention_data_lost": "إذا عدت للخلف، فسيتم فقدان بياناتك.",
+  "go_back": "العودة",
+  "cancel": "إلغاء",
+
+  //Confirm Delete Listing
+  "Confirm_Delete": "تأكيد الحذف",
+  "Confirm_Delete_subheading": "اضغط على تأكيد الحذف لحذف الإعلان",
+  "Delete": "حذف",
+
+  //Delete Media Preview
+  "do_you_want_to_Delete": "هل تريد حذف الصورة؟",
+  "do_you_want_to_Delete_subheading":
+      "أكد إذا كنت تريد حذف الصورة من الإعلان، هذا الإجراء لا يمكن التراجع عنه.",
+
+  // Global texts
+  "session_expired_login_again":
+      "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+  "something_went_wrong_try_again": "حدث خطأ ما! يرجى المحاولة مرة أخرى.",
+  "check_your_connection": "يرجى التحقق من اتصال الإنترنت الخاص بك.",
+  "Please_allow": "يرجى السماح",
+  "permission_from_app_settings": "بالوصول من إعدادات التطبيق",
+  "Open_Settings": "فتح الإعدادات",
+  "Search_Country_Code": "ابحث عن رمز الدولة",
+  "select_time_heading": "اختر الوقت",
+  "select_time_ok_button_title": "موافق",
+  "select_time_cancel_button_title": "إلغاء",
+
+  "gallery": "المعرض",
+  "camera": "الكاميرا",
+  "video": "فيديو",
+  "image": "صورة",
+  "audio": "صوت",
+  "Profile": "الملف الشخصي",
+
+  //shop details
+  "Listing_Details": "تفاصيل إعلان المتجر",
+  "Edit_Shop": "تعديل المتجر",
+  "Category": "الفئة: ",
+  "address": "العنوان",
+  "timing_on_weekday": "مواعيد العمل في أيام الأسبوع: ",
+  "timing_on_weekend": "مواعيد العمل في عطلة نهاية الأسبوع: ",
+  "products": "المنتجات",
 };

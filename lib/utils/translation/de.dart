@@ -77,20 +77,91 @@ Map<String, String> de = {
   "account_access_required_sub-heading":
       "Um mit dieser Aktion fortzufahren, müssen Sie angemeldet sein. Bitte melden Sie sich bei Ihrem Konto an. Falls Sie noch kein Konto haben, können Sie sich registrieren.",
 
-  //Shop Screen
-  "search_your_shop": "Suche in deinem Shop...",
-
   //Home Screen
   "hello": "Hallo!",
   "search": "Suchen",
+  "search_your_shop": "Suche in deinem Shop...",
+  "arab_market": "Arabischer Markt",
 
-  // Confirm logout bottomsheet
+  //Confirm logout bottomsheet
   "confirm_logout_bottomsheet_title": "Abmeldung bestätigen?",
   "confirm_logout_bottomsheet_subtitle":
       "Möchten Sie sich wirklich von Ihrem Konto abmelden?",
   "confirm_logout_bottomsheet_yes_button": "Abmeldung bestätigen",
-  "confirm_logout_bottomsheet_cancel_button": "Stornieren",
+  "confirm_logout_bottomsheet_cancel_button": "Abbrechen",
 
   //Profile Text
-  'logout': "Abmelden",
+  "logout": "Abmelden",
+
+  //Add Update Screen
+  "Add_Listing": "Eintrag hinzufügen",
+  "add_shop": "Geschäft hinzufügen",
+  "shop_name": "Geschäftsname",
+  "enter_shop_name": "Geschäftsnamen eingeben",
+  "category": "Kategorie",
+  "enter_shop_category": "Geschäftskategorie eingeben",
+  "street_and_house_no.": "Straße & Hausnummer",
+  "enter_street_and_house_no.": "z. B. Hauptstraße 23, Haus 4B.",
+  "country": "Land",
+  "enter_country": "Land eingeben",
+  "city": "Stadt",
+  "enter_city": "Stadt eingeben",
+  "postal_code": "Postleitzahl",
+  "enter_postal_code": "Postleitzahl eingeben",
+  "timing_weekdays": "Öffnungszeiten (Wochentage)",
+  "timing_weekends": "Öffnungszeiten (Wochenende)",
+  "opening_time": "Öffnungszeit",
+  "select_opening_time": "Öffnungszeit auswählen",
+  "closing_time": "Schließzeit",
+  "select_closing_time": "Schließzeit auswählen",
+  "description": "Beschreibung",
+  "write_here": "Hier schreiben...",
+  "Add_images": "Bilder hinzufügen",
+
+  // Attention Needed
+  "Attention_Needed": "Achtung erforderlich",
+  "Attention_data_lost": "Wenn Sie zurückgehen, gehen Ihre Daten verloren.",
+  "go_back": "Zurückgehen",
+  "cancel": "Abbrechen",
+
+  //Confirm Delete Listing
+  "Confirm_Delete": "Löschen bestätigen",
+  "Confirm_Delete_subheading":
+      "Klicken Sie auf 'Löschen bestätigen', um den Eintrag zu löschen",
+  "Delete": "Löschen",
+
+  //Delete Media Preview
+  "do_you_want_to_Delete": "Möchten Sie das Bild löschen?",
+  "do_you_want_to_Delete_subheading":
+      "Bestätigen Sie, ob Sie das Bild aus dem Eintrag löschen möchten – dieser Vorgang ist unwiderruflich.",
+
+  // Global texts
+  "session_expired_login_again":
+      "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+  "something_went_wrong_try_again":
+      "Etwas ist schiefgelaufen! Bitte versuchen Sie es erneut.",
+  "check_your_connection": "Bitte überprüfen Sie Ihre Internetverbindung.",
+  "Please_allow": "Bitte erlauben",
+  "permission_from_app_settings": "Berechtigung in den App-Einstellungen",
+  "Open_Settings": "Einstellungen öffnen",
+  "Search_Country_Code": "Ländercode suchen",
+  "select_time_heading": "Zeit auswählen",
+  "select_time_ok_button_title": "OK",
+  "select_time_cancel_button_title": "Abbrechen",
+
+  "gallery": "Galerie",
+  "camera": "Kamera",
+  "video": "Video",
+  "image": "Bild",
+  "audio": "Audio",
+  "Profile": "Profil",
+
+  //shop details
+  "Listing_Details": "Shop-Eintragsdetails",
+  "Edit_Shop": "Geschäft bearbeiten",
+  "Category": "Kategorie: ",
+  "address": "Adresse",
+  "timing_on_weekday": "Öffnungszeiten an Wochentagen: ",
+  "timing_on_weekend": "Öffnungszeiten am Wochenende: ",
+  "products": "Produkte",
 };

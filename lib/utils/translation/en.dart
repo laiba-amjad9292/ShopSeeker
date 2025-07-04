@@ -79,13 +79,11 @@ Map<String, String> en = {
   "account_access_required_sub-heading":
       "To proceed with this action, you need to be logged in. Please log in to your account, or if you don’t have one, you can register.",
 
-  //Shop Screen
-  "search_your_shop": "Search Your shop...",
-  "arab_market": "Arab Market",
-
   //Home Screen
   "hello": "Hello!",
   "search": "Search",
+  "search_your_shop": "Search Your shop...",
+  "arab_market": "Arab Market",
 
   //Confirm logout bottomsheet
   "confirm_logout_bottomsheet_title": "Confirm Logout?",
@@ -125,11 +123,6 @@ Map<String, String> en = {
   "Add_images": "Add images",
   // "": "",
 
-  // TimeDate Text
-  "select_time_heading": "Select Time",
-  "select_time_ok_button_title": "OK",
-  "select_time_cancel_button_title": "Cancel",
-
   // Attention Needed
   "Attention_Needed": "Attention Needed",
   "Attention_data_lost": "If you navigate back, your data will be lost.",
@@ -139,7 +132,7 @@ Map<String, String> en = {
   //Confirm Delete Listing
   "Confirm_Delete": "Confirm Delete",
   "Confirm_Delete_subheading": "Click on confirm delete to delete the listing",
-  "Delete": "",
+  "Delete": "Delete",
 
   //Delete Media Preview
   "do_you_want_to_Delete": "Do you want to delete the image",
@@ -147,7 +140,38 @@ Map<String, String> en = {
       "Confirm if you want to delete the image from the listing, this action is irreversible.",
 
   // Global texts
+  "session_expired_login_again": "Your session has expired. Please login again",
+  "something_went_wrong_try_again": "Something went wrong! Please try again",
+  "check_your_connection": "Please check your Internet connection",
+  "Please_allow": "Please_allow",
+  "permission_from_app_settings": "permission from app settings",
+  "Open_Settings": "Open Settings",
+  "Search_Country_Code": "Search Country Code",
+  "select_time_heading": "Select Time",
+  "select_time_ok_button_title": "OK",
+  "select_time_cancel_button_title": "Cancel",
+
   "": "",
   "": "",
+  "": "",
+
   // "": "",
+  "gallery": "Gallery",
+  "camera": "Camera",
+  "video": "Video",
+  "image": "Image",
+  "audio": "Audio",
+  "Profile": "Profile",
+
+  //shop details
+  "Listing_Details": "Shop Listing Details",
+  "Edit_Shop": "Edit Shop",
+  "Category": "Catagory: ",
+  "address": "Address",
+  "timing_on_weekday": "Timing on weekdays: ",
+  "timing_on_weekend": "Timing on weekends: ",
+  "products": "Products",
+
+  "": "",
+  "": "",
 };

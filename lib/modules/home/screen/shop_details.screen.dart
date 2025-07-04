@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
+import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/modules/home/models/shop.model.dart';
 import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
@@ -51,6 +52,36 @@ class _ShopDetailsState extends State<ShopDetails> {
           ),
         ],
       ),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+          child: Row(
+            children: [
+              Expanded(
+                child: AppButton(
+                  title: "go_back".tr,
+                  color: AppColors.primary30,
+                  fontColor: AppColors.primary,
+                  borderSide: const BorderSide(color: AppColors.colorEAECF0),
+                  onTap: () {
+                    Get.back();
+                  },
+                ),
+              ),
+              10.wp,
+              // if (widget.listing?.userId == UserManager.instance.userId)
+              Expanded(
+                child: AppButton(
+                  title: "Edit_Shop".tr,
+                  onTap: () {
+                    Get.to(() => AddUpdateScreen(listing: widget.listing));
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -59,11 +90,8 @@ class _ShopDetailsState extends State<ShopDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 10.hp,
-                Text(shop.name, style: stylew600(size: 22)),
-                Text(
-                  shop.address,
-                  style: stylew600(size: 14, color: AppColors.colorAAAAAA),
-                ),
+                Text(shop.name ?? "unnamed", style: stylew600(size: 22)),
+
                 10.hp,
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
@@ -72,11 +100,106 @@ class _ShopDetailsState extends State<ShopDetails> {
                     fit: BoxFit.cover,
                   ),
                 ),
+                // 10.hp,
+                //  Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: List.generate(
+                //       widget.listing?.image.length ?? 0,
+                //       (i) => Padding(
+                //             padding: const EdgeInsets.only(left: 5),
+                //             child: Container(
+                //               height: 6,
+                //               width: index == i ? 20 : 6,
+                //             ).bordered(
+                //                 color: AppColors.primary
+                //                     .withOpacity(index == i ? 1 : 0.2),
+                //                 radius: 60),
+                //           )),
+                // ),
+                10.hp,
+                Row(
+                  children: [
+                    Text(
+                      "Category".tr,
+                      style: stylew600(color: AppColors.black),
+                    ),
+                    2.wp,
+                    Text(
+                      "Food",
+                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                    ),
+                  ],
+                ),
+                5.hp,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Address".tr,
+                      style: stylew600(color: AppColors.black),
+                    ),
+
+                    Text(
+                      [
+                        shop.address,
+                        "country",
+                        " city",
+                        "postal code",
+                      ].where((e) => e.isNotEmpty).join(', '),
+                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                      softWrap: true,
+                    ),
+                  ],
+                ),
+
+                5.hp,
+
+                Text(
+                  "description".tr,
+                  style: stylew600(size: 16, color: AppColors.color101828),
+                ),
+                Text(
+                  // widget.listing?.description ?? "",
+                  "There is a description",
+                  style: stylew500(size: 14, color: AppColors.color98A2B3),
+                ),
+                10.hp,
+                Row(
+                  children: [
+                    Text(
+                      "timing_on_weekday".tr,
+                      style: stylew600(color: AppColors.black),
+                    ),
+                    2.wp,
+                    Text(
+                      "2pm - 7pm",
+                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                    ),
+                  ],
+                ),
+                5.hp,
+                Row(
+                  children: [
+                    Text(
+                      "timing_on_weekend".tr,
+                      style: stylew600(color: AppColors.black),
+                    ),
+                    2.wp,
+                    Text(
+                      "3:30pm - 8:00pm",
+                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                    ),
+                  ],
+                ),
+
                 10.hp,
                 Row(
                   children: [
                     Expanded(
-                      child: Text("Products", style: stylew600(size: 22)),
+                      child: Text(
+                        "products".tr,
+                        style: stylew600(size: 22, color: AppColors.primary),
+                      ),
                     ),
 
                     Container(

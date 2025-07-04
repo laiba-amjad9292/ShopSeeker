@@ -49,6 +49,7 @@ class _ConfirmDeleteBottomSheetState extends State<ConfirmDeleteBottomSheet> {
               children: [
                 AppButton(
                   title: "Delete".tr,
+                  fontColor: Colors.white,
                   onTap: () {
                     myListingsController.handleDeleteShopListing();
                   },

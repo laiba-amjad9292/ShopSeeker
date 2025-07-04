@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -20,8 +19,8 @@ import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
 class ShopAddingController extends GetxController {
   static ShopAddingController get instance => Get.find<ShopAddingController>();
   GlobalKey<FormBuilderState> get addShopFormKey => addUpdateListingInitialKey;
-  String currentLang = UserManager.instance.currentLang;
   final addUpdateListingInitialKey = GlobalKey<FormBuilderState>();
+
   final RxList<String> images = <String>[].obs;
   ListingModel? listingToUpdate_;
   final RxList<ListingModel> myListings = <ListingModel>[].obs;
@@ -38,6 +37,8 @@ class ShopAddingController extends GetxController {
   final Rx<TimeOfDay?> weekendOpening = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekendClosing = Rx<TimeOfDay?>(null);
 
+  String get currentLang => UserManager.instance.currentLang;
+
   String formatTime(TimeOfDay? time) {
     if (time == null) return '';
     final hour = time.hourOfPeriod.toString().padLeft(2, '0');
@@ -49,7 +50,6 @@ class ShopAddingController extends GetxController {
   Future<void> handleCreateShopListing() async {
     try {
       if (addShopFormKey.currentState?.validate() != true) return;
-
       if (images.isEmpty) {
         showError("Please add at least one image.");
         return;
@@ -57,7 +57,7 @@ class ShopAddingController extends GetxController {
 
       EasyLoading.show();
 
-      ListingModel listingModel = ListingModel.fromMap({
+      final listingModel = ListingModel.fromMap({
         "name": addShopFormKey.currentState?.getRawValue("name") ?? "",
         "category": Tr(
           translations: {
@@ -76,7 +76,7 @@ class ShopAddingController extends GetxController {
         "timingWeekends":
             '${formatTime(weekendOpening.value)} - ${formatTime(weekendClosing.value)}',
         "image": images,
-        "mainImage": images[0],
+        "mainImage": images.isNotEmpty ? images[0] : null,
         "type": Tr(translations: {'en': 'shop'}),
         "userId": FirebaseAuth.instance.currentUser?.uid,
         "createdAt": Timestamp.now(),
@@ -89,43 +89,9 @@ class ShopAddingController extends GetxController {
       Get.off(() => BottomNavigationScreen(fromLogin: false));
     } catch (e) {
       EasyLoading.dismiss();
-      showError('Something went wrong');
+      print("Error in create: $e");
+      showError(e.toString());
     }
-  }
-
-  uploadFile(XFile file, AppMediaType type) async {
-    EasyLoading.show();
-    print(' file.path ========>>>>> ${file.path}');
-    await Database.uploadFileToFirebaseStorage(
-          file: file,
-          folderName: StorageFolders.listings.name,
-          type: type,
-        )
-        .then((response) {
-          if (response != null) {
-            if (type == AppMediaType.image) {
-              images.add(response);
-            }
-          }
-          update();
-        })
-        .catchError((e) {
-          showError(e.toString());
-        });
-
-    EasyLoading.dismiss();
-  }
-
-  int? findImageIdByMediaURL(String mediaURL, AppMediaType type) {
-    if (type == AppMediaType.image) {
-      for (var image in (listingToUpdate_?.image ?? [])) {
-        if (image.image == mediaURL) {
-          return image.id;
-        }
-      }
-    }
-    // for video
-    return null;
   }
 
   Future<void> handleUpdateShopListing() async {
@@ -141,7 +107,11 @@ class ShopAddingController extends GetxController {
       final updatedListing = ListingModel.fromMap({
         'id': listingToUpdate_?.id,
         'name': addShopFormKey.currentState?.getRawValue("name") ?? "",
-        'category': addShopFormKey.currentState?.getRawValue("category") ?? "",
+        'category': Tr(
+          translations: {
+            'en': addShopFormKey.currentState?.getRawValue("category") ?? "",
+          },
+        ),
         'address': addShopFormKey.currentState?.getRawValue("address") ?? "",
         'country': addShopFormKey.currentState?.getRawValue("country") ?? "",
         'city': addShopFormKey.currentState?.getRawValue("city") ?? "",
@@ -158,7 +128,7 @@ class ShopAddingController extends GetxController {
         'description':
             addShopFormKey.currentState?.getRawValue("description") ?? "",
         'image': images,
-        'mainImage': images[0],
+        'mainImage': images.isNotEmpty ? images[0] : null,
         'userId': UserManager.instance.userId,
       });
 
@@ -169,6 +139,7 @@ class ShopAddingController extends GetxController {
       Get.back();
     } catch (e) {
       EasyLoading.dismiss();
+      print("Error in update: $e");
       showError(e.toString());
     }
   }
@@ -179,10 +150,11 @@ class ShopAddingController extends GetxController {
       await Database.handleDeleteShopListing(listingToUpdate_?.id ?? "");
       EasyLoading.dismiss();
       showSuccess('Listing deleted successfully');
-      Get.back(); // Close confirm delete
-      Get.back(); // Back to listings
+      Get.back();
+      Get.back();
     } catch (e) {
       EasyLoading.dismiss();
+      print("Error in delete: $e");
       showError(e.toString());
     }
   }
@@ -191,14 +163,10 @@ class ShopAddingController extends GetxController {
     GlobalFunctions.showBottomSheet(
       ImageDeletePreviewBottomSheet(() {
         try {
-          int? id = findImageIdByMediaURL(images[i], type);
-          if (id != null) {
-            // deleteMediaEx(id, type);
-          }
-        } catch (e) {}
-        if (type == AppMediaType.image) {
           images.removeAt(i);
           update();
+        } catch (e) {
+          print("Error deleting media: $e");
         }
         Get.back();
       }, images[i]),
@@ -215,15 +183,12 @@ class ShopAddingController extends GetxController {
     ShopAddingController controller,
   ) {
     controller.images.clear();
-
     if (listingToUpdate != null) {
-      Future.delayed(Duration.zero, () {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         for (var i in listingToUpdate.image) {
           controller.images.add(i);
         }
-
         controller.listingToUpdate_ = listingToUpdate;
-
         controller.addShopFormKey.currentState?.patchValue({
           'name': listingToUpdate.name,
           'category':
@@ -234,7 +199,6 @@ class ShopAddingController extends GetxController {
           'postal_code': listingToUpdate.postalCode,
           'description': listingToUpdate.description,
         });
-
         controller.weekdayOpeningController.text =
             listingToUpdate.timingWeekdays.split(" - ").first.trim();
         controller.weekdayClosingController.text =
@@ -243,7 +207,6 @@ class ShopAddingController extends GetxController {
             listingToUpdate.timingWeekends.split(" - ").first.trim();
         controller.weekendClosingController.text =
             listingToUpdate.timingWeekends.split(" - ").last.trim();
-
         controller.update();
       });
     } else {
@@ -251,7 +214,26 @@ class ShopAddingController extends GetxController {
         'category': 'General',
       });
     }
-
     print(listingToUpdate?.id ?? "Creating new shop listing");
+  }
+
+  uploadFile(XFile file, AppMediaType type) async {
+    try {
+      EasyLoading.show();
+      final response = await Database.uploadFileToFirebaseStorage(
+        file: file,
+        folderName: StorageFolders.listings.name,
+        type: type,
+      );
+      if (response != null && type == AppMediaType.image) {
+        images.add(response);
+        update();
+      }
+    } catch (e) {
+      print("Upload error: $e");
+      showError(e.toString());
+    } finally {
+      EasyLoading.dismiss();
+    }
   }
 }

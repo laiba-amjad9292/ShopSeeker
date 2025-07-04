@@ -55,8 +55,8 @@ class OpenActionSheet<T> {
             24.hp,
             AppButton(
               title: "cancel".tr,
-              color: AppColors.colorF2F4F7,
-              fontColor: AppColors.color1D2939,
+              color: AppColors.primary30,
+              fontColor: AppColors.primary,
               borderSide: const BorderSide(color: AppColors.colorEAECF0),
               onTap: () {
                 Get.back();

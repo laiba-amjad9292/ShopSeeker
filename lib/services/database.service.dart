@@ -146,6 +146,23 @@ class Database {
     }
   }
 
+  static Future<List<ListingModel>> getMyListings(String userId) async {
+    try {
+      final query =
+          await instance
+              .collection('listings')
+              .where('userId', isEqualTo: userId)
+              .get();
+
+      return query.docs
+          .map((doc) => ListingModel.fromDocumentSnapshot(doc))
+          .toList();
+    } catch (e) {
+      log(e.toString());
+      return [];
+    }
+  }
+
   static Future<bool> handleDeleteShopListing(String id) async {
     try {
       await instance.collection("listings").doc(id).delete();
