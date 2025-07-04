@@ -27,7 +27,7 @@ class _ShopScreenState extends State<ShopScreen> {
       appBar: CustomAppBar(
         backButton: false,
         appBarColor: AppColors.primary,
-        title: "Arab Market",
+        title: "arab_market".tr,
         titleColor: AppColors.white,
         actions: [
           Container(
@@ -35,7 +35,7 @@ class _ShopScreenState extends State<ShopScreen> {
             child: IconButton(
               color: AppColors.primary,
               onPressed: () {
-                Get.to(() => const AddUpdateScreen());
+                Get.offAll(() => const AddUpdateScreen());
               },
               icon: Image.asset(
                 'assets/icons/addIcon.png',

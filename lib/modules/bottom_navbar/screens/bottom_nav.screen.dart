@@ -73,11 +73,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                   visible: value.currentIndex == 1,
                   child: const ChatScreen(),
                 ),
-                // Visibility(
-                //   maintainState: false,
-                //   visible: value.currentIndex == 2,
-                //   child: const ,
-                // ),
+
                 Visibility(
                   maintainState: false,
                   visible: value.currentIndex == 2,

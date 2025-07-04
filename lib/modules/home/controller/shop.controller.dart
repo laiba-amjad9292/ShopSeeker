@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -17,11 +19,13 @@ import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
 
 class ShopAddingController extends GetxController {
   static ShopAddingController get instance => Get.find<ShopAddingController>();
+  GlobalKey<FormBuilderState> get addShopFormKey => addUpdateListingInitialKey;
   String currentLang = UserManager.instance.currentLang;
-  final addShopFormKey = GlobalKey<FormBuilderState>();
   final addUpdateListingInitialKey = GlobalKey<FormBuilderState>();
   final RxList<String> images = <String>[].obs;
   ListingModel? listingToUpdate_;
+  final RxList<ListingModel> myListings = <ListingModel>[].obs;
+  final RxBool isLoading = false.obs;
 
   final RxString selectedCountry = ''.obs;
   final weekdayOpeningController = TextEditingController();
@@ -124,6 +128,65 @@ class ShopAddingController extends GetxController {
     return null;
   }
 
+  Future<void> handleUpdateShopListing() async {
+    try {
+      if (addShopFormKey.currentState?.validate() != true) return;
+      if (images.isEmpty) {
+        showError("add_at_least_one_image".tr);
+        return;
+      }
+
+      EasyLoading.show();
+
+      final updatedListing = ListingModel.fromMap({
+        'id': listingToUpdate_?.id,
+        'name': addShopFormKey.currentState?.getRawValue("name") ?? "",
+        'category': addShopFormKey.currentState?.getRawValue("category") ?? "",
+        'address': addShopFormKey.currentState?.getRawValue("address") ?? "",
+        'country': addShopFormKey.currentState?.getRawValue("country") ?? "",
+        'city': addShopFormKey.currentState?.getRawValue("city") ?? "",
+        'postalCode':
+            addShopFormKey.currentState?.getRawValue("postal_code") ?? "",
+        'weekdayTiming': {
+          'opening': weekdayOpeningController.text,
+          'closing': weekdayClosingController.text,
+        },
+        'weekendTiming': {
+          'opening': weekendOpeningController.text,
+          'closing': weekendClosingController.text,
+        },
+        'description':
+            addShopFormKey.currentState?.getRawValue("description") ?? "",
+        'image': images,
+        'mainImage': images[0],
+        'userId': UserManager.instance.userId,
+      });
+
+      await Database.updateShopListing(updatedListing);
+
+      EasyLoading.dismiss();
+      showSuccess('Listing updated successfully'.tr);
+      Get.back();
+    } catch (e) {
+      EasyLoading.dismiss();
+      showError(e.toString());
+    }
+  }
+
+  Future<void> handleDeleteShopListing() async {
+    try {
+      EasyLoading.show();
+      await Database.handleDeleteShopListing(listingToUpdate_?.id ?? "");
+      EasyLoading.dismiss();
+      showSuccess('Listing deleted successfully');
+      Get.back(); // Close confirm delete
+      Get.back(); // Back to listings
+    } catch (e) {
+      EasyLoading.dismiss();
+      showError(e.toString());
+    }
+  }
+
   Future<void> handleDeleteMedia(int i, AppMediaType type) async {
     GlobalFunctions.showBottomSheet(
       ImageDeletePreviewBottomSheet(() {
@@ -145,5 +208,50 @@ class ShopAddingController extends GetxController {
   void clearImages() {
     images.clear();
     update();
+  }
+
+  static void upsertData(
+    ListingModel? listingToUpdate,
+    ShopAddingController controller,
+  ) {
+    controller.images.clear();
+
+    if (listingToUpdate != null) {
+      Future.delayed(Duration.zero, () {
+        for (var i in listingToUpdate.image) {
+          controller.images.add(i);
+        }
+
+        controller.listingToUpdate_ = listingToUpdate;
+
+        controller.addShopFormKey.currentState?.patchValue({
+          'name': listingToUpdate.name,
+          'category':
+              listingToUpdate.category.translations[controller.currentLang],
+          'address': listingToUpdate.address,
+          'country': listingToUpdate.country,
+          'city': listingToUpdate.city,
+          'postal_code': listingToUpdate.postalCode,
+          'description': listingToUpdate.description,
+        });
+
+        controller.weekdayOpeningController.text =
+            listingToUpdate.timingWeekdays.split(" - ").first.trim();
+        controller.weekdayClosingController.text =
+            listingToUpdate.timingWeekdays.split(" - ").last.trim();
+        controller.weekendOpeningController.text =
+            listingToUpdate.timingWeekends.split(" - ").first.trim();
+        controller.weekendClosingController.text =
+            listingToUpdate.timingWeekends.split(" - ").last.trim();
+
+        controller.update();
+      });
+    } else {
+      controller.addShopFormKey.currentState?.patchValue({
+        'category': 'General',
+      });
+    }
+
+    print(listingToUpdate?.id ?? "Creating new shop listing");
   }
 }

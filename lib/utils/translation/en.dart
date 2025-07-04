@@ -81,6 +81,7 @@ Map<String, String> en = {
 
   //Shop Screen
   "search_your_shop": "Search Your shop...",
+  "arab_market": "Arab Market",
 
   //Home Screen
   "hello": "Hello!",
@@ -97,6 +98,7 @@ Map<String, String> en = {
   'logout': "Logout",
 
   //Add Update Screen
+  "Add_Listing": "Add Listing",
   "add_shop": "Add Shop",
   "shop_name": "Shop Name",
   "enter_shop_name": "Enter shop name",
@@ -112,7 +114,6 @@ Map<String, String> en = {
   "enter_city": "Enter city",
   "postal_code": "Postal code",
   "enter_postal_code": "Postal code",
-
   "timing_weekdays": "Timing Weekdays",
   "timing_weekends": "Timing Weekends",
   "opening_time": "Opening Time",
@@ -121,11 +122,32 @@ Map<String, String> en = {
   "select_closing_time": "Select closing time",
   "description": "Description",
   "write_here": "Write here...",
-  "add_images": "Add images",
+  "Add_images": "Add images",
   // "": "",
 
   // TimeDate Text
   "select_time_heading": "Select Time",
   "select_time_ok_button_title": "OK",
   "select_time_cancel_button_title": "Cancel",
+
+  // Attention Needed
+  "Attention_Needed": "Attention Needed",
+  "Attention_data_lost": "If you navigate back, your data will be lost.",
+  "go_back": "Go back",
+  "cancel": "Cancel",
+
+  //Confirm Delete Listing
+  "Confirm_Delete": "Confirm Delete",
+  "Confirm_Delete_subheading": "Click on confirm delete to delete the listing",
+  "Delete": "",
+
+  //Delete Media Preview
+  "do_you_want_to_Delete": "Do you want to delete the image",
+  "do_you_want_to_Delete_subheading":
+      "Confirm if you want to delete the image from the listing, this action is irreversible.",
+
+  // Global texts
+  "": "",
+  "": "",
+  // "": "",
 };

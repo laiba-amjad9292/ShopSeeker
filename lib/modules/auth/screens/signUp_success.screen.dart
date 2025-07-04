@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
 import 'package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart';
+import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';

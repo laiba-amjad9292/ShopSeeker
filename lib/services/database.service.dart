@@ -129,5 +129,31 @@ class Database {
       return null;
     }
   }
-  
+
+  static Future<bool> updateShopListing(ListingModel listingModel) async {
+    try {
+      if (listingModel.id.isNotEmpty) {
+        await instance
+            .collection("listings")
+            .doc(listingModel.id)
+            .update(listingModel.toMap());
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> handleDeleteShopListing(String id) async {
+    try {
+      await instance.collection("listings").doc(id).delete();
+
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 }
