@@ -5,7 +5,7 @@ class ListingModel {
   final String userId;
   final String id;
   final String name;
-  final Tr category;
+  final String category;
   final String address;
   final String country;
   final String city;
@@ -41,7 +41,7 @@ class ListingModel {
       id: map['id'] ?? '',
       userId: map['userId'] ?? '',
       name: map['name'] ?? '',
-      category: Tr.fromMap(map['category'] ?? {}),
+      category: map['category'] ?? '',
       address: map['address'] ?? '',
       country: map['country'] ?? '',
       city: map['city'] ?? '',
@@ -52,6 +52,7 @@ class ListingModel {
       image: List<String>.from(map['image'] ?? []),
       mainImage: map['mainImage'] ?? '',
       type: Tr.fromMap(map['type'] ?? {}),
+      // type: Tr(map['type'] ?? 'shop'),
       createdAt: map['createdAt'],
     );
   }
@@ -61,7 +62,7 @@ class ListingModel {
       'userId': userId,
       'id': id,
       'name': name,
-      'category': category.translations,
+      'category': category,
       'address': address,
       'country': country,
       'city': city,

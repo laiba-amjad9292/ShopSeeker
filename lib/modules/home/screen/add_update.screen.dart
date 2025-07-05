@@ -28,11 +28,12 @@ class AddUpdateScreen extends StatefulWidget {
 }
 
 class _AddUpdateScreenState extends State<AddUpdateScreen> {
-  final controller = Get.put(ShopAddingController());
+  final controller = Get.find<ShopAddingController>();
+
   @override
   void initState() {
-    ShopAddingController.upsertData(widget.listing, controller);
     super.initState();
+    ShopAddingController.upsertData(widget.listing, controller);
   }
 
   @override
@@ -51,7 +52,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
             logic.images.clear();
           },
           child: FormBuilder(
-            key: logic.addShopFormKey,
+            key: logic.addUpdateListingInitialKey,
+            initialValue: widget.listing?.toMap() ?? {},
             child: Scaffold(
               appBar: CustomAppBar(
                 title:
@@ -67,22 +69,22 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                   );
                 },
                 actions: [
-                  // if (widget.listing != null)
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 6.h),
-                    child: IconButton(
-                      onPressed: () {
-                        GlobalFunctions.showBottomSheet(
-                          const ConfirmDeleteBottomSheet(),
-                        );
-                      },
-                      icon: Image.asset(
-                        "assets/icons/ic_bin.png",
-                        width: 20.w,
-                        color: AppColors.white,
+                  if (widget.listing != null)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.h),
+                      child: IconButton(
+                        onPressed: () {
+                          GlobalFunctions.showBottomSheet(
+                            const ConfirmDeleteBottomSheet(),
+                          );
+                        },
+                        icon: Image.asset(
+                          "assets/icons/ic_bin.png",
+                          width: 20.w,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
               body: SingleChildScrollView(
@@ -123,27 +125,19 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                         hintText: 'enter_country'.tr,
                         isRequired: true,
                         readOnly: true,
-                        controller:
-                            logic.countryController, // Use declared controller
+                        controller: logic.countryController,
                         onTap: () {
                           GlobalFunctions.countryCodePickerWidget(context, (
                             Country country,
                           ) {
-                            final flag = GlobalFunctions.getFlagEmoji(
-                              country.countryCode,
-                            );
-                            final selected = "${flag} ${country.name}";
-
+                            final selected = country.name;
                             logic.selectedCountry.value = selected;
                             logic.countryController.text = selected;
-
-                            // 🔥 Required line for FormBuilder validation
                             controller
-                                .addShopFormKey
+                                .addUpdateListingInitialKey
                                 .currentState
                                 ?.fields['country']
                                 ?.didChange(selected);
-
                             logic.update();
                           });
                         },
@@ -164,7 +158,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           Expanded(
                             child: CustomTextField(
                               validator: ValidatorUtils.req,
-                              keyName: 'postal_code',
+                              keyName: 'postalCode',
                               heading: 'postal_code'.tr,
                               hintText: 'postal_code'.tr,
                               isRequired: true,
@@ -184,7 +178,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           Expanded(
                             child: CustomTextField(
                               validator: ValidatorUtils.req,
-                              keyName: 'opening_time',
+                              keyName: 'weekdayOpeningTime',
                               heading: 'opening_time'.tr,
                               hintText: 'select_opening_time'.tr,
                               readOnly: true,
@@ -193,14 +187,16 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                   context,
                                 );
                                 if (picked != null) {
-                                  controller
-                                      .weekdayOpening
-                                      .value = TimeOfDay.fromDateTime(picked);
+                                  final time = TimeOfDay.fromDateTime(picked);
+                                  controller.weekdayOpening.value = time;
                                   controller
                                       .weekdayOpeningController
-                                      .text = controller.formatTime(
-                                    controller.weekdayOpening.value,
-                                  );
+                                      .text = controller.formatTime(time);
+                                  controller
+                                      .addUpdateListingInitialKey
+                                      .currentState
+                                      ?.fields['weekdayOpeningTime']
+                                      ?.didChange(controller.formatTime(time));
                                 }
                               },
                               controller: controller.weekdayOpeningController,
@@ -210,7 +206,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           Expanded(
                             child: CustomTextField(
                               validator: ValidatorUtils.req,
-                              keyName: 'closing_time',
+                              keyName: 'weekdayClosingTime',
                               heading: 'closing_time'.tr,
                               hintText: 'select_closing_time'.tr,
                               readOnly: true,
@@ -219,14 +215,16 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                   context,
                                 );
                                 if (picked != null) {
-                                  controller
-                                      .weekdayClosing
-                                      .value = TimeOfDay.fromDateTime(picked);
+                                  final time = TimeOfDay.fromDateTime(picked);
+                                  controller.weekdayClosing.value = time;
                                   controller
                                       .weekdayClosingController
-                                      .text = controller.formatTime(
-                                    controller.weekdayClosing.value,
-                                  );
+                                      .text = controller.formatTime(time);
+                                  controller
+                                      .addUpdateListingInitialKey
+                                      .currentState
+                                      ?.fields['weekdayClosingTime']
+                                      ?.didChange(controller.formatTime(time));
                                 }
                               },
                               controller: controller.weekdayClosingController,
@@ -234,7 +232,6 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           ),
                         ],
                       ),
-
                       16.hp,
                       Text(
                         "timing_weekends".tr,
@@ -246,7 +243,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           Expanded(
                             child: CustomTextField(
                               validator: ValidatorUtils.req,
-                              keyName: 'opening_time',
+                              keyName: 'weekendOpeningTime',
                               heading: 'opening_time'.tr,
                               hintText: 'select_opening_time'.tr,
                               readOnly: true,
@@ -255,14 +252,16 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                   context,
                                 );
                                 if (picked != null) {
-                                  controller
-                                      .weekendOpening
-                                      .value = TimeOfDay.fromDateTime(picked);
+                                  final time = TimeOfDay.fromDateTime(picked);
+                                  controller.weekendOpening.value = time;
                                   controller
                                       .weekendOpeningController
-                                      .text = controller.formatTime(
-                                    controller.weekendOpening.value,
-                                  );
+                                      .text = controller.formatTime(time);
+                                  controller
+                                      .addUpdateListingInitialKey
+                                      .currentState
+                                      ?.fields['weekendOpeningTime']
+                                      ?.didChange(controller.formatTime(time));
                                 }
                               },
                               controller: controller.weekendOpeningController,
@@ -272,7 +271,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           Expanded(
                             child: CustomTextField(
                               validator: ValidatorUtils.req,
-                              keyName: 'closing_time',
+                              keyName: 'weekendClosingTime',
                               heading: 'closing_time'.tr,
                               hintText: 'select_closing_time'.tr,
                               readOnly: true,
@@ -281,14 +280,16 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                                   context,
                                 );
                                 if (picked != null) {
-                                  controller
-                                      .weekendClosing
-                                      .value = TimeOfDay.fromDateTime(picked);
+                                  final time = TimeOfDay.fromDateTime(picked);
+                                  controller.weekendClosing.value = time;
                                   controller
                                       .weekendClosingController
-                                      .text = controller.formatTime(
-                                    controller.weekendClosing.value,
-                                  );
+                                      .text = controller.formatTime(time);
+                                  controller
+                                      .addUpdateListingInitialKey
+                                      .currentState
+                                      ?.fields['weekendClosingTime']
+                                      ?.didChange(controller.formatTime(time));
                                 }
                               },
                               controller: controller.weekendClosingController,
@@ -296,7 +297,6 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                           ),
                         ],
                       ),
-
                       16.hp,
                       CustomTextField(
                         validator: ValidatorUtils.description,
@@ -310,14 +310,13 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                       16.hp,
                       AttachmentsWidget(
                         heading: 'Add_images'.tr,
-                        images: [...logic.images],
+                        images: [...logic.displayImages],
                         onlyImage: true,
                         minimumAttachments: 1,
                         videos: const [],
                         handleUploadFile: logic.uploadFile,
                         handleDeleteMedia: logic.handleDeleteMedia,
                       ),
-
                       20.hp,
                     ],
                   ),

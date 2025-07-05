@@ -1,22 +1,20 @@
 import 'package:get/get.dart';
-import 'package:shop_seeker/modules/home/models/shop.model.dart';
+import 'package:shop_seeker/modules/home/models/product_listing.model.dart';
 
 class ShopListingController extends GetxController {
-  var shopProductList = <ShopModel>[].obs;
+  var shopProductList = <ProductModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadShops();
+    loadProducts();
   }
 
-  void loadShops() {
+  void loadProducts() {
     final data = [
       {
         'id': '1',
         'name': 'Falafel House',
-        'address': 'Riyadh, Al Madinah Street',
-        'image': 'assets/images/Falafel.jpg',
         'products': [
           {
             'name': 'Shawarma Roll',
@@ -35,8 +33,6 @@ class ShopListingController extends GetxController {
       {
         'id': '2',
         'name': 'Mandi Palace',
-        'address': 'Jeddah, King Fahd Road',
-        'image': 'assets/images/Falafel.jpg',
         'products': [
           {
             'name': 'Mandi Rice',
@@ -54,6 +50,15 @@ class ShopListingController extends GetxController {
       },
     ];
 
-    shopProductList.value = data.map((e) => ShopModel.fromMap(e)).toList();
+    List<ProductModel> products = [];
+    for (var shop in data) {
+      final productList =
+          (shop['products'] as List)
+              .map((item) => ProductModel.fromMap(item))
+              .toList();
+      products.addAll(productList);
+    }
+
+    shopProductList.value = products;
   }
 }

@@ -10,6 +10,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_seeker/global/widgets/error_handler.widget.dart';
 import 'package:shop_seeker/modules/auth/screens/login_or_signUp.screen.dart';
 import 'package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart';
+import 'package:shop_seeker/modules/home/controller/shop.controller.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/bindings/initial_bindings.util.dart';
 import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
@@ -50,7 +51,7 @@ Future<void> main() async {
   //   });
   // }
   EasyLoading.dismiss();
-
+  Get.create(() => ShopAddingController());
   runApp(OverlaySupport(child: BoosterMaterialApp()));
 }
 

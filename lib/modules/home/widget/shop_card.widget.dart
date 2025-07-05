@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:shop_seeker/modules/home/controller/shop.controller.dart';
-import 'package:shop_seeker/modules/home/models/shop.model.dart';
 import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/modules/home/screen/shop_details.screen.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
-class ShopCard extends StatelessWidget {
+class ShopCard extends StatefulWidget {
   final ListingModel? listing;
-  final ShopModel shop;
   final VoidCallback onTap;
 
-  const ShopCard({
-    super.key,
-    required this.shop,
-    required this.onTap,
-    this.listing,
-  });
+  const ShopCard({super.key, required this.onTap, this.listing});
 
+  @override
+  State<ShopCard> createState() => _ShopCardState();
+}
+
+class _ShopCardState extends State<ShopCard> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ShopAddingController>(
       builder: (logic) {
         return GestureDetector(
           onTap: () {
-            logic.listingToUpdate_ = listing;
-            Get.to(() => ShopDetails(listing: listing, shop: shop));
+            logic.listingToUpdate_ = widget.listing;
+            Get.to(() => ShopDetails(listing: widget.listing));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -48,8 +45,10 @@ class ShopCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(15),
                   ),
-                  child: Image.asset(
-                    shop.image,
+                  child: Image.network(
+                    widget.listing?.mainImage.isNotEmpty == true
+                        ? widget.listing!.mainImage
+                        : 'https://via.placeholder.com/300',
                     height: 130,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -64,14 +63,14 @@ class ShopCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        shop.name,
+                        widget.listing?.name ?? "",
                         style: stylew600(size: 18),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        shop.address,
+                        widget.listing?.address ?? "",
                         style: stylew600(
                           size: 13,
                           color: AppColors.colorAAAAAA,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:math' as math;
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path/path.dart' as path;
 import 'package:camera/camera.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -146,20 +147,38 @@ class Database {
     }
   }
 
-  static Future<List<ListingModel>> getMyListings(String userId) async {
+  static Future<List<ListingModel>> getMyShopListing(String userId) async {
     try {
-      final query =
+      final snapshot =
           await instance
               .collection('listings')
               .where('userId', isEqualTo: userId)
               .get();
 
-      return query.docs
+      print("User's shops found: ${snapshot.docs.length}");
+
+      return snapshot.docs
           .map((doc) => ListingModel.fromDocumentSnapshot(doc))
           .toList();
     } catch (e) {
-      log(e.toString());
-      return [];
+      print("Error in getMyShopListing: $e");
+      rethrow;
+    }
+  }
+
+  /// ✅ Get all shops for guests (not logged in)
+  static Future<List<ListingModel>> getAllShopListings() async {
+    try {
+      final snapshot = await instance.collection('listings').get();
+
+      print("All shops found: ${snapshot.docs.length}");
+
+      return snapshot.docs
+          .map((doc) => ListingModel.fromDocumentSnapshot(doc))
+          .toList();
+    } catch (e) {
+      print("Error in getAllShopListings: $e");
+      rethrow;
     }
   }
 

@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/others/container_properties.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
+import 'package:shop_seeker/global/widgets/no_item_found/not_items.widget.dart';
 import 'package:shop_seeker/global/widgets/textfield.widget.dart';
-import 'package:shop_seeker/modules/home/controller/shop_listing.controller.dart';
+import 'package:shop_seeker/modules/home/controller/shop.controller.dart';
 import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
-import 'package:shop_seeker/modules/home/screen/shop_details.screen.dart';
 import 'package:shop_seeker/modules/home/widget/shop_card.widget.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
@@ -19,7 +20,13 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  final ShopListingController controller = Get.put(ShopListingController());
+  final ShopAddingController controller = Get.put(ShopAddingController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.handleGetShopListing();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,6 @@ class _ShopScreenState extends State<ShopScreen> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 6.w),
             child: IconButton(
-              color: AppColors.primary,
               onPressed: () {
                 Get.to(() => const AddUpdateScreen());
               },
@@ -47,55 +53,100 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              10.hp,
-              Container(
-                height: 59.h,
-                decoration: ContainerProperties.shadowDecoration(
-                  color: AppColors.white,
-                  radius: 11,
-                  blurRadius: 20,
-                  xd: 0,
-                  yd: 5,
-                ),
-                child: CustomTextField(
-                  showTitle: false,
-                  hintText: "search_your_shop".tr,
-                  keyName: "search",
-                  focusedBorderColor: Colors.transparent,
-                  enabledBorderColor: Colors.transparent,
-                  prefixIcon: Image.asset(
-                    'assets/icons/SearchIcon.png',
-                    color: AppColors.colorAAAAAA,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.handleGetShopListing();
+        },
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (controller.myListings.isEmpty) {
+            final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+
+            return ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                10.hp,
+                Container(
+                  height: 59.h,
+                  decoration: ContainerProperties.shadowDecoration(
+                    color: AppColors.white,
+                    radius: 11,
+                    blurRadius: 20,
+                    xd: 0,
+                    yd: 5,
+                  ),
+                  child: CustomTextField(
+                    showTitle: false,
+                    hintText: "search_your_shop".tr,
+                    keyName: "search",
+                    focusedBorderColor: Colors.transparent,
+                    enabledBorderColor: Colors.transparent,
+                    prefixIcon: Image.asset(
+                      'assets/icons/SearchIcon.png',
+                      color: AppColors.colorAAAAAA,
+                    ),
                   ),
                 ),
-              ),
-              16.hp,
-              Expanded(
-                child: Obx(() {
-                  final shopList = controller.shopProductList;
-                  return ListView.builder(
-                    itemCount: shopList.length,
-                    itemBuilder: (context, index) {
-                      final shop = shopList[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        child: ShopCard(
-                          shop: shop,
-                          onTap: () => Get.to(() => ShopDetails(shop: shop)),
+                24.hp,
+                NoItemFound(
+                  heading: "No_shops_found".tr,
+                  subheading:
+                      isLoggedIn
+                          ? "please_add_a_new_shop_to_get_started".tr
+                          : "Stay_tuned_for_updates".tr,
+                  primaryButtonTitle: isLoggedIn ? "add_shop".tr : null,
+                  onPrimaryClick:
+                      isLoggedIn
+                          ? () => Get.to(() => const AddUpdateScreen())
+                          : null,
+                ),
+              ],
+            );
+          }
+
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: controller.myListings.length + 1,
+            separatorBuilder: (_, __) => 12.hp,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Column(
+                  children: [
+                    10.hp,
+                    Container(
+                      height: 59.h,
+                      decoration: ContainerProperties.shadowDecoration(
+                        color: AppColors.white,
+                        radius: 11,
+                        blurRadius: 20,
+                        xd: 0,
+                        yd: 5,
+                      ),
+                      child: CustomTextField(
+                        showTitle: false,
+                        hintText: "search_your_shop".tr,
+                        keyName: "search",
+                        focusedBorderColor: Colors.transparent,
+                        enabledBorderColor: Colors.transparent,
+                        prefixIcon: Image.asset(
+                          'assets/icons/SearchIcon.png',
+                          color: AppColors.colorAAAAAA,
                         ),
-                      );
-                    },
-                  );
-                }),
-              ),
-            ],
-          ),
-        ),
+                      ),
+                    ),
+                    16.hp,
+                  ],
+                );
+              }
+
+              final shop = controller.myListings[index - 1];
+              return ShopCard(listing: shop, onTap: () {});
+            },
+          );
+        }),
       ),
     );
   }

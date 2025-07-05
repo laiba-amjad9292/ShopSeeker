@@ -164,4 +164,11 @@ Map<String, String> de = {
   "timing_on_weekday": "Öffnungszeiten an Wochentagen: ",
   "timing_on_weekend": "Öffnungszeiten am Wochenende: ",
   "products": "Produkte",
+
+  "No_shops_found": "Keine Geschäfte gefunden",
+  "Not_found": "Nicht gefunden",
+  "Stay_tuned_for_updates": "Bleiben Sie dran für Updates",
+  "No_Listings_Found": "Keine Einträge gefunden",
+  "please_add_a_new_shop_to_get_started":
+      "Bitte fügen Sie ein neues Geschäft hinzu, um zu beginnen",
 };

@@ -3,21 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
-import 'package:shop_seeker/modules/home/models/shop.model.dart';
 import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
 import 'package:shop_seeker/modules/home/screen/add_update_product.screen.dart';
-import 'package:shop_seeker/modules/home/screen/product_details.screen.dart';
-import 'package:shop_seeker/modules/home/widget/product_card.widget.dart';
+import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
 class ShopDetails extends StatefulWidget {
   final ListingModel? listing;
-  final ShopModel shop;
 
-  const ShopDetails({super.key, required this.shop, this.listing});
+  const ShopDetails({super.key, this.listing});
   @override
   State<ShopDetails> createState() => _ShopDetailsState();
 }
@@ -25,7 +22,6 @@ class ShopDetails extends StatefulWidget {
 class _ShopDetailsState extends State<ShopDetails> {
   @override
   Widget build(BuildContext context) {
-    final ShopModel shop = widget.shop;
     return Scaffold(
       appBar: CustomAppBar(
         title: "Listing_Details".tr,
@@ -34,21 +30,21 @@ class _ShopDetailsState extends State<ShopDetails> {
         centeredTitle: false,
         appBarColor: AppColors.primary,
         actions: [
-          // if (widget.listing?.userId == UserManager.instance.userId)
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 6.w),
-            child: IconButton(
-              color: AppColors.primary,
-              onPressed: () {
-                Get.to(() => AddUpdateScreen(listing: widget.listing));
-              },
-              icon: Image.asset(
-                'assets/icons/ic_edit.png',
-                width: 25,
-                color: AppColors.white,
+          if (widget.listing?.userId == UserManager.instance.userId)
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 6.w),
+              child: IconButton(
+                color: AppColors.primary,
+                onPressed: () {
+                  Get.to(() => AddUpdateScreen(listing: widget.listing));
+                },
+                icon: Image.asset(
+                  'assets/icons/ic_edit.png',
+                  width: 25,
+                  color: AppColors.white,
+                ),
               ),
             ),
-          ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -68,15 +64,15 @@ class _ShopDetailsState extends State<ShopDetails> {
                 ),
               ),
               10.wp,
-              // if (widget.listing?.userId == UserManager.instance.userId)
-              Expanded(
-                child: AppButton(
-                  title: "Edit_Shop".tr,
-                  onTap: () {
-                    Get.to(() => AddUpdateScreen(listing: widget.listing));
-                  },
+              if (widget.listing?.userId == UserManager.instance.userId)
+                Expanded(
+                  child: AppButton(
+                    title: "Edit_Shop".tr,
+                    onTap: () {
+                      Get.to(() => AddUpdateScreen(listing: widget.listing));
+                    },
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -89,17 +85,25 @@ class _ShopDetailsState extends State<ShopDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 10.hp,
-                Text(shop.name, style: stylew600(size: 22)),
+                Text(widget.listing?.name ?? "", style: stylew600(size: 22)),
 
                 10.hp,
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    "assets/images/Falafel.jpg",
+                  child: Image.network(
+                    widget.listing?.mainImage?.isNotEmpty == true
+                        ? widget.listing!.mainImage!
+                        : 'https://via.placeholder.com/300',
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network(
+                        'https://via.placeholder.com/300',
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
-                // 10.hp,
+                10.hp,
                 //  Row(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: List.generate(
@@ -124,7 +128,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                     ),
                     2.wp,
                     Text(
-                      "Food",
+                      widget.listing?.category ?? "",
                       style: stylew600(size: 14, color: AppColors.colorAAAAAA),
                     ),
                   ],
@@ -140,10 +144,10 @@ class _ShopDetailsState extends State<ShopDetails> {
 
                     Text(
                       [
-                        shop.address,
-                        "country",
-                        " city",
-                        "postal code",
+                        widget.listing?.address ?? "",
+                        widget.listing?.country ?? "",
+                        widget.listing?.city ?? "",
+                        widget.listing?.postalCode ?? "",
                       ].where((e) => e.isNotEmpty).join(', '),
                       style: stylew600(size: 14, color: AppColors.colorAAAAAA),
                       softWrap: true,
@@ -158,8 +162,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                   style: stylew600(size: 16, color: AppColors.color101828),
                 ),
                 Text(
-                  // widget.listing?.description ?? "",
-                  "There is a description",
+                  widget.listing?.description ?? "",
                   style: stylew500(size: 14, color: AppColors.color98A2B3),
                 ),
                 10.hp,
@@ -171,7 +174,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                     ),
                     2.wp,
                     Text(
-                      "2:00pm - 7:00pm",
+                      widget.listing?.timingWeekdays ?? '',
                       style: stylew600(size: 14, color: AppColors.colorAAAAAA),
                     ),
                   ],
@@ -185,7 +188,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                     ),
                     2.wp,
                     Text(
-                      "3:30pm - 8:00pm",
+                      widget.listing?.timingWeekends ?? '',
                       style: stylew600(size: 14, color: AppColors.colorAAAAAA),
                     ),
                   ],
@@ -219,26 +222,26 @@ class _ShopDetailsState extends State<ShopDetails> {
                   ],
                 ),
                 16.hp,
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: shop.products.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 0.9,
-                  ),
-                  itemBuilder: (context, index) {
-                    final product = shop.products[index];
-                    return ProductCard(
-                      product: product,
-                      onTap: () {
-                        Get.to(() => ProductDetailScreen(product: product));
-                      },
-                    );
-                  },
-                ),
+                // GridView.builder(
+                //   shrinkWrap: true,
+                //   physics: NeverScrollableScrollPhysics(),
+                //   itemCount: shop.products.length,
+                //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //     crossAxisCount: 2,
+                //     mainAxisSpacing: 10,
+                //     crossAxisSpacing: 10,
+                //     childAspectRatio: 0.9,
+                //   ),
+                //   itemBuilder: (context, index) {
+                //     final product = shop.products[index];
+                //     return ProductCard(
+                //       product: product,
+                //       onTap: () {
+                //         Get.to(() => ProductDetailScreen(product: product));
+                //       },
+                //     );
+                //   },
+                // ),
               ],
             ),
           ),

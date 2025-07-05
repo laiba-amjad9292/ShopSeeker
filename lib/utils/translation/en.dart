@@ -152,8 +152,8 @@ Map<String, String> en = {
   "select_time_cancel_button_title": "Cancel",
 
   "": "",
-  "": "",
-  "": "",
+  // "": "",
+  // "": "",
 
   // "": "",
   "gallery": "Gallery",
@@ -172,6 +172,13 @@ Map<String, String> en = {
   "timing_on_weekend": "Timing on weekends: ",
   "products": "Products",
 
-  "": "",
-  "": "",
+  "No_shops_found": "No shops found",
+  "Not_found": "Not Found",
+  "Stay_tuned_for_updates": "Stay tuned for updates",
+  "No_Listings_Found": "No Listings Found",
+  "please_add_a_new_shop_to_get_started":
+      "Please add a new shop to get started",
+
+  // "": "",
+  "Update_Listing": "Update Listing",
 };

@@ -47,7 +47,7 @@ class _SignupSuccessScreenState extends State<SignupSuccessScreen> {
               50.hp,
               AppButton(
                 onTap: () {
-                  Get.offAll(() => BottomNavigationScreen());
+                  Get.to(() => AddUpdateScreen());
                 },
                 title: 'register_shop'.tr,
                 color: AppColors.primary30,

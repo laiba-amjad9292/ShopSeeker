@@ -28,11 +28,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
   // var user = Get.put(OrderController());
 
   @override
+  @override
   void initState() {
-    if (widget.fromLogin == true) {
-      controller.changeTab(0);
-    }
     super.initState();
+
+    // ✅ Delay tab change until after build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.fromLogin == true) {
+        controller.changeTab(0);
+      }
+    });
+
     controller.animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 250),

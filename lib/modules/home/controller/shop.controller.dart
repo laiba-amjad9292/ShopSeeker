@@ -9,38 +9,44 @@ import 'package:shop_seeker/global/others/global_functions.dart';
 import 'package:shop_seeker/global/widgets/dialog/dialog_helpers.widget.dart';
 import 'package:shop_seeker/modules/bottom_navbar/screens/bottom_nav.screen.dart';
 import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
-import 'package:shop_seeker/global/models/translations.model.dart';
 import 'package:shop_seeker/modules/home/widget/delete_media_preview_sheet.widget.dart';
 import 'package:shop_seeker/services/database.service.dart';
-import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_enums.utils.dart';
 import 'package:shop_seeker/utils/helpers/easyloading.util.dart';
+import 'package:shop_seeker/utils/helpers/type_translation.utils.dart';
 
 class ShopAddingController extends GetxController {
   static ShopAddingController get instance => Get.find<ShopAddingController>();
-  GlobalKey<FormBuilderState> get addShopFormKey => addUpdateListingInitialKey;
+
   final addUpdateListingInitialKey = GlobalKey<FormBuilderState>();
 
   final RxList<String> images = <String>[].obs;
+  List<String> get displayImages =>
+      images.isNotEmpty
+          ? images
+          : [
+            'https://firebasestorage.googleapis.com/v0/b/flutter-app-default.appspot.com/o/defaults%2Fshop_placeholder.png?alt=media',
+          ];
+
   ListingModel? listingToUpdate_;
   final RxList<ListingModel> myListings = <ListingModel>[].obs;
   final RxBool isLoading = false.obs;
-
+  ListingModel? selectedListing;
   final RxString selectedCountry = ''.obs;
+
   final weekdayOpeningController = TextEditingController();
   final weekdayClosingController = TextEditingController();
   final weekendOpeningController = TextEditingController();
   final weekendClosingController = TextEditingController();
   final countryController = TextEditingController();
+
   final Rx<TimeOfDay?> weekdayOpening = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekdayClosing = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekendOpening = Rx<TimeOfDay?>(null);
   final Rx<TimeOfDay?> weekendClosing = Rx<TimeOfDay?>(null);
 
-  String get currentLang => UserManager.instance.currentLang;
-
   String formatTime(TimeOfDay? time) {
-    if (time == null) return '';
+    if (time == null) return 'N/A';
     final hour = time.hourOfPeriod.toString().padLeft(2, '0');
     final minute = time.minute.toString().padLeft(2, '0');
     final period = time.period == DayPeriod.am ? 'AM' : 'PM';
@@ -49,35 +55,63 @@ class ShopAddingController extends GetxController {
 
   Future<void> handleCreateShopListing() async {
     try {
-      if (addShopFormKey.currentState?.validate() != true) return;
-      if (images.isEmpty) {
-        showError("Please add at least one image.");
-        return;
-      }
+      if (addUpdateListingInitialKey.currentState?.validate() != true) return;
 
       EasyLoading.show();
 
+      if (images.isEmpty) {
+        images.add('https://via.placeholder.com/300x200.png?text=Shop+Image');
+      }
+
+      String weekdayOpeningStr =
+          weekdayOpeningController.text.isNotEmpty
+              ? weekdayOpeningController.text
+              : formatTime(weekdayOpening.value);
+
+      String weekdayClosingStr =
+          weekdayClosingController.text.isNotEmpty
+              ? weekdayClosingController.text
+              : formatTime(weekdayClosing.value);
+
+      String weekendOpeningStr =
+          weekendOpeningController.text.isNotEmpty
+              ? weekendOpeningController.text
+              : formatTime(weekendOpening.value);
+
+      String weekendClosingStr =
+          weekendClosingController.text.isNotEmpty
+              ? weekendClosingController.text
+              : formatTime(weekendClosing.value);
+
       final listingModel = ListingModel.fromMap({
-        "name": addShopFormKey.currentState?.getRawValue("name") ?? "",
-        "category": Tr(
-          translations: {
-            'en': addShopFormKey.currentState?.getRawValue("category") ?? "",
-          },
-        ),
-        "address": addShopFormKey.currentState?.getRawValue("address") ?? "",
-        "country": addShopFormKey.currentState?.getRawValue("country") ?? "",
-        "city": addShopFormKey.currentState?.getRawValue("city") ?? "",
+        "name":
+            addUpdateListingInitialKey.currentState?.getRawValue("name") ?? "",
+        "category":
+            addUpdateListingInitialKey.currentState?.getRawValue("category") ??
+            "",
+        "address":
+            addUpdateListingInitialKey.currentState?.getRawValue("address") ??
+            "",
+        "country":
+            addUpdateListingInitialKey.currentState?.getRawValue("country") ??
+            "",
+        "city":
+            addUpdateListingInitialKey.currentState?.getRawValue("city") ?? "",
         "postalCode":
-            addShopFormKey.currentState?.getRawValue("postal_code") ?? "",
+            addUpdateListingInitialKey.currentState?.getRawValue(
+              "postal_code",
+            ) ??
+            "",
         "description":
-            addShopFormKey.currentState?.getRawValue("description") ?? "",
-        "timingWeekdays":
-            '${formatTime(weekdayOpening.value)} - ${formatTime(weekdayClosing.value)}',
-        "timingWeekends":
-            '${formatTime(weekendOpening.value)} - ${formatTime(weekendClosing.value)}',
+            addUpdateListingInitialKey.currentState?.getRawValue(
+              "description",
+            ) ??
+            "",
+        "timingWeekdays": '$weekdayOpeningStr - $weekdayClosingStr',
+        "timingWeekends": '$weekendOpeningStr - $weekendClosingStr',
         "image": images,
-        "mainImage": images.isNotEmpty ? images[0] : null,
-        "type": Tr(translations: {'en': 'shop'}),
+        "mainImage": images[0],
+        "type": getTranslatedType("shop"),
         "userId": FirebaseAuth.instance.currentUser?.uid,
         "createdAt": Timestamp.now(),
       });
@@ -94,52 +128,66 @@ class ShopAddingController extends GetxController {
     }
   }
 
-  Future<void> handleUpdateShopListing() async {
+  Future<void> handleGetShopListing() async {
     try {
-      if (addShopFormKey.currentState?.validate() != true) return;
-      if (images.isEmpty) {
-        showError("add_at_least_one_image".tr);
-        return;
-      }
+      isLoading.value = true;
 
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final response = await Database.getMyShopListing(user.uid);
+        myListings.assignAll(response);
+      } else {
+        final response = await Database.getAllShopListings();
+        myListings.assignAll(response);
+      }
+    } catch (e) {
+      print("Error fetching shops: $e");
+      showError('Failed to fetch shops');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> handleUpdateShopListing() async {
+    if (!addUpdateListingInitialKey.currentState!.saveAndValidate()) return;
+
+    final data = addUpdateListingInitialKey.currentState!.value;
+
+    final listingId = selectedListing?.id;
+    if (listingId == null) {
+      showError("No listing selected");
+      return;
+    }
+
+    try {
       EasyLoading.show();
 
-      final updatedListing = ListingModel.fromMap({
-        'id': listingToUpdate_?.id,
-        'name': addShopFormKey.currentState?.getRawValue("name") ?? "",
-        'category': Tr(
-          translations: {
-            'en': addShopFormKey.currentState?.getRawValue("category") ?? "",
-          },
-        ),
-        'address': addShopFormKey.currentState?.getRawValue("address") ?? "",
-        'country': addShopFormKey.currentState?.getRawValue("country") ?? "",
-        'city': addShopFormKey.currentState?.getRawValue("city") ?? "",
-        'postalCode':
-            addShopFormKey.currentState?.getRawValue("postal_code") ?? "",
-        'weekdayTiming': {
-          'opening': weekdayOpeningController.text,
-          'closing': weekdayClosingController.text,
-        },
-        'weekendTiming': {
-          'opening': weekendOpeningController.text,
-          'closing': weekendClosingController.text,
-        },
-        'description':
-            addShopFormKey.currentState?.getRawValue("description") ?? "",
-        'image': images,
-        'mainImage': images.isNotEmpty ? images[0] : null,
-        'userId': UserManager.instance.userId,
-      });
-
-      await Database.updateShopListing(updatedListing);
+      await FirebaseFirestore.instance
+          .collection("shop_listings")
+          .doc(listingId)
+          .update({
+            "name": data["name"],
+            "category": data["category"],
+            "address": data["address"],
+            "country": data["country"],
+            "city": data["city"],
+            "postalCode": data["postal_code"], // 🔁 fixed key name
+            "timingWeekdays":
+                "${data["weekday_opening_time"]} - ${data["weekday_closing_time"]}",
+            "timingWeekends":
+                "${data["weekend_opening_time"]} - ${data["weekend_closing_time"]}",
+            "description": data["description"],
+            "image": images,
+            "mainImage": images.isNotEmpty ? images[0] : null,
+            "updatedAt": FieldValue.serverTimestamp(),
+          });
 
       EasyLoading.dismiss();
-      showSuccess('Listing updated successfully'.tr);
-      Get.back();
+      showSuccess("Listing updated successfully");
+      Get.back(); // or Get.offIfNeeded()
     } catch (e) {
       EasyLoading.dismiss();
-      print("Error in update: $e");
+      print("Update error: $e");
       showError(e.toString());
     }
   }
@@ -182,6 +230,7 @@ class ShopAddingController extends GetxController {
     ListingModel? listingToUpdate,
     ShopAddingController controller,
   ) {
+    controller.selectedListing = listingToUpdate;
     controller.images.clear();
     if (listingToUpdate != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -189,16 +238,25 @@ class ShopAddingController extends GetxController {
           controller.images.add(i);
         }
         controller.listingToUpdate_ = listingToUpdate;
-        controller.addShopFormKey.currentState?.patchValue({
+
+        controller.addUpdateListingInitialKey.currentState?.patchValue({
           'name': listingToUpdate.name,
-          'category':
-              listingToUpdate.category.translations[controller.currentLang],
+          'category': listingToUpdate.category,
           'address': listingToUpdate.address,
           'country': listingToUpdate.country,
           'city': listingToUpdate.city,
           'postal_code': listingToUpdate.postalCode,
           'description': listingToUpdate.description,
+          'weekday_opening_time':
+              listingToUpdate.timingWeekdays.split(" - ").first.trim(),
+          'weekday_closing_time':
+              listingToUpdate.timingWeekdays.split(" - ").last.trim(),
+          'weekend_opening_time':
+              listingToUpdate.timingWeekends.split(" - ").first.trim(),
+          'weekend_closing_time':
+              listingToUpdate.timingWeekends.split(" - ").last.trim(),
         });
+
         controller.weekdayOpeningController.text =
             listingToUpdate.timingWeekdays.split(" - ").first.trim();
         controller.weekdayClosingController.text =
@@ -210,7 +268,7 @@ class ShopAddingController extends GetxController {
         controller.update();
       });
     } else {
-      controller.addShopFormKey.currentState?.patchValue({
+      controller.addUpdateListingInitialKey.currentState?.patchValue({
         'category': 'General',
       });
     }
