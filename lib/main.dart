@@ -96,7 +96,6 @@ class BoosterMaterialApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
 
-            // Define supported locales
             supportedLocales: const [
               Locale('en', 'US'), // English
               Locale('de', 'DE'), // German

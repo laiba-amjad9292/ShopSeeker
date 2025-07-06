@@ -21,65 +21,67 @@ class _LoginOrSignupScreenState extends State<LoginOrSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 100,
-            left: 0,
-            right: 0,
-            child: Image.asset('assets/images/splah_logo.png'),
-          ),
-          Positioned(
-            top: 50.h,
-            right: 30.w,
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.primary30,
-                borderRadius: BorderRadius.circular(60),
-              ),
-              child: languageButton(
-                bgColor: AppColors.colorEAECF0,
-                textColor: AppColors.black,
-              ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              top: 100,
+              left: 0,
+              right: 0,
+              child: Image.asset('assets/images/splah_logo.png'),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AppButton(
-                  title: 'create_account'.tr,
-                  color: AppColors.primary,
-                  fontColor: AppColors.white,
-                  onTap: () {
-                    Get.to(() => SignUpScreen());
-                  },
-                ),
-                14.hp,
-                AppButton(
-                  title: 'signin'.tr,
+            Positioned(
+              top: 50.h,
+              right: 30.w,
+              child: Container(
+                decoration: BoxDecoration(
                   color: AppColors.primary30,
-                  fontColor: AppColors.primary,
-                  onTap: () {
-                    Get.to(LoginScreen());
-                  },
+                  borderRadius: BorderRadius.circular(60),
                 ),
-                14.hp,
-
-                GestureDetector(
-                  onTap: () {
-                    Get.off(() => BottomNavigationScreen());
-                  },
-                  child: Text(
-                    "continue_without_login".tr,
-                    style: stylew500(size: 16, color: AppColors.primary),
-                  ),
+                child: languageButton(
+                  bgColor: AppColors.colorEAECF0,
+                  textColor: AppColors.black,
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  AppButton(
+                    title: 'create_account'.tr,
+                    color: AppColors.primary,
+                    fontColor: AppColors.white,
+                    onTap: () {
+                      Get.to(() => SignUpScreen());
+                    },
+                  ),
+                  14.hp,
+                  AppButton(
+                    title: 'signin'.tr,
+                    color: AppColors.primary30,
+                    fontColor: AppColors.primary,
+                    onTap: () {
+                      Get.to(LoginScreen());
+                    },
+                  ),
+                  14.hp,
+
+                  GestureDetector(
+                    onTap: () {
+                      Get.off(() => BottomNavigationScreen());
+                    },
+                    child: Text(
+                      "continue_without_login".tr,
+                      style: stylew500(size: 16, color: AppColors.primary),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
