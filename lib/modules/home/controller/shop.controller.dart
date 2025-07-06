@@ -1,5 +1,7 @@
-import 'dart:math';
+import 'dart:developer';
+
 import 'package:camera/camera.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
@@ -22,11 +24,7 @@ class ShopAddingController extends GetxController {
 
   final RxList<String> images = <String>[].obs;
   List<String> get displayImages =>
-      images.isNotEmpty
-          ? images
-          : [
-            'https://firebasestorage.googleapis.com/v0/b/flutter-app-default.appspot.com/o/defaults%2Fshop_placeholder.png?alt=media',
-          ];
+      images.isNotEmpty ? images : ['https://picsum.photos/200/300'];
 
   ListingModel? listingToUpdate_;
   final RxList<ListingModel> myListings = <ListingModel>[].obs;
@@ -34,23 +32,73 @@ class ShopAddingController extends GetxController {
   ListingModel? selectedListing;
   final RxString selectedCountry = ''.obs;
 
-  final weekdayOpeningController = TextEditingController();
-  final weekdayClosingController = TextEditingController();
-  final weekendOpeningController = TextEditingController();
-  final weekendClosingController = TextEditingController();
   final countryController = TextEditingController();
 
-  final Rx<TimeOfDay?> weekdayOpening = Rx<TimeOfDay?>(null);
-  final Rx<TimeOfDay?> weekdayClosing = Rx<TimeOfDay?>(null);
-  final Rx<TimeOfDay?> weekendOpening = Rx<TimeOfDay?>(null);
-  final Rx<TimeOfDay?> weekendClosing = Rx<TimeOfDay?>(null);
+  // Store picked times
+  TimeOfDay? weekdayOpeningTime;
+  TimeOfDay? weekdayClosingTime;
+  TimeOfDay? weekendOpeningTime;
+  TimeOfDay? weekendClosingTime;
 
+  // Format time
   String formatTime(TimeOfDay? time) {
-    if (time == null) return 'N/A';
-    final hour = time.hourOfPeriod.toString().padLeft(2, '0');
+    if (time == null) return '';
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
     final minute = time.minute.toString().padLeft(2, '0');
     final period = time.period == DayPeriod.am ? 'AM' : 'PM';
     return '$hour:$minute $period';
+  }
+
+  // --- Selectors ---
+
+  Future<void> selectWeekdayOpeningTime(BuildContext context) async {
+    final picked = await GlobalFunctions.selectTime(context);
+    if (picked != null) {
+      final time = TimeOfDay.fromDateTime(picked);
+      weekdayOpeningTime = time;
+      addUpdateListingInitialKey.currentState?.fields['weekdayOpeningTime']
+          ?.didChange(formatTime(time));
+    }
+  }
+
+  Future<void> selectWeekdayClosingTime(BuildContext context) async {
+    final picked = await GlobalFunctions.selectTime(context);
+    if (picked != null) {
+      final time = TimeOfDay.fromDateTime(picked);
+      weekdayClosingTime = time;
+      addUpdateListingInitialKey.currentState?.fields['weekdayClosingTime']
+          ?.didChange(formatTime(time));
+    }
+  }
+
+  Future<void> selectWeekendOpeningTime(BuildContext context) async {
+    final picked = await GlobalFunctions.selectTime(context);
+    if (picked != null) {
+      final time = TimeOfDay.fromDateTime(picked);
+      weekendOpeningTime = time;
+      addUpdateListingInitialKey.currentState?.fields['weekendOpeningTime']
+          ?.didChange(formatTime(time));
+    }
+  }
+
+  Future<void> selectWeekendClosingTime(BuildContext context) async {
+    final picked = await GlobalFunctions.selectTime(context);
+    if (picked != null) {
+      final time = TimeOfDay.fromDateTime(picked);
+      weekendClosingTime = time;
+      addUpdateListingInitialKey.currentState?.fields['weekendClosingTime']
+          ?.didChange(formatTime(time));
+    }
+  }
+
+  void handleCountryPicker(BuildContext context) {
+    GlobalFunctions.countryCodePickerWidget(context, (Country country) {
+      final formState = addUpdateListingInitialKey.currentState;
+      if (formState != null && formState.mounted) {
+        formState.patchValue({'country': country.name});
+      }
+      update();
+    });
   }
 
   Future<void> handleCreateShopListing() async {
@@ -60,28 +108,8 @@ class ShopAddingController extends GetxController {
       EasyLoading.show();
 
       if (images.isEmpty) {
-        images.add('https://via.placeholder.com/300x200.png?text=Shop+Image');
+        images.add('https://picsum.photos/200/300');
       }
-
-      String weekdayOpeningStr =
-          weekdayOpeningController.text.isNotEmpty
-              ? weekdayOpeningController.text
-              : formatTime(weekdayOpening.value);
-
-      String weekdayClosingStr =
-          weekdayClosingController.text.isNotEmpty
-              ? weekdayClosingController.text
-              : formatTime(weekdayClosing.value);
-
-      String weekendOpeningStr =
-          weekendOpeningController.text.isNotEmpty
-              ? weekendOpeningController.text
-              : formatTime(weekendOpening.value);
-
-      String weekendClosingStr =
-          weekendClosingController.text.isNotEmpty
-              ? weekendClosingController.text
-              : formatTime(weekendClosing.value);
 
       final listingModel = ListingModel.fromMap({
         "name":
@@ -99,7 +127,7 @@ class ShopAddingController extends GetxController {
             addUpdateListingInitialKey.currentState?.getRawValue("city") ?? "",
         "postalCode":
             addUpdateListingInitialKey.currentState?.getRawValue(
-              "postal_code",
+              "postalCode",
             ) ??
             "",
         "description":
@@ -107,8 +135,10 @@ class ShopAddingController extends GetxController {
               "description",
             ) ??
             "",
-        "timingWeekdays": '$weekdayOpeningStr - $weekdayClosingStr',
-        "timingWeekends": '$weekendOpeningStr - $weekendClosingStr',
+        "timingWeekdays":
+            "${formatTime(weekdayOpeningTime)} - ${formatTime(weekdayClosingTime)}",
+        "timingWeekends":
+            "${formatTime(weekendOpeningTime)} - ${formatTime(weekendClosingTime)}",
         "image": images,
         "mainImage": images[0],
         "type": getTranslatedType("shop"),
@@ -148,43 +178,34 @@ class ShopAddingController extends GetxController {
     }
   }
 
-  Future<void> handleUpdateShopListing() async {
+  Future<void> handleUpdateShopListing(id) async {
     if (!addUpdateListingInitialKey.currentState!.saveAndValidate()) return;
 
     final data = addUpdateListingInitialKey.currentState!.value;
 
-    final listingId = selectedListing?.id;
-    if (listingId == null) {
-      showError("No listing selected");
-      return;
-    }
-
     try {
       EasyLoading.show();
 
-      await FirebaseFirestore.instance
-          .collection("shop_listings")
-          .doc(listingId)
-          .update({
-            "name": data["name"],
-            "category": data["category"],
-            "address": data["address"],
-            "country": data["country"],
-            "city": data["city"],
-            "postalCode": data["postal_code"], // 🔁 fixed key name
-            "timingWeekdays":
-                "${data["weekday_opening_time"]} - ${data["weekday_closing_time"]}",
-            "timingWeekends":
-                "${data["weekend_opening_time"]} - ${data["weekend_closing_time"]}",
-            "description": data["description"],
-            "image": images,
-            "mainImage": images.isNotEmpty ? images[0] : null,
-            "updatedAt": FieldValue.serverTimestamp(),
-          });
+      await FirebaseFirestore.instance.collection("listings").doc(id).update({
+        "name": data["name"],
+        "category": data["category"],
+        "address": data["address"],
+        "country": data["country"],
+        "city": data["city"],
+        "postalCode": data["postalCode"],
+        "timingWeekdays":
+            "${formatTime(weekdayOpeningTime)} - ${formatTime(weekdayClosingTime)}",
+        "timingWeekends":
+            "${formatTime(weekendOpeningTime)} - ${formatTime(weekendClosingTime)}",
+        "description": data["description"],
+        "image": images,
+        "mainImage": images.isNotEmpty ? images[0] : null,
+        "updatedAt": FieldValue.serverTimestamp(),
+      });
 
       EasyLoading.dismiss();
       showSuccess("Listing updated successfully");
-      Get.back(); // or Get.offIfNeeded()
+      Get.back();
     } catch (e) {
       EasyLoading.dismiss();
       print("Update error: $e");
@@ -226,53 +247,31 @@ class ShopAddingController extends GetxController {
     update();
   }
 
-  static void upsertData(
-    ListingModel? listingToUpdate,
-    ShopAddingController controller,
-  ) {
-    controller.selectedListing = listingToUpdate;
-    controller.images.clear();
-    if (listingToUpdate != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        for (var i in listingToUpdate.image) {
-          controller.images.add(i);
-        }
-        controller.listingToUpdate_ = listingToUpdate;
+  void upsertData(ListingModel? listing) {
+    if (listing != null) {
+      selectedListing = listing;
+      listingToUpdate_ = listing;
+      log("${selectedListing?.id ?? ''} usama");
 
-        controller.addUpdateListingInitialKey.currentState?.patchValue({
-          'name': listingToUpdate.name,
-          'category': listingToUpdate.category,
-          'address': listingToUpdate.address,
-          'country': listingToUpdate.country,
-          'city': listingToUpdate.city,
-          'postal_code': listingToUpdate.postalCode,
-          'description': listingToUpdate.description,
-          'weekday_opening_time':
-              listingToUpdate.timingWeekdays.split(" - ").first.trim(),
-          'weekday_closing_time':
-              listingToUpdate.timingWeekdays.split(" - ").last.trim(),
-          'weekend_opening_time':
-              listingToUpdate.timingWeekends.split(" - ").first.trim(),
-          'weekend_closing_time':
-              listingToUpdate.timingWeekends.split(" - ").last.trim(),
-        });
+      countryController.text = listing.country ?? "";
 
-        controller.weekdayOpeningController.text =
-            listingToUpdate.timingWeekdays.split(" - ").first.trim();
-        controller.weekdayClosingController.text =
-            listingToUpdate.timingWeekdays.split(" - ").last.trim();
-        controller.weekendOpeningController.text =
-            listingToUpdate.timingWeekends.split(" - ").first.trim();
-        controller.weekendClosingController.text =
-            listingToUpdate.timingWeekends.split(" - ").last.trim();
-        controller.update();
-      });
-    } else {
-      controller.addUpdateListingInitialKey.currentState?.patchValue({
-        'category': 'General',
-      });
+      images.clear();
+      images.addAll(listing.image ?? []);
+
+      final weekdayTimes = listing.timingWeekdays?.split(' - ');
+      if (weekdayTimes != null && weekdayTimes.length == 2) {
+        weekdayOpeningTime = GlobalFunctions.parseTimeOfDay(weekdayTimes[0]);
+        weekdayClosingTime = GlobalFunctions.parseTimeOfDay(weekdayTimes[1]);
+      }
+
+      final weekendTimes = listing.timingWeekends?.split(' - ');
+      if (weekendTimes != null && weekendTimes.length == 2) {
+        weekendOpeningTime = GlobalFunctions.parseTimeOfDay(weekendTimes[0]);
+        weekendClosingTime = GlobalFunctions.parseTimeOfDay(weekendTimes[1]);
+      }
+
+      update();
     }
-    print(listingToUpdate?.id ?? "Creating new shop listing");
   }
 
   uploadFile(XFile file, AppMediaType type) async {

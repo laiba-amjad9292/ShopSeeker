@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/global/widgets/button.widget.dart';
+import 'package:shop_seeker/global/widgets/network_image/custom_network_image.widget.dart';
 import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
 import 'package:shop_seeker/modules/home/screen/add_update_product.screen.dart';
 import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
+import 'package:shop_seeker/utils/extensions/container_extension.util.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 import 'package:shop_seeker/utils/theme/textStyles.utils.dart';
 
@@ -20,6 +22,7 @@ class ShopDetails extends StatefulWidget {
 }
 
 class _ShopDetailsState extends State<ShopDetails> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +88,10 @@ class _ShopDetailsState extends State<ShopDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 10.hp,
-                Text(widget.listing?.name ?? "", style: stylew600(size: 22)),
+                Text(
+                  widget.listing?.name ?? "",
+                  style: stylew600(size: 22, color: AppColors.color101828),
+                ),
 
                 10.hp,
                 ClipRRect(
@@ -93,43 +99,65 @@ class _ShopDetailsState extends State<ShopDetails> {
                   child: Image.network(
                     widget.listing?.mainImage?.isNotEmpty == true
                         ? widget.listing!.mainImage!
-                        : 'https://via.placeholder.com/300',
+                        : 'https://picsum.photos/200/300',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.network(
-                        'https://via.placeholder.com/300',
+                        'assets/images/img_placeholder.png',
                         fit: BoxFit.cover,
                       );
                     },
                   ),
                 ),
                 10.hp,
-                //  Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: List.generate(
-                //       widget.listing?.image.length ?? 0,
-                //       (i) => Padding(
-                //             padding: const EdgeInsets.only(left: 5),
-                //             child: Container(
-                //               height: 6,
-                //               width: index == i ? 20 : 6,
-                //             ).bordered(
-                //                 color: AppColors.primary
-                //                     .withOpacity(index == i ? 1 : 0.2),
-                //                 radius: 60),
-                //           )),
-                // ),
+                Container(
+                  height: 400,
+                  child: PageView.builder(
+                    itemCount: widget.listing?.image.length,
+                    onPageChanged:
+                        (i) => setState(() {
+                          index = i;
+                        }),
+                    itemBuilder: (context, index) {
+                      final img = widget.listing?.image[index];
+                      return NetworkImageCustom(
+                        radius: 0,
+                        image: img,
+                        height: 400,
+                      );
+                    },
+                  ),
+                ),
+                10.hp,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    widget.listing?.image.length ?? 0,
+                    (i) => Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Container(
+                        height: 6,
+                        width: index == i ? 20 : 6,
+                      ).bordered(
+                        color: AppColors.primary.withOpacity(
+                          index == i ? 1 : 0.2,
+                        ),
+                        radius: 60,
+                      ),
+                    ),
+                  ),
+                ),
                 10.hp,
                 Row(
                   children: [
                     Text(
                       "Category".tr,
-                      style: stylew600(color: AppColors.black),
+                      style: stylew600(color: AppColors.color101828),
                     ),
                     2.wp,
                     Text(
                       widget.listing?.category ?? "",
-                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                      style: stylew600(size: 14, color: AppColors.color98A2B3),
                     ),
                   ],
                 ),
@@ -139,7 +167,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                   children: [
                     Text(
                       "Address".tr,
-                      style: stylew600(color: AppColors.black),
+                      style: stylew600(color: AppColors.color101828),
                     ),
 
                     Text(
@@ -149,7 +177,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                         widget.listing?.city ?? "",
                         widget.listing?.postalCode ?? "",
                       ].where((e) => e.isNotEmpty).join(', '),
-                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
+                      style: stylew600(size: 14, color: AppColors.color98A2B3),
                       softWrap: true,
                     ),
                   ],
@@ -166,32 +194,24 @@ class _ShopDetailsState extends State<ShopDetails> {
                   style: stylew500(size: 14, color: AppColors.color98A2B3),
                 ),
                 10.hp,
-                Row(
-                  children: [
-                    Text(
-                      "timing_on_weekday".tr,
-                      style: stylew600(color: AppColors.black),
-                    ),
-                    2.wp,
-                    Text(
-                      widget.listing?.timingWeekdays ?? '',
-                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
-                    ),
-                  ],
+                Text(
+                  "timing_on_weekday".tr,
+                  style: stylew600(color: AppColors.color101828),
                 ),
                 5.hp,
-                Row(
-                  children: [
-                    Text(
-                      "timing_on_weekend".tr,
-                      style: stylew600(color: AppColors.black),
-                    ),
-                    2.wp,
-                    Text(
-                      widget.listing?.timingWeekends ?? '',
-                      style: stylew600(size: 14, color: AppColors.colorAAAAAA),
-                    ),
-                  ],
+                Text(
+                  widget.listing?.timingWeekdays ?? '',
+                  style: stylew600(size: 14, color: AppColors.color98A2B3),
+                ),
+                5.hp,
+                Text(
+                  "timing_on_weekend".tr,
+                  style: stylew600(color: AppColors.color101828),
+                ),
+                5.hp,
+                Text(
+                  widget.listing?.timingWeekends ?? '',
+                  style: stylew600(size: 14, color: AppColors.color98A2B3),
                 ),
 
                 10.hp,

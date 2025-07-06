@@ -33,7 +33,9 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
   @override
   void initState() {
     super.initState();
-    ShopAddingController.upsertData(widget.listing, controller);
+    Future.delayed(Duration.zero, () {
+      controller.upsertData(widget.listing);
+    });
   }
 
   @override
@@ -51,9 +53,10 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
           onPopInvoked: (a) {
             logic.images.clear();
           },
+
           child: FormBuilder(
             key: logic.addUpdateListingInitialKey,
-            initialValue: widget.listing?.toMap() ?? {},
+            initialValue: widget.listing?.initialValues() ?? {},
             child: Scaffold(
               appBar: CustomAppBar(
                 title:
@@ -125,22 +128,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                         hintText: 'enter_country'.tr,
                         isRequired: true,
                         readOnly: true,
-                        controller: logic.countryController,
-                        onTap: () {
-                          GlobalFunctions.countryCodePickerWidget(context, (
-                            Country country,
-                          ) {
-                            final selected = country.name;
-                            logic.selectedCountry.value = selected;
-                            logic.countryController.text = selected;
-                            controller
-                                .addUpdateListingInitialKey
-                                .currentState
-                                ?.fields['country']
-                                ?.didChange(selected);
-                            logic.update();
-                          });
-                        },
+
+                        onTap: () => logic.handleCountryPicker(context),
                       ),
                       16.hp,
                       Row(
@@ -182,24 +171,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                               heading: 'opening_time'.tr,
                               hintText: 'select_opening_time'.tr,
                               readOnly: true,
-                              onTap: () async {
-                                final picked = await GlobalFunctions.selectTime(
-                                  context,
-                                );
-                                if (picked != null) {
-                                  final time = TimeOfDay.fromDateTime(picked);
-                                  controller.weekdayOpening.value = time;
-                                  controller
-                                      .weekdayOpeningController
-                                      .text = controller.formatTime(time);
-                                  controller
-                                      .addUpdateListingInitialKey
-                                      .currentState
-                                      ?.fields['weekdayOpeningTime']
-                                      ?.didChange(controller.formatTime(time));
-                                }
-                              },
-                              controller: controller.weekdayOpeningController,
+                              onTap:
+                                  () => logic.selectWeekdayOpeningTime(context),
                             ),
                           ),
                           12.wp,
@@ -210,24 +183,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                               heading: 'closing_time'.tr,
                               hintText: 'select_closing_time'.tr,
                               readOnly: true,
-                              onTap: () async {
-                                final picked = await GlobalFunctions.selectTime(
-                                  context,
-                                );
-                                if (picked != null) {
-                                  final time = TimeOfDay.fromDateTime(picked);
-                                  controller.weekdayClosing.value = time;
-                                  controller
-                                      .weekdayClosingController
-                                      .text = controller.formatTime(time);
-                                  controller
-                                      .addUpdateListingInitialKey
-                                      .currentState
-                                      ?.fields['weekdayClosingTime']
-                                      ?.didChange(controller.formatTime(time));
-                                }
-                              },
-                              controller: controller.weekdayClosingController,
+                              onTap:
+                                  () => logic.selectWeekdayClosingTime(context),
                             ),
                           ),
                         ],
@@ -247,24 +204,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                               heading: 'opening_time'.tr,
                               hintText: 'select_opening_time'.tr,
                               readOnly: true,
-                              onTap: () async {
-                                final picked = await GlobalFunctions.selectTime(
-                                  context,
-                                );
-                                if (picked != null) {
-                                  final time = TimeOfDay.fromDateTime(picked);
-                                  controller.weekendOpening.value = time;
-                                  controller
-                                      .weekendOpeningController
-                                      .text = controller.formatTime(time);
-                                  controller
-                                      .addUpdateListingInitialKey
-                                      .currentState
-                                      ?.fields['weekendOpeningTime']
-                                      ?.didChange(controller.formatTime(time));
-                                }
-                              },
-                              controller: controller.weekendOpeningController,
+                              onTap:
+                                  () => logic.selectWeekendOpeningTime(context),
                             ),
                           ),
                           12.wp,
@@ -275,24 +216,8 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                               heading: 'closing_time'.tr,
                               hintText: 'select_closing_time'.tr,
                               readOnly: true,
-                              onTap: () async {
-                                final picked = await GlobalFunctions.selectTime(
-                                  context,
-                                );
-                                if (picked != null) {
-                                  final time = TimeOfDay.fromDateTime(picked);
-                                  controller.weekendClosing.value = time;
-                                  controller
-                                      .weekendClosingController
-                                      .text = controller.formatTime(time);
-                                  controller
-                                      .addUpdateListingInitialKey
-                                      .currentState
-                                      ?.fields['weekendClosingTime']
-                                      ?.didChange(controller.formatTime(time));
-                                }
-                              },
-                              controller: controller.weekendClosingController,
+                              onTap:
+                                  () => logic.selectWeekendClosingTime(context),
                             ),
                           ),
                         ],
@@ -342,7 +267,7 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                         if (widget.listing == null) {
                           logic.handleCreateShopListing();
                         } else {
-                          logic.handleUpdateShopListing();
+                          logic.handleUpdateShopListing(widget.listing?.id);
                         }
                       }
                     },

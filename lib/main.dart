@@ -51,7 +51,7 @@ Future<void> main() async {
   //   });
   // }
   EasyLoading.dismiss();
-  Get.create(() => ShopAddingController());
+  Get.put(ShopAddingController());
   runApp(OverlaySupport(child: BoosterMaterialApp()));
 }
 

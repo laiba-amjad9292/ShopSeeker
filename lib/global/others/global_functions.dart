@@ -328,6 +328,20 @@ class GlobalFunctions {
     return null;
   }
 
+  static TimeOfDay parseTimeOfDay(String timeString) {
+    final parts = timeString.split(RegExp(r'[:\s]'));
+    if (parts.length < 3) return TimeOfDay(hour: 0, minute: 0);
+
+    int hour = int.parse(parts[0]);
+    final minute = int.parse(parts[1]);
+    final isPM = parts[2].toLowerCase() == 'pm';
+
+    if (isPM && hour < 12) hour += 12;
+    if (!isPM && hour == 12) hour = 0;
+
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
   static bool equalsIgnoreCase(String? a, String? b) =>
       (a == null && b == null) ||
       (a != null && b != null && a.toLowerCase() == b.toLowerCase());

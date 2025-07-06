@@ -8,7 +8,7 @@ class InitialBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => UserManager(), fenix: true);
     Get.lazyPut(() => BottomNavigationController(), fenix: true);
-    Get.lazyPut(() => ShopAddingController());
+
     // Get.lazyPut(() => OrderController());
   }
 }

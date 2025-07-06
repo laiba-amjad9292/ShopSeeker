@@ -181,4 +181,8 @@ Map<String, String> en = {
 
   // "": "",
   "Update_Listing": "Update Listing",
+
+  //image preview
+  "video_preview_dialog_heading": "Vedio preview",
+  "image_preview_dialog_heading": "Image preview",
 };

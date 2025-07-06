@@ -133,16 +133,21 @@ class Database {
 
   static Future<bool> updateShopListing(ListingModel listingModel) async {
     try {
-      if (listingModel.id.isNotEmpty) {
-        await instance
-            .collection("listings")
-            .doc(listingModel.id)
-            .update(listingModel.toMap());
-        return true;
-      }
-      return false;
+      if (listingModel.id.isEmpty) return false;
+
+      final updatedMap =
+          listingModel.toMap()
+            ..remove('createdAt')
+            ..['updatedAt'] = FieldValue.serverTimestamp();
+
+      await instance
+          .collection("listings")
+          .doc(listingModel.id)
+          .update(updatedMap);
+
+      return true;
     } catch (e) {
-      log(e.toString());
+      log("Error updating shop listing: $e");
       return false;
     }
   }
@@ -164,6 +169,15 @@ class Database {
       print("Error in getMyShopListing: $e");
       rethrow;
     }
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getMyShopListingStream(
+    String userId,
+  ) {
+    return instance
+        .collection('listings')
+        .where('userId', isEqualTo: userId)
+        .snapshots();
   }
 
   /// ✅ Get all shops for guests (not logged in)

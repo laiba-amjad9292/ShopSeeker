@@ -77,8 +77,38 @@ class ListingModel {
     };
   }
 
+  Map<String, dynamic> initialValues() {
+    return {
+      'userId': userId,
+      'id': id,
+      'name': name,
+      'category': category,
+      'address': address,
+      'country': country,
+      'city': city,
+      'postalCode': postalCode,
+      'weekdayOpeningTime': timingWeekdays.split(' - ').first,
+      'weekdayClosingTime': timingWeekdays.split(' - ').last,
+      'weekendOpeningTime': timingWeekends.split(' - ').first,
+      'weekendClosingTime': timingWeekends.split(' - ').last,
+      'timingWeekends': timingWeekends,
+      'description': description,
+      'image': image,
+      'mainImage': mainImage,
+      'type': type.translations,
+      'createdAt': createdAt,
+    };
+  }
+
   factory ListingModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
+    return ListingModel.fromMap(data);
+  }
+
+  factory ListingModel.fromSnapSnapshot(
+    QueryDocumentSnapshot<Map<String, dynamic>>? doc,
+  ) {
+    final data = doc?.data() as Map<String, dynamic>;
     return ListingModel.fromMap(data);
   }
 }
