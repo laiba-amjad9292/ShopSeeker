@@ -24,7 +24,9 @@ class AppButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? disabledColor;
   final Color? disabledFontColor;
-
+  final int? maxLines;
+  final double? minFontSize;
+  final TextOverflow? overflow;
   // ignore: use_super_parameters
   const AppButton({
     Key? key,
@@ -46,6 +48,9 @@ class AppButton extends StatelessWidget {
     this.isDisabled,
     this.disabledColor,
     this.disabledFontColor,
+    this.maxLines,
+    this.minFontSize,
+    this.overflow,
   }) : super(key: key);
 
   @override
@@ -124,6 +129,9 @@ class AppButton extends StatelessWidget {
                   ],
                   AutoSizeText(
                     title,
+                    maxLines: maxLines ?? 1,
+                    minFontSize: minFontSize ?? 10,
+                    overflow: overflow ?? TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: stylew600(
                       size: height == 36 ? 12 : fontSize,

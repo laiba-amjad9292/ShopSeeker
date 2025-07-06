@@ -157,18 +157,32 @@ Map<String, String> de = {
   "Profile": "Profil",
 
   //shop details
-  "Listing_Details": "Shop-Eintragsdetails",
+  "Listing_Details": "Details zum Geschäftseintrag",
   "Edit_Shop": "Geschäft bearbeiten",
   "Category": "Kategorie: ",
   "address": "Adresse",
-  "timing_on_weekday": "Öffnungszeiten an Wochentagen: ",
-  "timing_on_weekend": "Öffnungszeiten am Wochenende: ",
+  "timing_on_weekday": "Öffnungszeiten an Wochentagen ",
+  "timing_on_weekend": "Öffnungszeiten am Wochenende ",
   "products": "Produkte",
 
+  //other
   "No_shops_found": "Keine Geschäfte gefunden",
   "Not_found": "Nicht gefunden",
   "Stay_tuned_for_updates": "Bleiben Sie dran für Updates",
   "No_Listings_Found": "Keine Einträge gefunden",
   "please_add_a_new_shop_to_get_started":
       "Bitte fügen Sie ein neues Geschäft hinzu, um zu beginnen",
+
+  "shop_created_successfully": "Shop erfolgreich erstellt",
+  "shop_updated_successfully": "Shop erfolgreich aktualisiert",
+  "shop_deleted_successfully": "Shop erfolgreich gelöscht",
+
+  //update
+  "Update_Listing": "Eintrag aktualisieren",
+
+  //image preview
+  "video_preview_dialog_heading": "Videovorschau",
+  "image_preview_dialog_heading": "Bildvorschau",
+
+  "add_Product_Listing": "Produkteintrag hinzufügen",
 };

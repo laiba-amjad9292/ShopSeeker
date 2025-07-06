@@ -195,11 +195,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                 Image.asset(
                                   'assets/icons/Notification.png',
                                   height: 24,
-                                  color: _iconColor(3, value),
+                                  color: _iconColor(2, value),
                                 ),
                                 AutoSizeText(
                                   "notification".tr,
-                                  style: bottomNavTextStyle(3, value),
+                                  style: bottomNavTextStyle(2, value),
                                   maxLines: 1,
                                   minFontSize: 9,
                                 ),
@@ -222,11 +222,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                                 Image.asset(
                                   'assets/icons/profile.png',
                                   height: 24,
-                                  color: _iconColor(4, value),
+                                  color: _iconColor(3, value),
                                 ),
                                 AutoSizeText(
                                   "profile".tr,
-                                  style: bottomNavTextStyle(4, value),
+                                  style: bottomNavTextStyle(3, value),
                                   maxLines: 1,
                                   minFontSize: 9,
                                 ),

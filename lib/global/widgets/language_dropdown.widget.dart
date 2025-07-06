@@ -29,7 +29,7 @@ Directionality languageButton({
               Image.asset(
                 'assets/icons/global.png',
                 height: 20,
-                color: textColor, // Apply text color here
+                color: textColor,
               ),
               8.wp,
               Text(
@@ -38,9 +38,7 @@ Directionality languageButton({
                     : logic.currentLang == 'ar'
                     ? 'ARA'
                     : 'ENG',
-                style: stylew500(
-                  color: textColor, // Apply text color here
-                ),
+                style: stylew500(color: textColor),
               ),
               8.wp,
             ],
@@ -49,7 +47,8 @@ Directionality languageButton({
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       position: PopupMenuPosition.under,
-      onSelected: (value) {
+      onSelected: (value) async {
+        await Future.delayed(Duration(seconds: 1));
         UserManager.instance.changeLanguage(value);
       },
       itemBuilder: (BuildContext bc) {
@@ -63,10 +62,7 @@ Directionality languageButton({
                 Expanded(
                   child: Text(
                     'English (US)',
-                    style: stylew400(
-                      size: 14,
-                      color: textColor, // Apply text color here
-                    ),
+                    style: stylew400(size: 14, color: textColor),
                   ),
                 ),
               ],
@@ -81,10 +77,7 @@ Directionality languageButton({
                 Expanded(
                   child: Text(
                     'Deutsch',
-                    style: stylew400(
-                      size: 14,
-                      color: textColor, // Apply text color here
-                    ),
+                    style: stylew400(size: 14, color: textColor),
                   ),
                 ),
               ],
@@ -103,10 +96,7 @@ Directionality languageButton({
                 Expanded(
                   child: Text(
                     'Arabic',
-                    style: stylew400(
-                      size: 14,
-                      color: textColor, // Apply text color here
-                    ),
+                    style: stylew400(size: 14, color: textColor),
                   ),
                 ),
               ],

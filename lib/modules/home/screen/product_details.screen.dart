@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:shop_seeker/global/widgets/appbar/appbar.widget.dart';
 import 'package:shop_seeker/modules/home/models/product_listing.model.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
@@ -51,7 +52,7 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       10.hp,
                       Text(
-                        "Description",
+                        "description".tr,
                         style: stylew700(size: 14, color: AppColors.black),
                       ),
                       4.hp,

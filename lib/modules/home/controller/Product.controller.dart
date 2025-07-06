@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:shop_seeker/modules/home/models/product_listing.model.dart';
 
-class ShopListingController extends GetxController {
-  var shopProductList = <ProductModel>[].obs;
+class ProductController extends GetxController {
+  var ProductList = <ProductModel>[].obs;
 
   @override
   void onInit() {
@@ -59,6 +59,6 @@ class ShopListingController extends GetxController {
       products.addAll(productList);
     }
 
-    shopProductList.value = products;
+    ProductList.value = products;
   }
 }

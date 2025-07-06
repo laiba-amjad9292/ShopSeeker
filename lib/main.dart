@@ -72,7 +72,7 @@ class BoosterMaterialApp extends StatelessWidget {
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(
-            systemNavigationBarColor: Colors.white, // Match your scaffold color
+            systemNavigationBarColor: Colors.white,
             systemNavigationBarIconBrightness: Brightness.dark,
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.dark,
@@ -81,14 +81,14 @@ class BoosterMaterialApp extends StatelessWidget {
             title: 'Sooqi',
             themeMode: ThemeMode.light,
             theme: AppTheme.lightTheme(),
-            translations: AppTranslations(), // Your translations
+            translations: AppTranslations(),
             locale:
                 LocalGetStorage.getUserLanguage() == 'en'
                     ? const Locale('en')
                     : LocalGetStorage.getUserLanguage() == 'de'
                     ? const Locale('de')
                     : const Locale('ar'),
-            fallbackLocale: Locale('en', 'US'), // Fallback locale
+            fallbackLocale: Locale('en', 'US'),
             // Add the localizations delegates
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,

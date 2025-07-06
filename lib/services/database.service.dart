@@ -196,6 +196,13 @@ class Database {
     }
   }
 
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllShopListingStream() {
+    return FirebaseFirestore.instance
+        .collection("listings")
+        .orderBy("createdAt", descending: true)
+        .snapshots();
+  }
+
   static Future<bool> handleDeleteShopListing(String id) async {
     try {
       await instance.collection("listings").doc(id).delete();

@@ -258,17 +258,13 @@ class _AddUpdateScreenState extends State<AddUpdateScreen> {
                         widget.listing == null
                             ? "Add_Listing".tr
                             : "Update_Listing".tr,
-                    onTap: () {
-                      if (FirebaseAuth.instance.currentUser == null) {
-                        GlobalFunctions.showBottomSheet(
-                          const AccountAccessRequired(),
-                        );
+                    onTap: () async {
+                      await Future.delayed(const Duration(seconds: 1));
+
+                      if (widget.listing == null) {
+                        logic.handleCreateShopListing();
                       } else {
-                        if (widget.listing == null) {
-                          logic.handleCreateShopListing();
-                        } else {
-                          logic.handleUpdateShopListing(widget.listing?.id);
-                        }
+                        logic.handleUpdateShopListing(widget.listing?.id);
                       }
                     },
                   ),

@@ -151,11 +151,6 @@ Map<String, String> en = {
   "select_time_ok_button_title": "OK",
   "select_time_cancel_button_title": "Cancel",
 
-  "": "",
-  // "": "",
-  // "": "",
-
-  // "": "",
   "gallery": "Gallery",
   "camera": "Camera",
   "video": "Video",
@@ -168,10 +163,11 @@ Map<String, String> en = {
   "Edit_Shop": "Edit Shop",
   "Category": "Catagory: ",
   "address": "Address",
-  "timing_on_weekday": "Timing on weekdays: ",
-  "timing_on_weekend": "Timing on weekends: ",
+  "timing_on_weekday": "Timing on weekdays ",
+  "timing_on_weekend": "Timing on weekends ",
   "products": "Products",
 
+  // other
   "No_shops_found": "No shops found",
   "Not_found": "Not Found",
   "Stay_tuned_for_updates": "Stay tuned for updates",
@@ -179,10 +175,23 @@ Map<String, String> en = {
   "please_add_a_new_shop_to_get_started":
       "Please add a new shop to get started",
 
-  // "": "",
+  "shop_created_successfully": "Shop created successfully",
+  "shop_updated_successfully": "Shop updated successfully",
+  "shop_deleted_successfully": "Shop deleted successfully",
+
+  //update
   "Update_Listing": "Update Listing",
 
   //image preview
   "video_preview_dialog_heading": "Vedio preview",
   "image_preview_dialog_heading": "Image preview",
+
+  "add_Product_Listing": "Add Product Listing",
+
+  // "": "",
+  // "": "",
+  // "": "",
+  // "": "",
+  // "": "",
+  // "": "",
 };

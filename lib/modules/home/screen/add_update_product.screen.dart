@@ -15,7 +15,7 @@ class _AddUpdateProductScreenState extends State<AddUpdateProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Add Product Listing".tr,
+        title: "add_Product_Listing".tr,
         titleColor: AppColors.white,
         appBarColor: AppColors.primary,
       ),

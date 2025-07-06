@@ -149,7 +149,7 @@ class ShopAddingController extends GetxController {
       await Database.createListing(listingModel);
 
       EasyLoading.dismiss();
-      showSuccess('Shop created successfully');
+      showSuccess('shop_created_successfully'.tr);
       Get.off(() => BottomNavigationScreen(fromLogin: false));
     } catch (e) {
       EasyLoading.dismiss();
@@ -172,7 +172,6 @@ class ShopAddingController extends GetxController {
       }
     } catch (e) {
       print("Error fetching shops: $e");
-      showError('Failed to fetch shops');
     } finally {
       isLoading.value = false;
     }
@@ -204,7 +203,7 @@ class ShopAddingController extends GetxController {
       });
 
       EasyLoading.dismiss();
-      showSuccess("Listing updated successfully");
+      showSuccess("shop_updated_successfully".tr);
       Get.back();
     } catch (e) {
       EasyLoading.dismiss();
@@ -218,13 +217,14 @@ class ShopAddingController extends GetxController {
       EasyLoading.show();
       await Database.handleDeleteShopListing(listingToUpdate_?.id ?? "");
       EasyLoading.dismiss();
-      showSuccess('Listing deleted successfully');
+      showSuccess('shop_deleted_successfully');
+      handleGetShopListing();
       Get.back();
       Get.back();
     } catch (e) {
-      EasyLoading.dismiss();
       print("Error in delete: $e");
       showError(e.toString());
+      EasyLoading.dismiss();
     }
   }
 
@@ -251,7 +251,6 @@ class ShopAddingController extends GetxController {
     if (listing != null) {
       selectedListing = listing;
       listingToUpdate_ = listing;
-      log("${selectedListing?.id ?? ''} usama");
 
       countryController.text = listing.country ?? "";
 

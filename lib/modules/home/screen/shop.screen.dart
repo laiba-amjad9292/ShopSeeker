@@ -12,11 +12,13 @@ import 'package:shop_seeker/modules/home/models/shop_listing.model.dart';
 import 'package:shop_seeker/modules/home/screen/add_update.screen.dart';
 import 'package:shop_seeker/modules/home/widget/shop_card.widget.dart';
 import 'package:shop_seeker/services/database.service.dart';
+import 'package:shop_seeker/services/user_manager.service.dart';
 import 'package:shop_seeker/utils/constants/app_colors.utils.dart';
 import 'package:shop_seeker/utils/extensions/size_extension.util.dart';
 
 class ShopScreen extends StatefulWidget {
-  const ShopScreen({super.key});
+  final ListingModel? listing;
+  const ShopScreen({super.key, this.listing});
 
   @override
   State<ShopScreen> createState() => _ShopScreenState();
@@ -25,13 +27,13 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen> {
   final ShopAddingController controller = Get.find<ShopAddingController>();
 
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      controller.handleGetShopListing();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Future.delayed(Duration(seconds: 1), () {
+  //     // controller.handleGetShopListing();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,31 +44,32 @@ class _ShopScreenState extends State<ShopScreen> {
         title: "arab_market".tr,
         titleColor: AppColors.white,
         actions: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 6.w),
-            child: IconButton(
-              onPressed: () {
-                Get.to(() => const AddUpdateScreen());
-              },
-              icon: Image.asset(
-                'assets/icons/addIcon.png',
-                width: 26,
-                height: 26,
-                color: AppColors.white,
+          if (FirebaseAuth.instance.currentUser != null)
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 6.w),
+              child: IconButton(
+                onPressed: () {
+                  Get.to(() => const AddUpdateScreen());
+                },
+                icon: Image.asset(
+                  'assets/icons/addIcon.png',
+                  width: 26,
+                  height: 26,
+                  color: AppColors.white,
+                ),
               ),
             ),
-          ),
         ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await controller.handleGetShopListing();
+          // await controller.handleGetShopListing();
+          await Future.delayed(Duration(milliseconds: 500));
         },
 
         child: StreamBuilder(
-          stream: Database.getMyShopListingStream(
-            FirebaseAuth.instance.currentUser?.uid ?? '',
-          ),
+          stream: Database.getAllShopListingStream(),
+
           builder: (context, snap) {
             if (!snap.hasData) return SizedBox();
             if (snap.data?.docs.isEmpty ?? true) {

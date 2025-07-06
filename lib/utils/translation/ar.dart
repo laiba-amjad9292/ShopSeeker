@@ -158,13 +158,27 @@ Map<String, String> ar = {
   "Edit_Shop": "تعديل المتجر",
   "Category": "الفئة: ",
   "address": "العنوان",
-  "timing_on_weekday": "مواعيد العمل في أيام الأسبوع: ",
-  "timing_on_weekend": "مواعيد العمل في عطلة نهاية الأسبوع: ",
+  "timing_on_weekday": "مواعيد العمل في أيام الأسبوع ",
+  "timing_on_weekend": "مواعيد العمل في عطلة نهاية الأسبوع ",
   "products": "المنتجات",
 
+  //other
   "No_shops_found": "لم يتم العثور على متاجر",
   "Not_found": "غير موجود",
   "Stay_tuned_for_updates": "تابعنا للحصول على التحديثات",
   "No_Listings_Found": "لم يتم العثور على أي قوائم",
   "please_add_a_new_shop_to_get_started": "يرجى إضافة متجر جديد للبدء",
+
+  "shop_created_successfully": "تم إنشاء المتجر بنجاح",
+  "shop_updated_successfully": "تم تحديث المتجر بنجاح",
+  "shop_deleted_successfully": "تم حذف المتجر بنجاح",
+
+  //update
+  "Update_Listing": "تحديث القائمة",
+
+  //image preview
+  "video_preview_dialog_heading": "معاينة الفيديو",
+  "image_preview_dialog_heading": "معاينة الصورة",
+
+  "add_Product_Listing": "إضافة قائمة منتج",
 };
